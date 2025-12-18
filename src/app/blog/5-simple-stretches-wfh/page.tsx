@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: '5 Simple Stretches for People Working from Home | George Anastasiou',
+  title: '5 Simple Stretches for People Working from Home | Funky Fisio',
   description: 'Easy stretches you can do at home to combat stiffness, improve flexibility, and maintain good posture during remote work. Professional physiotherapy guidance.',
   keywords: [
     'work from home stretches',
@@ -98,16 +98,16 @@ export default function StretchesPost() {
                       <li>Gently tilt your head side to side</li>
                       <li>Hold each tilt for 10 seconds</li>
                     </ol>
-                    <div className="mt-4 p-4 bg-blue-50 rounded-lg">
-                      <p className="text-sm text-blue-800">
+                    <div className="mt-4 p-4 bg-[#D84795]/10 rounded-lg">
+                      <p className="text-sm text-[#c43d82]">
                         <strong>Benefits:</strong> Relieves tension in neck and shoulders, improves circulation
                       </p>
                     </div>
                   </div>
-                  <div className="bg-blue-50 rounded-lg p-6 flex items-center justify-center">
+                  <div className="bg-[#D84795]/10 rounded-lg p-6 flex items-center justify-center">
                     <div className="text-center">
                       <span className="text-6xl mb-2 block">🔄</span>
-                      <p className="text-sm text-blue-700 font-medium">Shoulder Rolls</p>
+                      <p className="text-sm text-[#c43d82] font-medium">Shoulder Rolls</p>
                     </div>
                   </div>
                 </div>
@@ -243,7 +243,7 @@ export default function StretchesPost() {
             <section className="mb-12">
               <h2 className="text-3xl font-bold text-gray-900 mb-6">Quick 5-Minute Routine</h2>
               
-              <div className="bg-gradient-to-r from-blue-50 to-green-50 border border-blue-200 rounded-lg p-6">
+              <div className="bg-gradient-to-r from-[#D84795]/10 to-green-50 border border-[#D84795]/30 rounded-lg p-6">
                 <h3 className="text-xl font-semibold text-gray-900 mb-4">Perfect for breaks throughout your day:</h3>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                   <div>
@@ -263,15 +263,15 @@ export default function StretchesPost() {
                     <h4 className="font-semibold text-gray-900 mb-3">Afternoon Routine (3 minutes):</h4>
                     <ul className="space-y-2 text-gray-700">
                       <li className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-[#D84795] mr-2 flex-shrink-0" />
                         Seated Spinal Twist
                       </li>
                       <li className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-[#D84795] mr-2 flex-shrink-0" />
                         Wrist and Forearm Stretch
                       </li>
                       <li className="flex items-center">
-                        <CheckCircle className="w-4 h-4 text-blue-600 mr-2 flex-shrink-0" />
+                        <CheckCircle className="w-4 h-4 text-[#D84795] mr-2 flex-shrink-0" />
                         Standing Hip Flexor Stretch
                       </li>
                     </ul>

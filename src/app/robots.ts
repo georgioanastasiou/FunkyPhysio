@@ -7,6 +7,6 @@ export default function robots(): MetadataRoute.Robots {
       allow: '/',
       disallow: '/private/',
     },
-    sitemap: 'https://georgeanastasiou.com/sitemap.xml',
+    sitemap: 'https://funkyfisio.com/sitemap.xml',
   }
 }

@@ -3,7 +3,7 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'How to Fix Neck Pain from Working at a Laptop All Day | George Anastasiou',
+  title: 'How to Fix Neck Pain from Working at a Laptop All Day | Funky Fisio',
   description: 'Learn effective strategies to prevent and relieve neck pain caused by prolonged laptop use. Essential tips for better posture and ergonomics from a professional physiotherapist.',
   keywords: [
     'neck pain relief',
@@ -20,18 +20,18 @@ export default function NeckPainPost() {
   return (
     <div className="min-h-screen">
       {/* Article Header */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link 
             href="/blog" 
-            className="inline-flex items-center text-blue-600 hover:text-blue-700 mb-6"
+            className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] mb-6"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blog
           </Link>
           
           <div className="flex items-center space-x-4 text-sm text-gray-600 mb-6">
-            <span className="bg-blue-100 text-blue-800 px-3 py-1 rounded-full text-xs font-medium">
+            <span className="bg-[#D84795]/20 text-[#c43d82] px-3 py-1 rounded-full text-xs font-medium">
               Workplace Health
             </span>
             <div className="flex items-center">
@@ -69,12 +69,12 @@ export default function NeckPainPost() {
                 and daily routine.
               </p>
               
-              <div className="bg-blue-50 border-l-4 border-blue-500 p-6 rounded-r-lg">
+              <div className="bg-[#D84795]/10 border-l-4 border-[#D84795] p-6 rounded-r-lg">
                 <div className="flex items-start">
-                  <AlertCircle className="w-6 h-6 text-blue-600 mr-3 mt-1 flex-shrink-0" />
+                  <AlertCircle className="w-6 h-6 text-[#D84795] mr-3 mt-1 flex-shrink-0" />
                   <div>
-                    <h3 className="text-lg font-semibold text-blue-900 mb-2">Why Laptop Use Causes Neck Pain</h3>
-                    <p className="text-blue-800">
+                    <h3 className="text-lg font-semibold text-[#a8316f] mb-2">Why Laptop Use Causes Neck Pain</h3>
+                    <p className="text-[#c43d82]">
                       Laptops force you to look down at the screen, creating &quot;tech neck&quot; - a forward 
                       head posture that puts excessive strain on your cervical spine and surrounding muscles.
                     </p>
@@ -153,7 +153,7 @@ export default function NeckPainPost() {
                         <li>Repeat 10-15 times, 3 sets daily</li>
                       </ol>
                     </div>
-                    <div className="bg-blue-50 rounded-lg p-4 flex items-center justify-center">
+                    <div className="bg-[#D84795]/10 rounded-lg p-4 flex items-center justify-center">
                       <span className="text-4xl">👤</span>
                     </div>
                   </div>
@@ -286,25 +286,25 @@ export default function NeckPainPost() {
       </article>
 
       {/* CTA Section */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-[#D84795]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Still Experiencing Neck Pain?
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-white/90 mb-8">
             If your neck pain persists or worsens, don&apos;t hesitate to seek professional help. 
             I&apos;m here to provide personalized treatment and guidance.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#D84795] font-semibold rounded-lg hover:bg-gray-50 transition-colors"
             >
               Book Consultation
             </Link>
             <Link
               href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-blue-600 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#D84795] transition-colors"
             >
               View Services
             </Link>

@@ -1,357 +1,272 @@
 'use client';
 
-import { useState } from 'react';
-import { Phone, Mail, MapPin, Clock, Send, CheckCircle } from 'lucide-react';
+import { useState, useEffect, useRef } from 'react';
+import { User, Mail, MessageSquare } from 'lucide-react';
+import Image from 'next/image';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    name: '',
+    firstName: '',
+    lastName: '',
     email: '',
     phone: '',
-    service: '',
-    message: '',
-    preferredTime: ''
+    message: ''
   });
-  const [isSubmitting, setIsSubmitting] = useState(false);
-  const [isSubmitted, setIsSubmitted] = useState(false);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value
+  const inputRefs = useRef<(HTMLInputElement | HTMLTextAreaElement | null)[]>([]);
+
+  useEffect(() => {
+    const handleInputFocus = (index: number) => {
+      const inputWrap = inputRefs.current[index]?.parentElement;
+      if (inputWrap) {
+        inputWrap.classList.add('focus', 'not-empty');
+      }
+    };
+
+    const handleInputBlur = (index: number) => {
+      const input = inputRefs.current[index];
+      const inputWrap = input?.parentElement;
+      if (inputWrap) {
+        if (!input?.value) {
+          inputWrap.classList.remove('not-empty');
+        }
+        inputWrap.classList.remove('focus');
+      }
+    };
+
+    inputRefs.current.forEach((input, index) => {
+      if (input) {
+        const focusHandler = () => handleInputFocus(index);
+        const blurHandler = () => handleInputBlur(index);
+        
+        input.addEventListener('focus', focusHandler);
+        input.addEventListener('blur', blurHandler);
+
+        return () => {
+          input.removeEventListener('focus', focusHandler);
+          input.removeEventListener('blur', blurHandler);
+        };
+      }
     });
+  }, []);
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({
+      ...prev,
+      [name]: value
+    }));
   };
 
-  const handleSubmit = async (e: React.FormEvent) => {
+  const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
-    setIsSubmitting(true);
-    
-    // Simulate form submission
-    await new Promise(resolve => setTimeout(resolve, 2000));
-    
-    setIsSubmitting(false);
-    setIsSubmitted(true);
-    
-    // Reset form after 3 seconds
-    setTimeout(() => {
-      setIsSubmitted(false);
-      setFormData({
-        name: '',
-        email: '',
-        phone: '',
-        service: '',
-        message: '',
-        preferredTime: ''
-      });
-    }, 3000);
+    console.log('Form submitted:', formData);
+    // Add your form submission logic here
   };
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
-              Contact Us
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Ready to start your recovery journey? Get in touch with me to schedule your consultation 
-              and take the first step towards better health.
-            </p>
-          </div>
-        </div>
-      </section>
-
-      {/* Contact Form & Info */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-            {/* Contact Form */}
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <h2 className="text-2xl font-bold text-gray-900 mb-6">Book Your Consultation</h2>
-              
-              {isSubmitted ? (
-                <div className="text-center py-8">
-                  <CheckCircle className="w-16 h-16 text-green-500 mx-auto mb-4" />
-                  <h3 className="text-xl font-semibold text-gray-900 mb-2">Thank You!</h3>
-                  <p className="text-gray-600">
-                    Your message has been sent successfully. We&apos;ll get back to you within 24 hours.
-                  </p>
-                </div>
-              ) : (
-                <form onSubmit={handleSubmit} className="space-y-6">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="name" className="block text-sm font-medium text-gray-700 mb-2">
-                        Full Name *
-                      </label>
-                      <input
-                        type="text"
-                        id="name"
-                        name="name"
-                        value={formData.name}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                        placeholder="Your full name"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="email" className="block text-sm font-medium text-gray-700 mb-2">
-                        Email Address *
-                      </label>
-                      <input
-                        type="email"
-                        id="email"
-                        name="email"
-                        value={formData.email}
-                        onChange={handleChange}
-                        required
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                        placeholder="your.email@example.com"
-                      />
-                    </div>
-                  </div>
-
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <div>
-                      <label htmlFor="phone" className="block text-sm font-medium text-gray-700 mb-2">
-                        Phone Number
-                      </label>
-                      <input
-                        type="tel"
-                        id="phone"
-                        name="phone"
-                        value={formData.phone}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                        placeholder="(555) 123-4567"
-                      />
-                    </div>
-                    <div>
-                      <label htmlFor="service" className="block text-sm font-medium text-gray-700 mb-2">
-                        Service Interested In
-                      </label>
-                      <select
-                        id="service"
-                        name="service"
-                        value={formData.service}
-                        onChange={handleChange}
-                        className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
-                      >
-                        <option value="">Select a service</option>
-                        <option value="sports-injury">Sports Injury Rehabilitation</option>
-                        <option value="post-surgical">Post-Surgical Recovery</option>
-                        <option value="chronic-pain">Chronic Pain Management</option>
-                        <option value="manual-therapy">Manual Therapy</option>
-                        <option value="exercise-prescription">Exercise Prescription</option>
-                        <option value="pediatric">Pediatric Physiotherapy</option>
-                        <option value="general">General Consultation</option>
-                      </select>
-                    </div>
-                  </div>
-
-                  <div>
-                    <label htmlFor="preferredTime" className="block text-sm font-medium text-gray-700 mb-2">
-                      Preferred Appointment Time
-                    </label>
-                    <select
-                      id="preferredTime"
-                      name="preferredTime"
-                      value={formData.preferredTime}
-                      onChange={handleChange}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900"
-                    >
-                      <option value="">Select preferred time</option>
-                      <option value="morning">Morning (8:00 AM - 12:00 PM)</option>
-                      <option value="afternoon">Afternoon (12:00 PM - 5:00 PM)</option>
-                      <option value="evening">Evening (5:00 PM - 7:00 PM)</option>
-                      <option value="weekend">Weekend</option>
-                      <option value="flexible">Flexible</option>
-                    </select>
-                  </div>
-
-                  <div>
-                    <label htmlFor="message" className="block text-sm font-medium text-gray-700 mb-2">
-                      Message *
-                    </label>
-                    <textarea
-                      id="message"
-                      name="message"
-                      value={formData.message}
-                      onChange={handleChange}
-                      required
-                      rows={4}
-                      className="w-full px-4 py-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent text-gray-900 placeholder-gray-500"
-                      placeholder="Tell us about your condition, goals, or any questions you have..."
-                    />
-                  </div>
-
-                  <button
-                    type="submit"
-                    disabled={isSubmitting}
-                    className="w-full bg-blue-600 text-white font-semibold py-3 px-6 rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed transition-colors flex items-center justify-center"
-                  >
-                    {isSubmitting ? (
-                      <>
-                        <div className="animate-spin rounded-full h-5 w-5 border-b-2 border-white mr-2"></div>
-                        Sending...
-                      </>
-                    ) : (
-                      <>
-                        Send Message
-                        <Send className="ml-2 w-5 h-5" />
-                      </>
-                    )}
-                  </button>
-                </form>
-              )}
-            </div>
-
-            {/* Contact Information */}
-            <div className="space-y-8">
-              <div>
-                <h2 className="text-2xl font-bold text-gray-900 mb-6">Get in Touch</h2>
-                <p className="text-gray-600 mb-8">
-                  I&apos;m here to help you on your recovery journey. Contact me today to schedule 
-                  your consultation or learn more about my services.
-                </p>
-              </div>
-
-              <div className="space-y-6">
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-blue-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <Phone className="w-6 h-6 text-blue-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Phone</h3>
-                    <p className="text-gray-600">+1 (555) 123-4567</p>
-                    <p className="text-sm text-gray-500">Mon-Fri: 8:00 AM - 6:00 PM</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-green-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <Mail className="w-6 h-6 text-green-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Email</h3>
-                    <p className="text-gray-600">info@georgeanastasiou.com</p>
-                    <p className="text-sm text-gray-500">I respond within 24 hours</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-purple-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <MapPin className="w-6 h-6 text-purple-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Address</h3>
-                    <p className="text-gray-600">
-                      123 Health Street<br />
-                      Medical District, NY 10001
-                    </p>
-                    <p className="text-sm text-gray-500">Free parking available</p>
-                  </div>
-                </div>
-
-                <div className="flex items-start">
-                  <div className="w-12 h-12 bg-orange-100 rounded-lg flex items-center justify-center mr-4 flex-shrink-0">
-                    <Clock className="w-6 h-6 text-orange-600" />
-                  </div>
-                  <div>
-                    <h3 className="font-semibold text-gray-900 mb-1">Hours</h3>
-                    <div className="text-gray-600 space-y-1">
-                      <p>Monday - Friday: 8:00 AM - 6:00 PM</p>
-                      <p>Saturday: 9:00 AM - 2:00 PM</p>
-                      <p>Sunday: Closed</p>
-                    </div>
-                    <p className="text-sm text-gray-500">Emergency appointments available</p>
-                  </div>
-                </div>
-              </div>
-
-              {/* Emergency Contact */}
-              <div className="bg-red-50 border border-red-200 rounded-lg p-6">
-                <h3 className="font-semibold text-red-900 mb-2">Emergency Contact</h3>
-                <p className="text-red-700 text-sm mb-2">
-                  For urgent physiotherapy needs outside regular hours:
-                </p>
-                <p className="text-red-800 font-medium">+1 (555) 911-PHYSIO</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Map Section */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Find Us</h2>
-            <p className="text-xl text-gray-600">
-              Conveniently located in the Medical District with easy access and free parking.
-            </p>
-          </div>
-
-          <div className="bg-white rounded-xl shadow-lg overflow-hidden">
-            <div className="h-96 bg-gray-200 flex items-center justify-center">
-              <div className="text-center">
-                <MapPin className="w-16 h-16 text-gray-400 mx-auto mb-4" />
-                <p className="text-gray-600">Interactive map would be embedded here</p>
-                <p className="text-sm text-gray-500 mt-2">123 Health Street, Medical District, NY 10001</p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* FAQ Section */}
-      <section className="py-20 bg-white">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-12">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Frequently Asked Questions</h2>
-            <p className="text-xl text-gray-600">
-              Common questions about my physiotherapy services and booking process.
-            </p>
-          </div>
-
-          <div className="space-y-6">
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">How do I book an appointment?</h3>
-              <p className="text-gray-600">
-                You can book an appointment by calling me at (555) 123-4567, using the online form above, 
-                or visiting my clinic during business hours.
+    <section className="min-h-screen bg-white overflow-hidden">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
+        {/* Left Side - Contact Form */}
+        <div className="flex items-center justify-center px-4 sm:px-6 lg:px-8 py-12 lg:py-0 relative z-10">
+          <div className="w-full max-w-lg">
+            <div className="mb-12">
+              <h1 className="font-poppins text-5xl lg:text-6xl text-gray-900 leading-tight mb-4 font-semibold">
+                Let&apos;s work together<span className="text-[#1A7BF0]">.</span>
+              </h1>
+              <p className="font-figtree text-body text-gray-500">
+                Or reach me via: <a href="mailto:g.anastasiou.dev@gmail.com" className="text-[#1A7BF0] hover:text-[#0F5DBD] transition-colors">g.anastasiou.dev@gmail.com</a>
               </p>
             </div>
 
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">Do I need a referral from a doctor?</h3>
-              <p className="text-gray-600">
-                While a referral is not always required, I recommend consulting with your primary care 
-                physician first. Some insurance plans may require a referral for coverage.
-              </p>
-            </div>
+            <form onSubmit={handleSubmit} className="space-y-6">
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* First Name */}
+                <div className="input-wrap relative">
+                  <input
+                    ref={el => { inputRefs.current[0] = el; }}
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-body font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#5BA7FF] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    autoComplete="off"
+                    name="firstName"
+                    type="text"
+                    value={formData.firstName}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree">
+                    First Name
+                  </label>
+                  <User className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
+                </div>
 
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">What should I bring to my first appointment?</h3>
-              <p className="text-gray-600">
-                Please bring your insurance card, ID, any relevant medical records or imaging results, 
-                and a list of current medications.
-              </p>
-            </div>
+                {/* Last Name */}
+                <div className="input-wrap relative">
+                  <input
+                    ref={el => { inputRefs.current[1] = el; }}
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-body font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#5BA7FF] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    autoComplete="off"
+                    name="lastName"
+                    type="text"
+                    value={formData.lastName}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree">
+                    Last Name
+                  </label>
+                  <User className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
+                </div>
+              </div>
 
-            <div className="bg-gray-50 rounded-lg p-6">
-              <h3 className="font-semibold text-gray-900 mb-2">Do you accept insurance?</h3>
-              <p className="text-gray-600">
-                Yes, we accept most major insurance plans. Please contact us to verify your coverage 
-                and any copay requirements.
-              </p>
-            </div>
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6">
+                {/* Email */}
+                <div className="input-wrap relative">
+                  <input
+                    ref={el => { inputRefs.current[2] = el; }}
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-body font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#5BA7FF] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    autoComplete="off"
+                    name="email"
+                    type="email"
+                    value={formData.email}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree">
+                    Email
+                  </label>
+                  <Mail className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
+                </div>
+
+                {/* Phone */}
+                <div className="input-wrap relative">
+                  <input
+                    ref={el => { inputRefs.current[3] = el; }}
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-body font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#5BA7FF] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    autoComplete="off"
+                    name="phone"
+                    type="tel"
+                    value={formData.phone}
+                    onChange={handleChange}
+                    required
+                  />
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree">
+                    Phone
+                  </label>
+                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 20 20">
+                    <path d="M2 3a1 1 0 011-1h2.153a1 1 0 01.986.836l.74 4.435a1 1 0 01-.54 1.06l-1.548.773a11.037 11.037 0 006.105 6.105l.774-1.548a1 1 0 011.059-.54l4.435.74a1 1 0 01.836.986V17a1 1 0 01-1 1h-2C7.82 18 2 12.18 2 5V3z" />
+                  </svg>
+                </div>
+              </div>
+
+              {/* Message */}
+              <div className="input-wrap textarea relative">
+                <textarea
+                  ref={el => { inputRefs.current[4] = el; }}
+                  className="contact-input w-full min-h-[150px] resize-none bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-body font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#5BA7FF] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                  name="message"
+                  autoComplete="off"
+                  value={formData.message}
+                  onChange={handleChange}
+                  required
+                />
+                <label className="absolute top-5 left-[calc(1.35rem+2px)] text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree">
+                  Message
+                </label>
+                <MessageSquare className="icon absolute right-[calc(1.35rem+2px)] top-5 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
+              </div>
+
+              {/* Send Message Button */}
+              <button
+                type="submit"
+                className="w-full bg-[#8B5A96] text-white font-medium py-[1.1rem] px-8 rounded-[40px] border-none font-figtree transition-colors duration-300 hover:bg-[#7a4f84] flex items-center justify-center gap-2"
+              >
+                Send Message
+              </button>
+            </form>
           </div>
         </div>
-      </section>
-    </div>
+
+        {/* Right Side - Image */}
+        <div className="relative hidden lg:block overflow-hidden">
+          {/* Mountain Image wrapper */}
+          <div className="absolute inset-0">
+            <Image
+              src="/contact-image.png"
+              alt="Contact Image"
+              fill
+              className="object-cover"
+              priority
+            />
+            
+            {/* Wave Wrap */}
+            <div className="absolute inset-0 right-full bg-white">
+              <svg 
+                className="absolute h-[calc(120%+10px)] top-2/5 transform -translate-y-1/2 left-[calc(100%-2px)]" 
+                viewBox="0 0 783 1536" 
+                fill="none" 
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path 
+                  id="wave"
+                  d="M236.705 1356.18C200.542 1483.72 64.5004 1528.54 1 1535V1H770.538C793.858 63.1213 797.23 196.197 624.165 231.531C407.833 275.698 274.374 331.715 450.884 568.709C627.393 805.704 510.079 815.399 347.561 939.282C185.043 1063.17 281.908 1196.74 236.705 1356.18Z" 
+                  fill="white"
+                />
+              </svg>
+            </div>
+            
+            {/* Dashed Wave */}
+            <svg 
+              className="absolute z-30 h-[130%] bottom-[60%] left-[-28px] transform translate-y-1/2" 
+              viewBox="0 0 345 877" 
+              fill="none" 
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path 
+                id="dashed-wave"
+                d="M0.5 876C25.6667 836.167 73.2 739.8 62 673C48 589.5 35.5 499.5 125.5 462C215.5 424.5 150 365 87 333.5C24 302 44 237.5 125.5 213.5C207 189.5 307 138.5 246 87C185 35.5 297 1 344.5 1" 
+                fill="none"
+                stroke="#c4d1e0"
+                strokeWidth="1"
+                strokeDasharray="6.5"
+                opacity="0.8"
+              />
+            </svg>
+          </div>
+        </div>
+      </div>
+
+      <style jsx>{`
+        .input-wrap.focus .contact-input {
+          background-color: white;
+          border-color: #5BA7FF;
+          box-shadow: 0 0 0 0px hsla(208, 91%, 55%, 0.11%);
+        }
+        .input-wrap.focus label {
+          color: 'rgba(58, 48, 111, 0.7)';
+          font-size: 0.66rem;
+          top: 0.75rem;
+          transform: translateY(0);
+        }
+        .input-wrap.focus .icon {
+          color: 'rgba(58, 48, 111, 0.7)';
+        }
+        .input-wrap.not-empty label {
+          font-size: 0.66rem;
+          top: 0.75rem;
+          transform: translateY(0);
+        }
+        .input-wrap.textarea.focus label,
+        .input-wrap.textarea.not-empty label {
+          top: 0.75rem;
+        }
+        .input-wrap.textarea .icon {
+          top: 1.3rem;
+        }
+        .input-wrap.textarea.focus .icon,
+        .input-wrap.textarea.not-empty .icon {
+          top: 1.3rem;
+        }
+      `}</style>
+    </section>
   );
 }

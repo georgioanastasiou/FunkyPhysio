@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Physiotherapy Blog - Health Tips & Advice',
-  description: 'Expert physiotherapy advice, health tips, and wellness guidance from George Anastasiou. Learn about injury prevention, recovery, and maintaining optimal physical health.',
+  description: 'Expert physiotherapy advice, health tips, and wellness guidance from Funky Fisio. Learn about injury prevention, recovery, and maintaining optimal physical health.',
   keywords: [
     'physiotherapy blog',
     'health tips',
@@ -41,7 +41,7 @@ export default function Blog() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-blue-50 to-indigo-100 py-20">
+      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -61,13 +61,13 @@ export default function Blog() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {blogPosts.map((post) => (
               <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-blue-100 to-indigo-100 flex items-center justify-center">
+                <div className="h-48 bg-gradient-to-br from-[#D84795]/20 to-[#D84795]/20 flex items-center justify-center">
                   <span className="text-6xl">{post.image}</span>
                 </div>
                 
                 <div className="p-6">
                   <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
-                    <span className="bg-blue-100 text-blue-800 px-2 py-1 rounded-full text-xs font-medium">
+                    <span className="bg-[#D84795]/20 text-[#c43d82] px-2 py-1 rounded-full text-xs font-medium">
                       {post.category}
                     </span>
                     <div className="flex items-center">
@@ -94,7 +94,7 @@ export default function Blog() {
                   
                   <Link
                     href={`/blog/${post.id}`}
-                    className="inline-flex items-center text-blue-600 hover:text-blue-700 font-medium"
+                    className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] font-medium"
                   >
                     Read More
                     <ArrowRight className="ml-1 w-4 h-4" />
@@ -114,13 +114,13 @@ export default function Blog() {
               <div className="flex flex-col sm:flex-row gap-4 justify-center">
                 <Link
                   href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-blue-600 text-white font-semibold rounded-lg hover:bg-blue-700 transition-colors"
+                  className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
                 >
                   Request a Topic
                 </Link>
                 <Link
                   href="/services"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-blue-600 text-blue-600 font-semibold rounded-lg hover:bg-blue-50 transition-colors"
+                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#D84795] text-[#D84795] font-semibold rounded-lg hover:bg-[#D84795]/10 transition-colors"
                 >
                   Book Consultation
                 </Link>
@@ -131,12 +131,12 @@ export default function Blog() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20 bg-blue-600">
+      <section className="py-20 bg-[#D84795]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Stay Updated with Health Tips
           </h2>
-          <p className="text-xl text-blue-100 mb-8">
+          <p className="text-xl text-white/90 mb-8">
             Get the latest physiotherapy advice and health tips delivered to your inbox.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
@@ -145,11 +145,11 @@ export default function Blog() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none"
             />
-            <button className="px-6 py-3 bg-white text-blue-600 font-semibold rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="px-6 py-3 bg-white text-[#D84795] font-semibold rounded-lg hover:bg-gray-50 transition-colors">
               Subscribe
             </button>
           </div>
-          <p className="text-sm text-blue-200 mt-4">
+          <p className="text-sm text-white/80 mt-4">
             No spam, unsubscribe at any time.
           </p>
         </div>

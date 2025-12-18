@@ -1,17 +1,23 @@
 import type { Metadata } from 'next';
-import { Inter } from 'next/font/google';
+import { Inter, MuseoModerno } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
+import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 
 const inter = Inter({ subsets: ['latin'] });
+const museoModerno = MuseoModerno({ 
+  subsets: ['latin'],
+  weight: ['400', '500', '600', '700'],
+  variable: '--font-museo-moderno',
+});
 
 export const metadata: Metadata = {
   title: {
-    default: 'George Anastasiou - Professional Physiotherapy Services',
-    template: '%s | George Anastasiou'
+    default: 'Funky Physio - Professional Physiotherapy Services',
+    template: '%s | Funky Physio'
   },
-  description: 'Professional physiotherapy services by George Anastasiou. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
+  description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
   keywords: [
     'physiotherapy',
     'physical therapy',
@@ -24,38 +30,38 @@ export const metadata: Metadata = {
     'physical health',
     'wellness'
   ],
-  authors: [{ name: 'George Anastasiou' }],
-  creator: 'George Anastasiou',
-  publisher: 'George Anastasiou',
+  authors: [{ name: 'Funky Physio' }],
+  creator: 'Funky Physio',
+  publisher: 'Funky Physio',
   formatDetection: {
     email: false,
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://georgeanastasiou.com'),
+  metadataBase: new URL('https://funkyfisio.com'),
   alternates: {
     canonical: '/',
   },
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://georgeanastasiou.com',
-    title: 'George Anastasiou - Professional Physiotherapy Services',
-    description: 'Professional physiotherapy services by George Anastasiou. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
-    siteName: 'George Anastasiou',
+    url: 'https://funkyfisio.com',
+    title: 'Funky Physio - Professional Physiotherapy Services',
+    description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
+    siteName: 'Funky Physio',
     images: [
       {
         url: '/og-image.jpg',
         width: 1200,
         height: 630,
-        alt: 'George Anastasiou - Professional Physiotherapy Services',
+        alt: 'Funky Physio - Professional Physiotherapy Services',
       },
     ],
   },
   twitter: {
     card: 'summary_large_image',
-    title: 'George Anastasiou - Professional Physiotherapy Services',
-    description: 'Professional physiotherapy services by George Anastasiou. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
+    title: 'Funky Physio - Professional Physiotherapy Services',
+    description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
     images: ['/og-image.jpg'],
   },
   robots: {
@@ -82,22 +88,21 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/favicon.ico" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png" />
-        <link rel="manifest" href="/site.webmanifest" />
+        <link rel="icon" href="/logo.png" />
+        <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
+        <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
+        <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
             __html: JSON.stringify({
               "@context": "https://schema.org",
               "@type": "MedicalBusiness",
-              "name": "George Anastasiou Physiotherapy",
-              "description": "Professional physiotherapy services by George Anastasiou. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.",
-              "url": "https://georgeanastasiou.com",
+              "name": "Funky Physio Physiotherapy",
+              "description": "Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.",
+              "url": "https://funkyfisio.com",
               "telephone": "+1-555-123-4567",
-              "email": "info@georgeanastasiou.com",
+              "email": "info@funkyfisio.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "123 Health Street",
@@ -122,7 +127,8 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} antialiased`}>
+      <body className={`${inter.className} ${museoModerno.variable} antialiased`}>
+        <ServiceWorkerCleanup />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
