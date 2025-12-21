@@ -1,9 +1,10 @@
 'use client';
 
-import { ArrowRight, CheckCircle, Play } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
+import ContactForm from '@/components/ContactForm';
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -53,14 +54,17 @@ export default function Home() {
           </div>
           
           {/* Title */}
-          <h1 className="font-museo-moderno text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-4 drop-shadow-lg">
+          <h1 className="font-museo-moderno text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-8 drop-shadow-lg">
             Funky Physio
           </h1>
           
-          {/* Name */}
-          <p className="text-2xl md:text-3xl lg:text-4xl text-white/90 font-medium drop-shadow-md">
-            George Anastasiou
-          </p>
+          {/* Book Appointment Button */}
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-8 py-4 bg-transparent border-2 border-white text-white font-semibold text-lg rounded-lg hover:bg-white hover:text-gray-900 transition-colors drop-shadow-lg"
+          >
+            Book Appointment
+          </Link>
         </div>
 
         {/* Wavy Bottom Border */}
@@ -82,7 +86,7 @@ export default function Home() {
 
       {/* What We Do Section */}
       <section className="py-10 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
           <div className="text-left mb-16">
             <h2 className="font-poppins text-h2 text-gray-900 mb-4">
               What we do
@@ -91,93 +95,87 @@ export default function Home() {
 
           <div className="grid grid-cols-1 md:grid-cols-3 gap-8">
             {/* Physiotherapy Card */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div className="w-96 h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-48 overflow-hidden">
                 <div 
-                  className="absolute inset-0 rounded-t-xl"
+                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
                   style={{ 
-                    backgroundColor: 'rgba(58, 48, 111, 0.7)',
                     backgroundImage: 'url("/physiotherapy.png")',
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'overlay'
+                    backgroundPosition: 'center'
                   }}
                 />
-                <div className="absolute bottom-4 left-4">
-                  <h3 className="font-figtree text-h3 text-white mb-2">
+                <div className="absolute bottom-4 left-10">
+                  <h3 className="font-figtree text-3xl font-semibold text-white leading-[51.20px]">
                     Physiotherapy
                   </h3>
                 </div>
               </div>
-              <div className="p-6">
-                <ul className="space-y-3 mb-6">
-                  <li className="text-gray-700">Treatment Sessions</li>
-                  <li className="text-gray-700">Rehabilitation</li>
-                  <li className="text-gray-700">Prevention & Education</li>
-                </ul>
-                <button className="w-full bg-[#8B5A96] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#7a4f84] transition-colors">
+              <div className="p-10 px-10 pb-10">
+                <div className="w-64 inline-flex flex-col justify-start items-start gap-3 mb-6">
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Treatment Sessions</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Rehabilitation</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Prevention & Education</div>
+                </div>
+                <button className="w-full bg-[#78428F] text-white font-semibold py-3 mt-3 px-6 rounded-lg hover:bg-[#663876] transition-colors">
                   Book Appointment
                 </button>
               </div>
             </div>
 
             {/* Massage Card */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div className="w-96 h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-48 overflow-hidden">
                 <div 
-                  className="absolute inset-0 rounded-t-xl"
+                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
                   style={{ 
-                    backgroundColor: 'rgba(58, 48, 111, 0.7)',
                     backgroundImage: 'url("/massage.png")',
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'overlay'
+                    backgroundPosition: 'center'
                   }}
                 />
-                <div className="absolute bottom-4 left-4">
-                  <h3 className="font-figtree text-h3 text-white mb-2">
+                <div className="absolute bottom-4 left-10">
+                  <h3 className="font-figtree text-3xl font-semibold text-white leading-[51.20px]">
                     Massage
                   </h3>
                 </div>
               </div>
-              <div className="p-6">
-                <ul className="space-y-3 mb-6">
-                  <li className="text-gray-700">Sports Massage</li>
-                  <li className="text-gray-700">Friction Massage</li>
-                  <li className="text-gray-700">Deep Tissue Massage</li>
-                </ul>
-                <button className="w-full bg-[#8B5A96] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#7a4f84] transition-colors">
+              <div className="p-10 px-10 pb-10">
+                <div className="w-64 inline-flex flex-col justify-start items-start gap-3 mb-6">
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Sports Massage</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Friction Massage</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Deep Tissue Massage</div>
+                </div>
+                <button className="w-full bg-[#78428F] text-white font-semibold py-3 mt-3 px-6 rounded-lg hover:bg-[#663876] transition-colors">
                   Book Appointment
                 </button>
               </div>
             </div>
 
             {/* Therapeutic Training Card */}
-            <div className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+            <div className="w-96 h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
               <div className="relative h-48 overflow-hidden">
                 <div 
-                  className="absolute inset-0 rounded-t-xl"
+                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
                   style={{ 
-                    backgroundColor: 'rgba(58, 48, 111, 0.7)',
                     backgroundImage: 'url("/therapeutic-training.png")',
                     backgroundSize: 'cover',
-                    backgroundPosition: 'center',
-                    backgroundBlendMode: 'overlay'
+                    backgroundPosition: 'center'
                   }}
                 />
-                <div className="absolute bottom-4 left-4">
-                  <h3 className="font-figtree text-h3 text-white mb-2">
+                <div className="absolute bottom-4 left-10">
+                  <h3 className="font-figtree text-3xl font-semibold text-white leading-[51.20px]">
                     Therapeutic Training
                   </h3>
                 </div>
               </div>
-              <div className="p-6">
-                <ul className="space-y-3 mb-6">
-                  <li className="text-gray-700">Postural Reeducation</li>
-                  <li className="text-gray-700">Functional Exercise</li>
-                  <li className="text-gray-700">Movement Pattern Correction</li>
-                </ul>
-                <button className="w-full bg-[#8B5A96] text-white font-semibold py-3 px-6 rounded-lg hover:bg-[#7a4f84] transition-colors">
+              <div className="p-10 px-10 pb-10">
+                <div className="w-64 inline-flex flex-col justify-start items-start gap-3 mb-6">
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Postural Reeducation</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Functional Exercise</div>
+                  <div className="self-stretch opacity-80 justify-start text-black text-lg font-medium font-figtree leading-7">Movement Pattern Correction</div>
+                </div>
+                <button className="w-full bg-[#78428F] text-white font-semibold py-3 mt-3 px-6 rounded-lg hover:bg-[#663876] transition-colors">
                   Book Appointment
                 </button>
               </div>
@@ -192,7 +190,7 @@ export default function Home() {
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
             {/* Left Side - Photo */}
             <div className="flex justify-center lg:justify-start">
-              <div className="relative w-80 h-96 lg:w-96  lg:h-[500px] rounded-3xl overflow-hidden bg-gray-100">
+              <div className="relative w-[550px] h-[550px] rounded-[20px] overflow-hidden bg-gray-100">
                 <Image
                   src="/basketball/DSC_0079.jpg"
                   alt="George Anastasiou - The Funky Physio"
@@ -204,14 +202,15 @@ export default function Home() {
 
             {/* Right Side - Text Content */}
             <div className="lg:pl-8">
-              <h2 className="font-poppins text-h2 text-gray-900 mb-4 leading-tight">
+              <h2 className="font-poppins text-h2 text-gray-900 mb-2 leading-tight whitespace-nowrap">  
+              
                 Meet George Anastasiou
               </h2>
-              <h3 className="font-figtree text-h3 text-gray-600 mb-8">
+              <h3 className="font-figtree text-h3 text-gray-600 mb-6">
                 The Funky Physio
               </h3>
               
-              <div className="space-y-6 font-figtree text-body text-gray-700 leading-relaxed">
+              <div className="space-y-4 font-figtree text-body text-gray-700 leading-relaxed">
                 <p>
                   &quot;Lorem ipsum dolor sit amet consectetur. Nullam viverra purus pellentesque ac 
                   aliquet eget morbi non. Mattaliquet eget morbi non. Mattis etiam lobortis 
@@ -227,8 +226,8 @@ export default function Home() {
                 </p>
               </div>
               
-              <div className="mt-10">
-                <button className="bg-[#8B5A96] text-white font-semibold py-4 px-12 rounded-2xl hover:bg-[#7a4f84] transition-colors text-lg">
+              <div className="mt-8">
+                <button className="bg-[#78428F] text-white font-semibold py-4 px-12 rounded-2xl hover:bg-[#7a4f84] transition-colors text-lg">
                   Learn More
                 </button>
               </div>
@@ -237,148 +236,30 @@ export default function Home() {
         </div>
       </section>
 
-      {/* Services Overview */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="font-poppins text-h2 text-gray-900 mb-4">
-              Our Services
-            </h2>
-            <p className="font-figtree text-body text-gray-600 max-w-3xl mx-auto">
-              Comprehensive physiotherapy treatments tailored to your specific needs and recovery goals.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-[#D84795]/20 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-2xl">🏃‍♂️</span>
-              </div>
-              <h3 className="font-figtree text-h3 text-gray-900 mb-4">
-                Sports Injury Rehabilitation
-              </h3>
-              <p className="font-figtree text-body text-gray-600 mb-6">
-                Specialized treatment for athletes and active individuals recovering from sports-related injuries.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  ACL Reconstruction Recovery
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Rotator Cuff Injuries
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Ankle Sprains & Strains
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-green-100 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-2xl">🏥</span>
-              </div>
-              <h3 className="font-figtree text-h3 text-gray-900 mb-4">
-                Post-Surgical Recovery
-              </h3> 
-              <p className="font-figtree text-body text-gray-600 mb-6">
-                Comprehensive rehabilitation programs following surgical procedures to restore function and mobility.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Joint Replacement Therapy
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Spinal Surgery Recovery
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Soft Tissue Repair
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8 hover:shadow-xl transition-shadow">
-              <div className="w-16 h-16 bg-purple-100 rounded-lg flex items-center justify-center mb-6">
-                <span className="text-2xl">😌</span>
-              </div>
-              <h3 className="font-figtree text-h3 text-gray-900 mb-4">
-                Chronic Pain Management
-              </h3>
-              <p className="font-figtree text-body text-gray-600 mb-6">
-                Evidence-based approaches to manage and reduce chronic pain conditions for improved quality of life.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Lower Back Pain
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Neck & Shoulder Pain
-                </li>
-                <li className="flex items-center font-figtree text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Arthritis Management
-                </li>
-              </ul>
-            </div>
-          </div>
-
-          <div className="text-center mt-12">
-            <Link
-              href="/services"
-              className="inline-flex items-center px-8 py-4 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
-            >
-              View All Services
-              <ArrowRight className="ml-2 w-5 h-5" />
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      
+     
 
       {/* Testimonials Section */}
-      <section className="py-30 relative" style={{ backgroundColor: '#331d3d' }}>
-        {/* Wavy Top Border */}
-        <div className="absolute top-0 left-0 w-full">
-          <svg
-            width="1441"
-            height="714"
-            viewBox="0 0 1441 714"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-20 md:h-32"
-            preserveAspectRatio="none"
-            style={{ transform: 'scaleY(-1)' }}
-          >
-            <path
-              d="M1441 560.947C1358.5 659.447 1219 726.446 779.508 673.422C363.301 623.207 89.2732 662.75 0 713.947V674.081C89.2732 619.983 354.993 584.82 782 640.269C1198.09 694.3 1391.07 632.75 1441 542V560.947Z"
-              fill="#E45896"
-            />
-            <path
-              d="M0 57.0935C213.965 -12.8637 649.849 -13.0232 941.5 46.2908C1199.77 98.815 1371.47 50.926 1441 0V541.919C1391.07 632.669 1198.09 694.219 782 640.187C354.993 584.739 89.2732 619.902 0 674V57.0935Z"
-              fill="#331D3D"
-            />
-          </svg>
-        </div>
+      <section className="testimonial-section py-30 relative min-h-screen flex items-center justify-center bg-white" style={{ 
+        backgroundImage: 'url("/testimonial-background.png")',
+        backgroundSize: 'cover',
+        backgroundPosition: 'center',
+        backgroundRepeat: 'no-repeat'
+      }}>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+
+
+
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
           <div className="text-left mb-16">
             <h2 className="font-poppins text-h2 text-white mb-4">
               Real People, Real Results
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
             {/* Testimonial 1 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square max-w-[280px] mb-4 rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+              <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
                 <Image
                   src="https://randomuser.me/api/portraits/men/32.jpg"
                   alt="John Doe"
@@ -393,18 +274,18 @@ export default function Home() {
                     <Play className="w-8 h-8 text-white ml-1" fill="white" />
                   </div>
                 </button>
-              </div>
-              <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-[280px] relative z-10">
-                <h3 className="font-figtree text-h3 text-gray-900 mb-2">John Doe</h3>
-                <p className="font-figtree text-body text-gray-600">
-                  &quot;Amazing recovery experience. George helped me get back to my active lifestyle!&quot;
-                </p>
+                
+                {/* Info overlay at bottom */}
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                  <div className="text-black text-xl font-bold font-figtree leading-8">John Doe</div>
+                  <div className="text-black text-base font-medium font-figtree leading-6 ">Marathon Runner</div>
+                </div>
               </div>
             </div>
 
             {/* Testimonial 2 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square max-w-[280px] mb-4 rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+              <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
                 <Image
                   src="https://randomuser.me/api/portraits/women/44.jpg"
                   alt="Sarah Johnson"
@@ -419,18 +300,18 @@ export default function Home() {
                     <Play className="w-8 h-8 text-white ml-1" fill="white" />
                   </div>
                 </button>
-              </div>
-              <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-[280px] relative z-10">
-                <h3 className="font-figtree text-h3 text-gray-900 mb-2">Sarah Johnson</h3>
-                <p className="font-figtree text-body text-gray-600">
-                  &quot;Professional, caring, and effective. Best physiotherapy experience I&apos;ve had.&quot;
-                </p>
+                
+                {/* Info overlay at bottom */}
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                  <div className="text-black text-xl font-bold font-figtree leading-8">Sarah Johnson</div>
+                  <div className="text-black text-base font-medium font-figtree leading-6">Yoga Instructor</div>
+                </div>
               </div>
             </div>
 
             {/* Testimonial 3 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square max-w-[280px] mb-4 rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+              <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
                 <Image
                   src="https://randomuser.me/api/portraits/men/52.jpg"
                   alt="Mike Chen"
@@ -445,18 +326,18 @@ export default function Home() {
                     <Play className="w-8 h-8 text-white ml-1" fill="white" />
                   </div>
                 </button>
-              </div>
-              <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-[280px] relative z-10">
-                <h3 className="font-figtree text-h3 text-gray-900 mb-2">Mike Chen</h3>
-                <p className="font-figtree text-body text-gray-600">
-                  &quot;The holistic approach made all the difference. Highly recommended!&quot;
-                </p>
+                
+                {/* Info overlay at bottom */}
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                  <div className="text-black text-xl font-bold font-figtree leading-8">Mike Chen</div>
+                  <div className="text-black text-base font-medium font-figtree leading-6">Fitness Coach</div>
+                </div>
               </div>
             </div>
 
             {/* Testimonial 4 */}
             <div className="flex flex-col items-center">
-              <div className="relative w-full aspect-square max-w-[280px] mb-4 rounded-lg overflow-hidden shadow-lg group cursor-pointer">
+              <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
                 <Image
                   src="https://randomuser.me/api/portraits/women/68.jpg"
                   alt="Emily Williams"
@@ -471,39 +352,124 @@ export default function Home() {
                     <Play className="w-8 h-8 text-white ml-1" fill="white" />
                   </div>
                 </button>
-              </div>
-              <div className="bg-white rounded-lg shadow-md p-4 w-full max-w-[280px] relative z-10">
-                <h3 className="font-figtree text-h3 text-gray-900 mb-2">Emily Williams</h3>
-                <p className="font-figtree text-body text-gray-600">
-                  &quot;I finally found someone who understands my needs. Thank you, Funky Physio!&quot;
-                </p>
+                
+                {/* Info overlay at bottom */}
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                  <div className="text-black text-xl font-bold font-figtree leading-8">Emily Williams</div>
+                  <div className="text-black text-base font-medium font-figtree leading-6">Architect / Runner</div>
+                </div>
               </div>
             </div>
           </div>
         </div>
+      </section>
 
-        {/* Wavy Bottom Border */}
-        <div className="absolute bottom-0 left-0 w-full">
-          <svg
-            width="1441"
-            height="714"
-            viewBox="0 0 1441 714"
-            fill="none"
-            xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-20 md:h-32"
-            preserveAspectRatio="none"
-          >
-            <path
-              d="M1441 560.947C1358.5 659.447 1219 726.446 779.508 673.422C363.301 623.207 89.2732 662.75 0 713.947V674.081C89.2732 619.983 354.993 584.82 782 640.269C1198.09 694.3 1391.07 632.75 1441 542V560.947Z"
-              fill="#E45896"
-            />
-            <path
-              d="M0 57.0935C213.965 -12.8637 649.849 -13.0232 941.5 46.2908C1199.77 98.815 1371.47 50.926 1441 0V541.919C1391.07 632.669 1198.09 694.219 782 640.187C354.993 584.739 89.2732 619.902 0 674V57.0935Z"
-              fill="#331D3D"
-            />
-          </svg>
+      {/* Location Section */}
+      <section className="py-20 bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+          {/* Section Title - Outside Card */}
+          <div className="mb-12">
+            <h2 className="text-black text-5xl font-semibold font-poppins leading-tight">
+              Location of your choice
+            </h2>
+          </div>
+
+          {/* Cards Grid */}
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+            {/* Studio Card */}
+            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+              {/* Purple accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#78428F] rounded-tl-[20px] rounded-bl-[20px]"></div>
+              
+              {/* Card content */}
+              <div className="pl-14 pr-8 py-10">
+                <h3 className="text-black text-3xl font-semibold font-figtree leading-tight mb-6">
+                  At Funky Studio
+                </h3>
+                
+                <p className="opacity-80 text-black text-base font-medium font-figtree leading-6 mb-8 h-12">
+                  In-person sessions in a fully equipped, professional studio.
+                </p>
+                
+                <div className="space-y-3">
+                  <div className="opacity-80 text-black text-xl font-medium font-figtree leading-8">
+                    45 min / EUR 60
+                  </div>
+                  <div className="opacity-80 text-black text-xl font-medium font-figtree leading-8">
+                    60 min / EUR 70
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Home Visit Card */}
+            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+              {/* Pink accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#E45896] rounded-tl-[20px] rounded-bl-[20px]"></div>
+              
+              {/* Card content */}
+              <div className="pl-14 pr-8 py-10">
+                <h3 className="text-black text-3xl font-semibold font-figtree leading-tight mb-6">
+                Online Sessions
+                </h3>
+                
+                <p className="opacity-80 text-black text-base font-medium font-figtree leading-6 mb-8 h-12">
+                Guided virtual sessions tailored to your needs, wherever you are.
+                </p>
+                
+                <div className="space-y-3">
+                  
+                  <div className="opacity-80 text-black text-xl font-medium font-figtree leading-8">
+                    60 min / EUR 80
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            {/* Online Card */}
+            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+              {/* Blue accent bar */}
+              <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#93BCC4] rounded-tl-[20px] rounded-bl-[20px]"></div>
+              
+              {/* Card content */}
+              <div className="pl-14 pr-8 py-10">
+                <h3 className="text-black text-3xl font-semibold font-figtree leading-tight mb-6">
+                At your place
+                </h3>
+                
+                <p className="opacity-80 text-black text-base font-medium font-figtree leading-6 mb-8 h-12">
+                Personalized treatment delivered in the comfort of your home.
+                </p>
+                
+                <div className="space-y-3">
+                  
+                  <div className="opacity-80 text-black text-xl font-medium font-figtree leading-8">
+                    60 min / EUR 60
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
       </section>
+      <ContactForm />
     </>
+    
   );
+}
+
+// Add custom styles for testimonial section responsive behavior
+const styles = `
+  @media (max-width: 1023px) {
+    .testimonial-section {
+      background-image: none !important;
+      background-color: #78428F !important;
+    }
+  }
+`;
+
+if (typeof document !== 'undefined') {
+  const styleSheet = document.createElement("style");
+  styleSheet.textContent = styles;
+  document.head.appendChild(styleSheet);
 }
