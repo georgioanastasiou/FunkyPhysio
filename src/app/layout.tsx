@@ -38,9 +38,21 @@ export const metadata: Metadata = {
     address: false,
     telephone: false,
   },
-  metadataBase: new URL('https://funkyphysio.com'),
+  metadataBase: new URL('https://www.funkyphysio.com'),
   alternates: {
     canonical: '/',
+  },
+  icons: {
+    icon: [
+      { url: '/logo.png' },
+      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
+      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/logo.png' },
+      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
+    ],
+    shortcut: '/logo.png',
   },
   openGraph: {
     type: 'website',
@@ -88,10 +100,6 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/logo.png" />
-        <link rel="apple-touch-icon" sizes="180x180" href="/logo.png" />
-        <link rel="icon" type="image/png" sizes="32x32" href="/logo.png" />
-        <link rel="icon" type="image/png" sizes="16x16" href="/logo.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -100,7 +108,7 @@ export default function RootLayout({
               "@type": "MedicalBusiness",
               "name": "Funky Physio Physiotherapy",
               "description": "Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.",
-              "url": "https://funkyfisio.com",
+              "url": "https://www.funkyphysio.com",
               "telephone": "+1-555-123-4567",
               "email": "info@funkyfisio.com",
               "address": {
