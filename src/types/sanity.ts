@@ -7,15 +7,21 @@ export interface BlogPost {
   }
   excerpt: string
   mainImage?: {
-    asset: any
+    asset: {
+      _id: string
+      url: string
+    }
     alt?: string
   }
-  body: any[] // Portable Text content
+  body: Array<Record<string, unknown>> // Portable Text content
   category: string
   readTime: string
   author: {
     name: string
-    image?: any
+    image?: {
+      _id: string
+      url: string
+    }
   }
   publishedAt: string
   seo?: {
@@ -38,7 +44,10 @@ export interface Service {
   price?: number
   duration?: string
   image?: {
-    asset: any
+    asset: {
+      _id: string
+      url: string
+    }
     alt?: string
   }
 }
@@ -49,11 +58,17 @@ export interface Testimonial {
   text: string
   rating: number
   image?: {
-    asset: any
+    asset: {
+      _id: string
+      url: string
+    }
     alt?: string
   }
   video?: {
-    asset: any
+    asset: {
+      _id: string
+      url: string
+    }
   }
   service?: string
   isVideo: boolean
