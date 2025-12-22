@@ -57,7 +57,7 @@ export const metadata: Metadata = {
   openGraph: {
     type: 'website',
     locale: 'en_US',
-    url: 'https://funkyfisio.com',
+    url: 'https://funkyphysio.com',
     title: 'Funky Physio - Professional Physiotherapy Services',
     description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
     siteName: 'Funky Physio',
@@ -70,12 +70,7 @@ export const metadata: Metadata = {
       },
     ],
   },
-  twitter: {
-    card: 'summary_large_image',
-    title: 'Funky Physio - Professional Physiotherapy Services',
-    description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
-    images: ['/og-image.jpg'],
-  },
+  
   robots: {
     index: true,
     follow: true,
@@ -100,9 +95,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/logo.png" type="image/png" />
-        <link rel="shortcut icon" href="/logo.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png" />
+        <link rel="icon" href="/logo.png?v=2" type="image/png" />
+        <link rel="shortcut icon" href="/logo.png?v=2" type="image/png" />
+        <link rel="apple-touch-icon" href="/logo.png?v=2" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -113,7 +108,7 @@ export default function RootLayout({
               "description": "Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.",
               "url": "https://www.funkyphysio.com",
               "telephone": "+1-555-123-4567",
-              "email": "info@funkyfisio.com",
+              "email": "info@funkyphysio.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "123 Health Street",
