@@ -93,9 +93,9 @@ export default function RootLayout({
   return (
     <html lang="en" className="scroll-smooth">
       <head>
-        <link rel="icon" href="/logo.png?v=2" type="image/png" />
-        <link rel="shortcut icon" href="/logo.png?v=2" type="image/png" />
-        <link rel="apple-touch-icon" href="/logo.png?v=2" />
+        <link rel="icon" href="/icon.png" type="image/png" />
+        <link rel="shortcut icon" href="/icon.png" type="image/png" />
+        <link rel="apple-touch-icon" href="/icon.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
