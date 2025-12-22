@@ -44,15 +44,13 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/logo.png' },
-      { url: '/logo.png', sizes: '32x32', type: 'image/png' },
-      { url: '/logo.png', sizes: '16x16', type: 'image/png' },
+      { url: '/favicon.ico', type: 'image/x-icon' },
+      { url: '/logo.png', type: 'image/png' },
     ],
     apple: [
       { url: '/logo.png' },
-      { url: '/logo.png', sizes: '180x180', type: 'image/png' },
     ],
-    shortcut: '/logo.png',
+    shortcut: '/favicon.ico',
   },
   openGraph: {
     type: 'website',
