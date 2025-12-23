@@ -73,6 +73,135 @@ If you prefer not to use Google Maps, you can use Leaflet with OpenStreetMap:
 
 ---
 
+## 📊 SEO TODO: Improve Links Ratio
+
+### Current Issue
+- **Internal links**: 7 (too few)
+- **External links**: 1
+- **Status**: ⚠️ Needs improvement for better SEO
+
+### What This Means
+Google wants to see that your pages link to both:
+1. **Internal links** - Other pages on your own website
+2. **External links** - High-quality, relevant external resources
+
+### 🎯 Action Items
+
+#### 1. Add More Internal Links
+Link to other pages on your site naturally within content:
+
+**Examples:**
+- Contact page → Link to "About" page when mentioning George
+- Contact page → Link to "Services" page when mentioning treatments
+- Contact page → Link to "Blog" page for health tips
+- About page → Link to "Programs" page
+- Services page → Link to specific blog posts about each service
+- Blog posts → Link to related blog posts and service pages
+
+**Best Practices:**
+- Use descriptive anchor text (not just "click here")
+- Link naturally within the content flow
+- Aim for 10-15 internal links per page
+- Make sure links are relevant to the context
+
+#### 2. Add External Links to High-Quality Resources
+Link to authoritative external websites that provide value to readers:
+
+**Recommended External Resources for Physiotherapy Site:**
+
+**Medical/Health Organizations:**
+- [World Health Organization (WHO)](https://www.who.int/)
+- [American Physical Therapy Association](https://www.apta.org/)
+- [Chartered Society of Physiotherapy](https://www.csp.org.uk/)
+- [National Institutes of Health (NIH)](https://www.nih.gov/)
+
+**Educational Resources:**
+- [PubMed](https://pubmed.ncbi.nlm.nih.gov/) - Medical research
+- [Physiopedia](https://www.physio-pedia.com/) - Physiotherapy wiki
+- [Mayo Clinic](https://www.mayoclinic.org/) - Health information
+
+**Local Resources:**
+- Link to local health authorities
+- Link to sports organizations if you work with athletes
+- Link to relevant medical journals or studies
+
+**Where to Add External Links:**
+- Blog posts - Link to studies, research papers, or authoritative health sites
+- Services page - Link to medical resources explaining conditions you treat
+- About page - Link to professional associations you're affiliated with
+- Contact page - Could link to health insurance info or local health department
+
+#### 3. Example Implementation
+
+**On Contact Page:**
+```markdown
+"We specialize in treating sports injuries and chronic pain. 
+Learn more about [common sports injuries](https://www.mayoclinic.org/sports-injuries) 
+and how [physiotherapy can help](https://www.physio-pedia.com/)."
+
+"Book an appointment to discuss our [massage therapy services](/services#massage) 
+or read our latest [blog post about preventing injuries](/blog/injury-prevention)."
+```
+
+**On Services Page:**
+```markdown
+"Our physiotherapy treatments are based on evidence-based practices 
+recommended by the [American Physical Therapy Association](https://www.apta.org/).
+
+Check out our [success stories](/about#testimonials) or 
+[schedule a consultation](/contact) today."
+```
+
+**On Blog Posts:**
+```markdown
+"According to research published on [PubMed](https://pubmed.ncbi.nlm.nih.gov/), 
+regular stretching can reduce back pain by up to 30%.
+
+Want to learn more? Read our guide on [therapeutic exercises](/services#therapeutic-training) 
+or explore our [other blog posts](/blog)."
+```
+
+### ⚠️ Important SEO Guidelines
+
+**DO:**
+✅ Link to high-quality, authoritative websites (.gov, .edu, established medical sites)
+✅ Use relevant, descriptive anchor text
+✅ Make links naturally fit within your content
+✅ Link to pages that add value for your readers
+✅ Keep external links opening in new tabs (target="_blank")
+
+**DON'T:**
+❌ Link to spammy or low-quality websites
+❌ Use the same anchor text repeatedly
+❌ Add links just for the sake of having links
+❌ Link to competitors' websites
+❌ Use "click here" as anchor text
+
+### 📈 Target Goals
+- **Internal links**: 10-15 per page (currently 7)
+- **External links**: 3-5 per page to authoritative sites (currently 1)
+- **Total links**: 15-20 per page
+- **Link quality**: All links should be relevant and valuable
+
+### 🔧 Implementation Checklist
+
+- [ ] Audit all pages and count current internal/external links
+- [ ] Identify opportunities to add internal links between pages
+- [ ] Research and compile list of authoritative external resources
+- [ ] Add internal links naturally within existing content
+- [ ] Add external links to high-quality health/medical resources
+- [ ] Ensure all external links open in new tabs
+- [ ] Use descriptive anchor text for all links
+- [ ] Test all links to ensure they work correctly
+- [ ] Update blog posts with relevant internal and external links
+- [ ] Monitor Google Search Console for improvements
+
+---
+
+**Priority**: Medium-High  
+**Estimated Time**: 2-3 hours to implement across all pages  
+**SEO Impact**: High - Better link structure improves rankings and user experience
+
 **Current Setup**: The map is configured with a placeholder address. Update it with your actual clinic address!
 
 

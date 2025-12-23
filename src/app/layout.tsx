@@ -17,7 +17,7 @@ export const metadata: Metadata = {
     default: 'Funky Physio - Professional Physiotherapy Services',
     template: '%s | Funky Physio'
   },
-  description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
+  description: 'Expert physiotherapy for sports injuries, chronic pain, and post-surgical recovery. Personalized treatment plans to get you moving pain-free.',
   keywords: [
     'physiotherapy',
     'physical therapy',
@@ -57,7 +57,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://funkyphysio.com',
     title: 'Funky Physio - Professional Physiotherapy Services',
-    description: 'Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.',
+    description: 'Expert physiotherapy for sports injuries, chronic pain, and post-surgical recovery. Personalized treatment plans to get you moving pain-free.',
     siteName: 'Funky Physio',
     images: [
       {
@@ -113,7 +113,7 @@ export default function RootLayout({
                 "addressLocality": "Medical District",
                 "addressRegion": "NY",
                 "postalCode": "10001",
-                "addressCountry": "US"
+                "addressCountry": "ESP"
               },
               "openingHours": [
                 "Mo-Fr 08:00-18:00",
