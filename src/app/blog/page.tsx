@@ -1,6 +1,9 @@
 import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
+import { getBlogPosts } from '@/lib/queries';
+import { urlFor } from '@/lib/sanity';
+import Image from 'next/image';
 
 export const metadata: Metadata = {
   title: 'Physiotherapy Blog - Health Tips & Advice',
@@ -16,28 +19,12 @@ export const metadata: Metadata = {
   ],
 };
 
-const blogPosts = [
-  {
-    id: 'how-to-fix-neck-pain-laptop',
-    title: 'How to Fix Neck Pain from Working at a Laptop All Day',
-    excerpt: 'Learn effective strategies to prevent and relieve neck pain caused by prolonged laptop use. Essential tips for better posture and ergonomics.',
-    date: '2024-01-15',
-    readTime: '5 min read',
-    category: 'Workplace Health',
-    image: '💻'
-  },
-  {
-    id: '5-simple-stretches-wfh',
-    title: '5 Simple Stretches for People Working from Home',
-    excerpt: 'Discover easy stretches you can do at home to combat stiffness, improve flexibility, and maintain good posture during remote work.',
-    date: '2024-01-10',
-    readTime: '4 min read',
-    category: 'Home Exercises',
-    image: '🏠'
-  }
-];
+// Remove hardcoded blogPosts array - we'll fetch from Sanity instead
 
-export default function Blog() {
+export default async function Blog() {
+  // Fetch blog posts from Sanity
+  const blogPosts = await getBlogPosts();
+
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
@@ -58,75 +45,110 @@ export default function Blog() {
       {/* Blog Posts */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            {blogPosts.map((post) => (
-              <article key={post.id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                <div className="h-48 bg-gradient-to-br from-[#D84795]/20 to-[#D84795]/20 flex items-center justify-center">
-                  <span className="text-6xl">{post.image}</span>
-                </div>
-                
-                <div className="p-6">
-                  <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
-                    <span className="bg-[#D84795]/20 text-[#c43d82] px-2 py-1 rounded-full text-xs font-medium">
-                      {post.category}
-                    </span>
-                    <div className="flex items-center">
-                      <Calendar className="w-4 h-4 mr-1" />
-                      {new Date(post.date).toLocaleDateString('en-US', {
-                        year: 'numeric',
-                        month: 'long',
-                        day: 'numeric'
-                      })}
-                    </div>
-                    <div className="flex items-center">
-                      <Clock className="w-4 h-4 mr-1" />
-                      {post.readTime}
-                    </div>
+          {blogPosts.length > 0 ? (
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+              {blogPosts.map((post) => (
+                <article key={post._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
+                  {/* Post Image */}
+                  <div className="h-48 bg-gradient-to-br from-[#D84795]/20 to-[#D84795]/20 relative overflow-hidden">
+                    {post.mainImage?.asset ? (
+                      <Image
+                        src={urlFor(post.mainImage.asset).width(800).height(400).url()}
+                        alt={post.mainImage.alt || post.title}
+                        fill
+                        className="object-cover"
+                      />
+                    ) : (
+                      <div className="flex items-center justify-center h-full">
+                        <span className="text-6xl">📝</span>
+                      </div>
+                    )}
                   </div>
                   
-                  <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                    {post.title}
-                  </h2>
-                  
-                  <p className="text-gray-600 mb-4 line-clamp-3">
-                    {post.excerpt}
-                  </p>
-                  
-                  <Link
-                    href={`/blog/${post.id}`}
-                    className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] font-medium"
-                  >
-                    Read More
-                    <ArrowRight className="ml-1 w-4 h-4" />
-                  </Link>
-                </div>
-              </article>
-            ))}
-          </div>
+                  <div className="p-6">
+                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
+                      {post.category && (
+                        <span className="bg-[#D84795]/20 text-[#c43d82] px-2 py-1 rounded-full text-xs font-medium">
+                          {post.category}
+                        </span>
+                      )}
+                      <div className="flex items-center">
+                        <Calendar className="w-4 h-4 mr-1" />
+                        {new Date(post.publishedAt).toLocaleDateString('en-US', {
+                          year: 'numeric',
+                          month: 'long',
+                          day: 'numeric'
+                        })}
+                      </div>
+                      {post.readTime && (
+                        <div className="flex items-center">
+                          <Clock className="w-4 h-4 mr-1" />
+                          {post.readTime}
+                        </div>
+                      )}
+                    </div>
+                    
+                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
+                      {post.title}
+                    </h2>
+                    
+                    <p className="text-gray-600 mb-4 line-clamp-3">
+                      {post.excerpt}
+                    </p>
+                    
+                    <Link
+                      href={`/blog/${post.slug.current}`}
+                      className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] font-medium"
+                    >
+                      Read More
+                      <ArrowRight className="ml-1 w-4 h-4" />
+                    </Link>
+                  </div>
+                </article>
+              ))}
+            </div>
+          ) : (
+            // No posts yet - show placeholder
+            <div className="text-center py-12">
+              <div className="text-6xl mb-4">📝</div>
+              <h3 className="text-2xl font-bold text-gray-900 mb-4">No Blog Posts Yet</h3>
+              <p className="text-gray-600 mb-6">
+                Start creating content in Sanity Studio to see posts here.
+              </p>
+              <Link
+                href="/studio"
+                className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
+              >
+                Open Sanity Studio
+              </Link>
+            </div>
+          )}
 
           {/* Coming Soon */}
-          <div className="mt-16 text-center">
-            <div className="bg-gray-50 rounded-xl p-8 max-w-2xl mx-auto">
-              <h3 className="text-2xl font-bold text-gray-900 mb-4">More Articles Coming Soon</h3>
-              <p className="text-gray-600 mb-6">
-                I&apos;m constantly working on new content to help you maintain optimal health and prevent injuries.
-              </p>
-              <div className="flex flex-col sm:flex-row gap-4 justify-center">
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
-                >
-                  Request a Topic
-                </Link>
-                <Link
-                  href="/services"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#D84795] text-[#D84795] font-semibold rounded-lg hover:bg-[#D84795]/10 transition-colors"
-                >
-                  Book Consultation
-                </Link>
+          {blogPosts.length > 0 && (
+            <div className="mt-16 text-center">
+              <div className="bg-gray-50 rounded-xl p-8 max-w-2xl mx-auto">
+                <h3 className="text-2xl font-bold text-gray-900 mb-4">More Articles Coming Soon</h3>
+                <p className="text-gray-600 mb-6">
+                  I&apos;m constantly working on new content to help you maintain optimal health and prevent injuries.
+                </p>
+                <div className="flex flex-col sm:flex-row gap-4 justify-center">
+                  <Link
+                    href="/contact"
+                    className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
+                  >
+                    Request a Topic
+                  </Link>
+                  <Link
+                    href="/services"
+                    className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#D84795] text-[#D84795] font-semibold rounded-lg hover:bg-[#D84795]/10 transition-colors"
+                  >
+                    Book Consultation
+                  </Link>
+                </div>
               </div>
             </div>
-          </div>
+          )}
         </div>
       </section>
 

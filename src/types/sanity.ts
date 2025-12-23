@@ -1,3 +1,5 @@
+import type { PortableTextBlock } from '@portabletext/types'
+
 export interface BlogPost {
   _id: string
   _createdAt: string
@@ -13,14 +15,16 @@ export interface BlogPost {
     }
     alt?: string
   }
-  body: Array<Record<string, unknown>> // Portable Text content
+  body: PortableTextBlock[] // Portable Text content
   category: string
   readTime: string
   author: {
     name: string
     image?: {
-      _id: string
-      url: string
+      asset: {
+        _id: string
+        url: string
+      }
     }
   }
   publishedAt: string
