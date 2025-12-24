@@ -33,7 +33,7 @@ interface PreviewValue {
   media?: SanityImage;
 }
 
-export default {
+const blogPostSchema = {
   name: 'blogPost',
   title: 'Blog Post',
   type: 'document',
@@ -193,3 +193,5 @@ export default {
     }
   }
 }
+
+export default blogPostSchema
