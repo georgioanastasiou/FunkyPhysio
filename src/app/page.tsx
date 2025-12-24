@@ -87,7 +87,7 @@ export default function Home() {
       {/* What We Do Section */}
       <section className="py-10 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
-          <div className="text-left mb-16">
+          <div className="text-left mb-8">
             <h2 className="font-poppins text-h2 text-gray-900 mb-4">
               What we do
             </h2>
@@ -236,30 +236,25 @@ export default function Home() {
         </div>
       </section>
 
-     
-
       {/* Testimonials Section */}
-      <section className="testimonial-section py-30 relative min-h-screen flex items-center justify-center bg-white" style={{ 
+      <section className="testimonial-section py-16 relative min-h-screen flex items-center justify-center bg-white" style={{ 
         backgroundImage: 'url("/testimonial-background.png")',
         backgroundSize: 'cover',
         backgroundPosition: 'center',
         backgroundRepeat: 'no-repeat'
       }}>
 
-
-
-
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
-          <div className="text-left mb-16">
+          <div className="text-left mb-10">
             <h2 className="font-poppins text-h2 text-white mb-4">
               Real People, Real Results
             </h2>
           </div>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8 justify-items-center mb-20">
             {/* Testimonial 1 */}
-            <div className="flex flex-col items-center">
-              <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
+            <div className="flex flex-col items-center ">
+              <div className="relative w-72 h-96 rounded-[20px]  overflow-hidden shadow-lg group cursor-pointer">
                 <Image
                   src="https://randomuser.me/api/portraits/men/32.jpg"
                   alt="John Doe"
@@ -276,7 +271,7 @@ export default function Home() {
                 </button>
                 
                 {/* Info overlay at bottom */}
-                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
                   <div className="text-black text-xl font-bold font-figtree leading-8">John Doe</div>
                   <div className="text-black text-base font-medium font-figtree leading-6 ">Marathon Runner</div>
                 </div>
@@ -302,7 +297,7 @@ export default function Home() {
                 </button>
                 
                 {/* Info overlay at bottom */}
-                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
                   <div className="text-black text-xl font-bold font-figtree leading-8">Sarah Johnson</div>
                   <div className="text-black text-base font-medium font-figtree leading-6">Yoga Instructor</div>
                 </div>
@@ -328,7 +323,7 @@ export default function Home() {
                 </button>
                 
                 {/* Info overlay at bottom */}
-                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
                   <div className="text-black text-xl font-bold font-figtree leading-8">Mike Chen</div>
                   <div className="text-black text-base font-medium font-figtree leading-6">Fitness Coach</div>
                 </div>
@@ -354,7 +349,7 @@ export default function Home() {
                 </button>
                 
                 {/* Info overlay at bottom */}
-                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
+                <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
                   <div className="text-black text-xl font-bold font-figtree leading-8">Emily Williams</div>
                   <div className="text-black text-base font-medium font-figtree leading-6">Architect / Runner</div>
                 </div>

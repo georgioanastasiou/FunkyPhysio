@@ -3,8 +3,8 @@ import { BlogPost, Service, Testimonial } from '@/types/sanity'
 
 // Blog post queries
 export const getBlogPosts = async (): Promise<BlogPost[]> => {
-  return await client.fetch(
-    `*[_type == "blogPost" && publishedAt <= now()] | order(publishedAt desc) {
+  const posts = await client.fetch(
+    `*[_type == "post"] | order(publishedAt desc) {
       _id,
       _createdAt,
       title,
@@ -23,11 +23,18 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
       publishedAt
     }`
   )
+  console.log('Fetched posts from Sanity:', posts)
+  console.log('Number of posts:', posts.length)
+  console.log('Environment:', {
+    projectId: process.env.NEXT_PUBLIC_SANITY_PROJECT_ID,
+    dataset: process.env.NEXT_PUBLIC_SANITY_DATASET
+  })
+  return posts
 }
 
 export const getBlogPost = async (slug: string): Promise<BlogPost> => {
   return await client.fetch(
-    `*[_type == "blogPost" && slug.current == $slug][0] {
+    `*[_type == "post" && slug.current == $slug][0] {
       _id,
       _createdAt,
       title,

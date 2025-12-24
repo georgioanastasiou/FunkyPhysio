@@ -2,8 +2,8 @@ import {DocumentTextIcon} from '@sanity/icons'
 import {defineArrayMember, defineField, defineType} from 'sanity'
 
 export const postType = defineType({
-  name: 'blogPost',
-  title: 'Blog Post',
+  name: 'post',
+  title: 'Post',
   type: 'document',
   icon: DocumentTextIcon,
   fields: [
