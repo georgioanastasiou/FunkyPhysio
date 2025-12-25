@@ -4,7 +4,7 @@ import { BlogPost, Service, Testimonial } from '@/types/sanity'
 // Blog post queries
 export const getBlogPosts = async (): Promise<BlogPost[]> => {
   const posts = await client.fetch(
-    `*[_type == "post"] | order(publishedAt desc) {
+    `*[_type == "post" || _type == "blogPost"] | order(publishedAt desc) {
       _id,
       _createdAt,
       title,
@@ -34,7 +34,7 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
 
 export const getBlogPost = async (slug: string): Promise<BlogPost> => {
   return await client.fetch(
-    `*[_type == "post" && slug.current == $slug][0] {
+    `*[(_type == "post" || _type == "blogPost") && slug.current == $slug][0] {
       _id,
       _createdAt,
       title,

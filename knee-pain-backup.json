@@ -1,0 +1,56 @@
+{
+  "_createdAt": "2025-12-23T04:16:58Z",
+  "_id": "95f3939e-6013-4359-bb12-50665d601b64",
+  "_rev": "C5nTAiXC3om7pmH7kmDEiV",
+  "_system": {
+    "base": {
+      "id": "95f3939e-6013-4359-bb12-50665d601b64",
+      "rev": "XVfZPt812hOyvnx10HJ7G2"
+    }
+  },
+  "_type": "blogPost",
+  "_updatedAt": "2025-12-25T22:50:05Z",
+  "author": {
+    "_ref": "9efa289d-10f3-448a-94f5-e830cfb2295e",
+    "_type": "reference"
+  },
+  "body": [
+    {
+      "_key": "dc3dd5f431c7",
+      "_type": "block",
+      "children": [
+        {
+          "_key": "e1c7f5310624",
+          "_type": "span",
+          "marks": [],
+          "text": "Knee pain is a common issue that affects people of all ages and activity levels. It can result from injury, overuse, arthritis, or underlying medical conditions. Symptoms may include swelling, stiffness, instability, or a sharp or dull ache around the knee joint. Identifying the cause of knee pain is essential for effective treatment, which may include physical therapy, exercise, lifestyle adjustments, or in some cases, medical intervention. In this article, we explore the most common causes of knee pain, ways to manage symptoms, and tips for preventing future injuries."
+        }
+      ],
+      "markDefs": [],
+      "style": "normal"
+    }
+  ],
+  "categories": [
+    {
+      "_key": "4b14ced94fda",
+      "_ref": "5131fe5f-405a-423f-bbd3-8eab7035c69b",
+      "_type": "reference"
+    }
+  ],
+  "category": "Education",
+  "excerpt": "Learn about the common causes and symptoms of general knee pain, and discover effective strategies for relief and prevention through exercises, physiotherapy, and lifestyle tips.",
+  "mainImage": {
+    "_type": "image",
+    "asset": {
+      "_ref": "image-4e949dfaa7a8d4ea915d7c8236d1263378f60122-704x584-png",
+      "_type": "reference"
+    }
+  },
+  "publishedAt": "2025-12-23T04:17:00.000Z",
+  "readTime": "3 mins.",
+  "slug": {
+    "_type": "slug",
+    "current": "knee-pain"
+  },
+  "title": "Knee Pain"
+}

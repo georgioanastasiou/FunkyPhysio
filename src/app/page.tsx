@@ -85,7 +85,7 @@ export default function Home() {
       </section>
 
       {/* What We Do Section */}
-      <section className="py-10 bg-white">
+      <section className="py-10 bg-white pb-[100px]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
           <div className="text-left mb-8">
             <h2 className="font-poppins text-h2 text-gray-900 mb-4">
@@ -372,7 +372,7 @@ export default function Home() {
           {/* Cards Grid */}
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
             {/* Studio Card */}
-            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+            <div className="relative bg-white rounded-[20px] shadow-[0px_0px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden">
               {/* Purple accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#78428F] rounded-tl-[20px] rounded-bl-[20px]"></div>
               
@@ -398,7 +398,7 @@ export default function Home() {
             </div>
 
             {/* Home Visit Card */}
-            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+            <div className="relative bg-white rounded-[20px] shadow-[0px_0px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden">
               {/* Pink accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#E45896] rounded-tl-[20px] rounded-bl-[20px]"></div>
               
@@ -422,7 +422,7 @@ export default function Home() {
             </div>
 
             {/* Online Card */}
-            <div className="relative bg-white rounded-[20px] shadow-lg overflow-hidden">
+            <div className="relative bg-white rounded-[20px] shadow-[0px_0px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden">
               {/* Blue accent bar */}
               <div className="absolute left-0 top-0 bottom-0 w-5 bg-[#93BCC4] rounded-tl-[20px] rounded-bl-[20px]"></div>
               

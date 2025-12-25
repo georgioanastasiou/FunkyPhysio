@@ -1,19 +1,22 @@
 'use client';
 
 import { useState, useEffect, useRef } from 'react';
-import { MessageSquare } from 'lucide-react';
-import Image from 'next/image';
+import { User, Mail, Phone, MapPin, Calendar, Clock, MessageSquare, Activity } from 'lucide-react';
 
 export default function Contact() {
   const [formData, setFormData] = useState({
-    firstName: '',
-    lastName: '',
+    fullName: '',
     email: '',
     phone: '',
+    location: '',
+    preferredDate: '',
+    preferredTime: '',
+    issueType: '',
+    painLevel: '5',
     message: ''
   });
 
-  const inputRefs = useRef<(HTMLInputElement | HTMLTextAreaElement | null)[]>([]);
+  const inputRefs = useRef<(HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement | null)[]>([]);
 
   useEffect(() => {
     const handleInputFocus = (index: number) => {
@@ -50,7 +53,7 @@ export default function Contact() {
     });
   }, []);
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>) => {
     const { name, value } = e.target;
     setFormData(prev => ({
       ...prev,
@@ -65,69 +68,52 @@ export default function Contact() {
   };
 
   return (
-    <section className="min-h-screen bg-white overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        {/* Left Side - Contact Form */}
-        <div className="flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-0 relative z-10">
-          <div className="w-full max-w-lg ml-0 sm:ml-0 md:ml-0 lg:ml-16 xl:ml-32">
-            <div className="mb-8 sm:mb-12">
-              <h1 className="font-poppins text-3xl sm:text-4xl lg:text-5xl text-gray-900 leading-tight mb-4 font-bold">
-                Let&apos;s work together<span className="text-[#78428F]">.</span>
-              </h1>
-              <p className="font-figtree text-sm sm:text-base text-gray-500">
-                Or reach me via: <a href="mailto:g.anastasiou.dev@gmail.com" className="text-[#78428F] hover:text-[#7a4f84] transition-colors">g.anastasiou.dev@gmail.com</a>
-              </p>
-            </div>
+    <section className="min-h-screen bg-gradient-to-br from-purple-50 via-white to-pink-50 py-12 sm:py-20">
+      <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+        {/* Header */}
+        <div className="text-center mb-8 sm:mb-12">
+          <h1 className="font-poppins text-4xl sm:text-5xl lg:text-6xl text-gray-900 leading-tight mb-4 font-bold">
+            Book Your Appointment<span className="text-[#78428F]">.</span>
+          </h1>
+          <p className="font-figtree text-base sm:text-lg text-gray-600 max-w-2xl mx-auto">
+            Tell us about your needs and we&apos;ll create a personalized treatment plan just for you.
+          </p>
+        </div>
 
-            <form onSubmit={handleSubmit} className="space-y-4 sm:space-y-6">
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
-                {/* First Name */}
-                <div className="input-wrap relative">
+        {/* Form Card */}
+        <div className="bg-white rounded-3xl shadow-2xl p-6 sm:p-8 md:p-12">
+          <form onSubmit={handleSubmit} className="space-y-6">
+            {/* Personal Information Section */}
+            <div>
+              <h2 className="font-poppins text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <User className="w-6 h-6 text-[#78428F]" />
+                Personal Information
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                {/* Full Name */}
+                <div className="input-wrap relative md:col-span-2">
                   <input
                     ref={el => { inputRefs.current[0] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg"
                     autoComplete="off"
-                    name="firstName"
+                    name="fullName"
                     type="text"
-                    value={formData.firstName}
+                    value={formData.fullName}
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
-                    First Name
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Full Name
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 6c0-1.66-1.34-3-3-3S8 7.34 8 9s1.34 3 3 3 3-1.34 3-3zm-6 6c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H8v-1z"/>
-                  </svg>
+                  <User className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
                 </div>
 
-                {/* Last Name */}
-                <div className="input-wrap relative">
-                  <input
-                    ref={el => { inputRefs.current[1] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
-                    autoComplete="off"
-                    name="lastName"
-                    type="text"
-                    value={formData.lastName}
-                    onChange={handleChange}
-                    required
-                  />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
-                    Last Name
-                  </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 6c0-1.66-1.34-3-3-3S8 7.34 8 9s1.34 3 3 3 3-1.34 3-3zm-6 6c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H8v-1z"/>
-                  </svg>
-                </div>
-              </div>
-
-              <div className="grid grid-cols-1 sm:grid-cols-2 gap-4 sm:gap-6">
                 {/* Email */}
                 <div className="input-wrap relative">
                   <input
-                    ref={el => { inputRefs.current[2] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    ref={el => { inputRefs.current[1] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg"
                     autoComplete="off"
                     name="email"
                     type="email"
@@ -135,19 +121,17 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
-                    Email
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Email Address
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
+                  <Mail className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
                 </div>
 
                 {/* Phone */}
                 <div className="input-wrap relative">
                   <input
-                    ref={el => { inputRefs.current[3] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    ref={el => { inputRefs.current[2] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg"
                     autoComplete="off"
                     name="phone"
                     type="tel"
@@ -155,124 +139,266 @@ export default function Contact() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
-                    Phone
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Phone Number
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.44-.99-.99-.99z"/>
-                  </svg>
+                  <Phone className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
                 </div>
               </div>
+            </div>
 
-              {/* Message */}
-              <div className="input-wrap textarea relative">
-                <textarea
-                  ref={el => { inputRefs.current[4] = el; }}
-                  className="contact-input w-full min-h-[120px] sm:min-h-[150px] resize-none bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
-                  name="message"
-                  autoComplete="off"
-                  value={formData.message}
-                  onChange={handleChange}
-                  required
-                />
-                <label className="absolute top-5 left-[calc(1.35rem+2px)] text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
-                  Message
-                </label>
-                <MessageSquare className="icon absolute right-[calc(1.35rem+2px)] top-5 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
+            {/* Appointment Details Section */}
+            <div className="pt-4">
+              <h2 className="font-poppins text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <Calendar className="w-6 h-6 text-[#78428F]" />
+                Appointment Details
+              </h2>
+              
+              <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+                {/* Preferred Location */}
+                <div className="input-wrap relative md:col-span-3">
+                  <select
+                    ref={el => { inputRefs.current[3] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg appearance-none cursor-pointer"
+                    name="location"
+                    value={formData.location}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select location...</option>
+                    <option value="studio">At Funky Studio</option>
+                    <option value="online">Online Session</option>
+                    <option value="home">At Your Place</option>
+                  </select>
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Preferred Location
+                  </label>
+                  <MapPin className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
+                </div>
+
+                {/* Preferred Date */}
+                <div className="input-wrap relative md:col-span-2">
+                  <input
+                    ref={el => { inputRefs.current[4] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg"
+                    name="preferredDate"
+                    type="date"
+                    value={formData.preferredDate}
+                    onChange={handleChange}
+                    required
+                    min={new Date().toISOString().split('T')[0]}
+                  />
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Preferred Date
+                  </label>
+                  <Calendar className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
+                </div>
+
+                {/* Preferred Time */}
+                <div className="input-wrap relative">
+                  <select
+                    ref={el => { inputRefs.current[5] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg appearance-none cursor-pointer"
+                    name="preferredTime"
+                    value={formData.preferredTime}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select time...</option>
+                    <option value="morning">Morning (9AM-12PM)</option>
+                    <option value="afternoon">Afternoon (12PM-5PM)</option>
+                    <option value="evening">Evening (5PM-8PM)</option>
+                  </select>
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Preferred Time
+                  </label>
+                  <Clock className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
+                </div>
               </div>
+            </div>
 
-              {/* Send Message Button */}
+            {/* Medical Information Section */}
+            <div className="pt-4">
+              <h2 className="font-poppins text-2xl font-semibold text-gray-900 mb-6 flex items-center gap-2">
+                <Activity className="w-6 h-6 text-[#78428F]" />
+                Medical Information
+              </h2>
+              
+              <div className="space-y-6">
+                {/* Issue Type */}
+                <div className="input-wrap relative">
+                  <select
+                    ref={el => { inputRefs.current[6] = el; }}
+                    className="contact-input w-full bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg appearance-none cursor-pointer"
+                    name="issueType"
+                    value={formData.issueType}
+                    onChange={handleChange}
+                    required
+                  >
+                    <option value="">Select your primary concern...</option>
+                    <option value="back-pain">Back Pain</option>
+                    <option value="neck-pain">Neck Pain</option>
+                    <option value="shoulder-pain">Shoulder Pain</option>
+                    <option value="knee-pain">Knee Pain</option>
+                    <option value="hip-pain">Hip Pain</option>
+                    <option value="sports-injury">Sports Injury</option>
+                    <option value="post-surgery">Post-Surgery Rehabilitation</option>
+                    <option value="posture">Posture Correction</option>
+                    <option value="muscle-tension">Muscle Tension/Stiffness</option>
+                    <option value="chronic-pain">Chronic Pain Management</option>
+                    <option value="flexibility">Flexibility & Mobility</option>
+                    <option value="prevention">Injury Prevention</option>
+                    <option value="other">Other</option>
+                  </select>
+                  <label className="absolute top-1/2 left-6 transform -translate-y-1/2 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    What brings you here?
+                  </label>
+                  <Activity className="icon absolute right-6 top-1/2 transform -translate-y-1/2 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
+                </div>
+
+                {/* Pain Level */}
+                <div className="relative">
+                  <label className="block font-figtree text-base font-semibold text-gray-700 mb-3">
+                    Current Pain/Discomfort Level: <span className="text-[#78428F] text-xl">{formData.painLevel}/10</span>
+                  </label>
+                  <input
+                    type="range"
+                    name="painLevel"
+                    min="0"
+                    max="10"
+                    value={formData.painLevel}
+                    onChange={handleChange}
+                    className="w-full h-3 bg-gradient-to-r from-green-300 via-yellow-300 to-red-500 rounded-lg appearance-none cursor-pointer slider"
+                    style={{
+                      background: `linear-gradient(to right, #86efac 0%, #fde047 50%, #ef4444 100%)`
+                    }}
+                  />
+                  <div className="flex justify-between text-xs text-gray-500 mt-2">
+                    <span>No Pain</span>
+                    <span>Mild</span>
+                    <span>Moderate</span>
+                    <span>Severe</span>
+                    <span>Worst Pain</span>
+                  </div>
+                </div>
+
+                {/* Additional Message */}
+                <div className="input-wrap textarea relative">
+                  <textarea
+                    ref={el => { inputRefs.current[7] = el; }}
+                    className="contact-input w-full min-h-[150px] resize-none bg-gray-50 border-2 border-gray-200 rounded-2xl px-6 pt-6 pb-3 font-figtree text-base font-medium text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-lg"
+                    name="message"
+                    autoComplete="off"
+                    value={formData.message}
+                    onChange={handleChange}
+                    placeholder="Tell us more about your condition, symptoms, how long you've had them, any previous treatments, etc."
+                  />
+                  <label className="absolute top-5 left-6 text-gray-500 pointer-events-none transition-all duration-250 font-figtree text-base">
+                    Additional Information
+                  </label>
+                  <MessageSquare className="icon absolute right-6 top-5 pointer-events-none text-gray-400 w-5 h-5 transition-colors duration-300" />
+                </div>
+              </div>
+            </div>
+
+            {/* Submit Button */}
+            <div className="pt-4">
               <button
                 type="submit"
-                className="w-full bg-[#78428F] text-white font-medium py-3 sm:py-[1.1rem] px-6 sm:px-8 rounded-[40px] border-none font-figtree text-sm sm:text-base transition-colors duration-300 hover:bg-[#7a4f84] flex items-center justify-center gap-2"
+                className="w-full bg-gradient-to-r from-[#78428F] to-[#E45896] text-white font-bold py-5 px-8 rounded-2xl font-poppins text-lg transition-all duration-300 hover:shadow-2xl hover:scale-[1.02] transform flex items-center justify-center gap-3"
               >
-                Send Message
+                <Calendar className="w-6 h-6" />
+                Book Your Appointment
               </button>
-            </form>
-          </div>
+              <p className="text-center text-sm text-gray-500 mt-4">
+                We&apos;ll get back to you within 24 hours to confirm your appointment.
+              </p>
+            </div>
+          </form>
         </div>
 
-        {/* Right Side - Image */}
-        <div className="relative hidden lg:block overflow-hidden">
-          {/* Mountain Image wrapper */}
-          <div className="absolute inset-0">
-            <Image
-              src="/contact-image.png"
-              alt="Contact Image"
-              fill
-              className="object-cover"
-              priority
-            />
-            
-            {/* Wave Wrap */}
-            <div className="absolute inset-0 right-full bg-white">
-              <svg 
-                className="absolute h-[calc(110%+100px)] top-2/2 transform -translate-y-3/5 left-[calc(1%-50px)]" 
-                viewBox="0 150 783 1650" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <path 
-                  id="wave"
-                  d="M236 1320 C180 1420 80 1460 30 1500 C10 1520 5 1530 1 1535 V1 H770 C795 70 790 200 620 235 C410 280 280 340 455 575 C630 810 505 825 345 950 C190 1070 285 1195 236 1320 Z" 
-                  fill="white"
-                />
-              </svg>
-            </div>
-            
-            {/* Dashed Wave */}
-            <svg 
-              className="absolute z-30 h-full bottom-0 left-[-30px]" 
-              viewBox="0 0 845 677" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <path 
-                id="dashed-wave"
-                d="M0.5 876C25.6667 836.167 73.2 739.8 62 673C48 589.5 35.5 499.5 125.5 462C215.5 424.5 150 365 87 333.5C24 302 44 237.5 125.5 213.5C207 189.5 307 138.5 246 87C185 35.5 297 1 344.5 1" 
-                fill="none"
-                stroke="#c4d1e0"
-                strokeWidth="1"
-                strokeDasharray="6.5"
-                opacity="0.8"
-              />
-            </svg>
+        {/* Contact Info */}
+        <div className="mt-8 text-center">
+          <p className="font-figtree text-gray-600 mb-2">
+            Need immediate assistance? Call us or send an email:
+          </p>
+          <div className="flex flex-wrap justify-center gap-6 text-base">
+            <a href="tel:+1234567890" className="text-[#78428F] hover:text-[#E45896] font-semibold transition-colors">
+              📞 +123 456 7890
+            </a>
+            <a href="mailto:g.anastasiou.dev@gmail.com" className="text-[#78428F] hover:text-[#E45896] font-semibold transition-colors">
+              ✉️ g.anastasiou.dev@gmail.com
+            </a>
           </div>
         </div>
       </div>
 
       <style jsx>{`
-        .input-wrap.focus .contact-input {
-          background-color: white;
-          border-color: #78428F;
-          box-shadow: 0 0 0 0px hsla(208, 91%, 55%, 0.11%);
+        .input-wrap.focus .contact-input,
+        .input-wrap.not-empty .contact-input {
+          padding-top: 1.75rem;
+          padding-bottom: 0.5rem;
         }
-        .input-wrap.focus label {
-          color: #78428F;
-          font-size: 0.66rem;
-          top: 0.75rem;
-          transform: translateY(0);
-        }
-        .input-wrap.focus .icon {
-          color: #78428F;
-        }
+        .input-wrap.focus label,
         .input-wrap.not-empty label {
-          font-size: 0.66rem;
-          top: 0.75rem;
+          font-size: 0.75rem;
+          top: 0.875rem;
           transform: translateY(0);
+          color: #78428F;
+          font-weight: 600;
+        }
+        .input-wrap.focus .icon,
+        .input-wrap.not-empty .icon {
+          color: #78428F;
         }
         .input-wrap.textarea.focus label,
         .input-wrap.textarea.not-empty label {
-          top: 0.75rem;
+          top: 0.875rem;
         }
         .input-wrap.textarea .icon {
-          top: 1.3rem;
+          top: 1.5rem;
         }
         .input-wrap.textarea.focus .icon,
         .input-wrap.textarea.not-empty .icon {
-          top: 1.3rem;
+          top: 1.5rem;
+        }
+        
+        /* Custom slider styling */
+        input[type="range"]::-webkit-slider-thumb {
+          appearance: none;
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #78428F;
+          cursor: pointer;
+          box-shadow: 0 2px 8px rgba(120, 66, 143, 0.5);
+          transition: all 0.2s;
+        }
+        input[type="range"]::-webkit-slider-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 4px 12px rgba(120, 66, 143, 0.7);
+        }
+        input[type="range"]::-moz-range-thumb {
+          width: 24px;
+          height: 24px;
+          border-radius: 50%;
+          background: #78428F;
+          cursor: pointer;
+          border: none;
+          box-shadow: 0 2px 8px rgba(120, 66, 143, 0.5);
+          transition: all 0.2s;
+        }
+        input[type="range"]::-moz-range-thumb:hover {
+          transform: scale(1.2);
+          box-shadow: 0 4px 12px rgba(120, 66, 143, 0.7);
+        }
+        
+        /* Select arrow styling */
+        select.contact-input {
+          background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24' viewBox='0 0 24 24' fill='none' stroke='%23999' stroke-width='2' stroke-linecap='round' stroke-linejoin='round'%3E%3Cpolyline points='6 9 12 15 18 9'%3E%3C/polyline%3E%3C/svg%3E");
+          background-repeat: no-repeat;
+          background-position: right 1.5rem center;
+          background-size: 1.25rem;
         }
       `}</style>
     </section>

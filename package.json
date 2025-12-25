@@ -8,7 +8,11 @@
     "build": "next build",
     "start": "next start",
     "lint": "eslint",
-    "studio": "sanity dev"
+    "studio": "sanity dev",
+    "backup:production": "npx sanity dataset export production production-backup-$(date +%Y-%m-%d-%H%M%S).tar.gz",
+    "backup:development": "npx sanity dataset export development development-backup-$(date +%Y-%m-%d-%H%M%S).tar.gz",
+    "restore:production": "npx sanity dataset import",
+    "restore:development": "npx sanity dataset import"
   },
   "dependencies": {
     "@headlessui/react": "^2.2.9",
