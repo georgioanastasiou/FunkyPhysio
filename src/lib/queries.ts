@@ -15,6 +15,11 @@ export const getBlogPosts = async (): Promise<BlogPost[]> => {
         alt
       },
       category,
+      categories[]-> {
+        _id,
+        title,
+        slug
+      },
       readTime,
       author-> {
         name,
@@ -46,6 +51,11 @@ export const getBlogPost = async (slug: string): Promise<BlogPost> => {
       },
       body,
       category,
+      categories[]-> {
+        _id,
+        title,
+        slug
+      },
       readTime,
       author-> {
         name,
@@ -55,6 +65,48 @@ export const getBlogPost = async (slug: string): Promise<BlogPost> => {
       seo
     }`,
     { slug }
+  )
+}
+
+// Get all categories
+export const getCategories = async () => {
+  return await client.fetch(
+    `*[_type == "category"] | order(title asc) {
+      _id,
+      title,
+      slug,
+      description
+    }`
+  )
+}
+
+// Get posts by category
+export const getBlogPostsByCategory = async (categoryId: string): Promise<BlogPost[]> => {
+  return await client.fetch(
+    `*[(_type == "post" || _type == "blogPost") && $categoryId in categories[]._ref] | order(publishedAt desc) {
+      _id,
+      _createdAt,
+      title,
+      slug,
+      excerpt,
+      mainImage {
+        asset,
+        alt
+      },
+      category,
+      categories[]-> {
+        _id,
+        title,
+        slug
+      },
+      readTime,
+      author-> {
+        name,
+        image
+      },
+      publishedAt
+    }`,
+    { categoryId }
   )
 }
 

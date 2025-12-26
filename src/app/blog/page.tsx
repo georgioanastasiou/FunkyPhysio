@@ -1,9 +1,7 @@
-import { Calendar, Clock, ArrowRight } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
-import { getBlogPosts } from '@/lib/queries';
-import { urlFor } from '@/lib/sanity';
-import Image from 'next/image';
+import { getBlogPosts, getCategories } from '@/lib/queries';
+import BlogPostsGrid from '@/components/BlogPostsGrid';
 
 export const metadata: Metadata = {
   title: 'Physiotherapy Blog - Health Tips & Advice',
@@ -19,11 +17,12 @@ export const metadata: Metadata = {
   ],
 };
 
-// Remove hardcoded blogPosts array - we'll fetch from Sanity instead
-
 export default async function Blog() {
-  // Fetch blog posts from Sanity
-  const blogPosts = await getBlogPosts();
+  // Fetch blog posts and categories from Sanity
+  const [blogPosts, categories] = await Promise.all([
+    getBlogPosts(),
+    getCategories()
+  ]);
 
   return (
     <div className="min-h-screen">
@@ -46,67 +45,7 @@ export default async function Blog() {
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           {blogPosts.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-              {blogPosts.map((post) => (
-                <article key={post._id} className="bg-white rounded-xl shadow-lg overflow-hidden hover:shadow-xl transition-shadow">
-                  {/* Post Image */}
-                  <div className="h-48 bg-gradient-to-br from-[#D84795]/20 to-[#D84795]/20 relative overflow-hidden">
-                    {post.mainImage?.asset ? (
-                      <Image
-                        src={urlFor(post.mainImage.asset).width(800).height(400).url()}
-                        alt={post.mainImage.alt || post.title}
-                        fill
-                        className="object-cover"
-                      />
-                    ) : (
-                      <div className="flex items-center justify-center h-full">
-                        <span className="text-6xl">📝</span>
-                      </div>
-                    )}
-                  </div>
-                  
-                  <div className="p-6">
-                    <div className="flex items-center space-x-4 text-sm text-gray-500 mb-3">
-                      {post.category && (
-                        <span className="bg-[#D84795]/20 text-[#c43d82] px-2 py-1 rounded-full text-xs font-medium">
-                          {post.category}
-                        </span>
-                      )}
-                      <div className="flex items-center">
-                        <Calendar className="w-4 h-4 mr-1" />
-                        {new Date(post.publishedAt).toLocaleDateString('en-US', {
-                          year: 'numeric',
-                          month: 'long',
-                          day: 'numeric'
-                        })}
-                      </div>
-                      {post.readTime && (
-                        <div className="flex items-center">
-                          <Clock className="w-4 h-4 mr-1" />
-                          {post.readTime}
-                        </div>
-                      )}
-                    </div>
-                    
-                    <h2 className="text-xl font-bold text-gray-900 mb-3 line-clamp-2">
-                      {post.title}
-                    </h2>
-                    
-                    <p className="text-gray-600 mb-4 line-clamp-3">
-                      {post.excerpt}
-                    </p>
-                    
-                    <Link
-                      href={`/blog/${post.slug.current}`}
-                      className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] font-medium"
-                    >
-                      Read More
-                      <ArrowRight className="ml-1 w-4 h-4" />
-                    </Link>
-                  </div>
-                </article>
-              ))}
-            </div>
+            <BlogPostsGrid posts={blogPosts} categories={categories} />
           ) : (
             // No posts yet - show placeholder
             <div className="text-center py-12">
