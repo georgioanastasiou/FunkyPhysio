@@ -1,332 +1,210 @@
-import { Award, Users, Clock, Heart, CheckCircle, Star, MapPin } from 'lucide-react';
+'use client';
+
 import Link from 'next/link';
 import Image from 'next/image';
-import { Metadata } from 'next';
+import { useEffect, useRef } from 'react';
+import gsap from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-export const metadata: Metadata = {
-  title: 'About Funky Fisio - Expert Physiotherapist',
-  description: 'Learn about Funky Fisio\'s physiotherapy expertise, professional journey from Greece to Berlin, and commitment to patient-centered care.',
-  keywords: [
-    'Funky Fisio',
-    'physiotherapist',
-    'Berlin physiotherapy',
-    'Greece physiotherapy',
-    'sports injury rehabilitation',
-    'manual therapy specialist',
-    'physiotherapy experience'
-  ],
-};
+// Register ScrollTrigger plugin
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger);
+}
 
 export default function About() {
-  const timeline = [
+  const timelineLineRef = useRef<HTMLDivElement>(null);
+  const timelineSectionRef = useRef<HTMLElement>(null);
+
+  const timelineSteps = [
     {
-      year: '2023 - Present',
-      title: 'Independent Practice',
-      location: 'Current Location',
-      description: 'Established independent physiotherapy practice, providing personalized care and specialized treatments.',
-      icon: '🏥'
+      image: '/basketball/DSC_0079.jpg',
+      imageAlt: 'George playing professional basketball',
+      title: 'Pro basketball player',
+      subtitle: 'Injuries & Challenges',
+      description: 'Playing professional basketball taught me resilience and the importance of proper body mechanics. Through experiencing injuries, surgeries, and rehabilitation firsthand, I developed a deep understanding of what athletes and active individuals go through during recovery.',
+      side: 'left'
     },
     {
-      year: '2020 - 2023',
-      title: 'Senior Physiotherapist',
-      location: 'Berlin Charlottenburg Physiotherapy',
-      description: 'Worked as a senior physiotherapist in one of Berlin\'s leading physiotherapy clinics, specializing in sports injuries and post-surgical rehabilitation.',
-      icon: '🇩🇪'
+      image: '/basketball/DSC_0114.jpg',
+      imageAlt: 'Sports Science studies',
+      title: 'Sports Science',
+      subtitle: 'Academic Foundation',
+      description: 'Pursued Sports Science to understand the body holistically—how everything connects rather than treating each part separately. This foundation gave me the scientific knowledge to approach movement and recovery systematically.',
+      side: 'right'
     },
     {
-      year: '2018 - 2020',
-      title: 'Freelance Physiotherapist',
-      location: 'Greece',
-      description: 'Provided freelance physiotherapy services across Greece, gaining diverse experience in various treatment modalities and patient populations.',
-      icon: '🇬🇷'
+      image: '/basketball/DSC_0231.jpg',
+      imageAlt: 'Physiotherapy studies',
+      title: 'Physiotherapy',
+      subtitle: 'Professional Training',
+      description: 'Combined my athletic experience with professional physiotherapy training. Learning evidence-based practices and manual therapy techniques to help others move without pain and achieve their goals.',
+      side: 'left'
+    },
+    {
+      image: '/basketball/DSC_0676.jpg',
+      imageAlt: 'Working in Berlin',
+      title: 'Berlin Practice',
+      subtitle: 'Professional Growth',
+      description: 'Gained diverse experience working in Berlin, treating a wide range of patients from athletes to office workers. Developed my approach to patient-centered care and learned the importance of education in the healing process.',
+      side: 'right'
+    },
+    {
+      image: '/basketball/DSC_0079.jpg',
+      imageAlt: 'Barcelona studio',
+      title: 'Barcelona Studio',
+      subtitle: 'Current Practice',
+      description: 'Now running my own practice in Barcelona, combining athlete mindset, scientific knowledge, and genuine care. Creating a space where movement becomes enjoyable, healing, and empowering.',
+      side: 'left'
     }
   ];
 
-  const values = [
-    {
-      icon: <Heart className="w-8 h-8 text-red-500" />,
-      title: 'Patient-Centered Care',
-      description: 'Every treatment plan is tailored to your unique needs, goals, and lifestyle.'
-    },
-    {
-      icon: <Award className="w-8 h-8 text-[#D84795]" />,
-      title: 'Evidence-Based Practice',
-      description: 'My treatments are grounded in the latest research and clinical evidence.'
-    },
-    {
-      icon: <Users className="w-8 h-8 text-green-500" />,
-      title: 'Collaborative Approach',
-      description: 'I work closely with you, your family, and other healthcare providers.'
-    },
-    {
-      icon: <Clock className="w-8 h-8 text-purple-500" />,
-      title: 'Continuous Learning',
-      description: 'I stay current with the latest techniques and treatment modalities.'
+  useEffect(() => {
+    if (timelineLineRef.current && timelineSectionRef.current) {
+      // Animate the timeline line from 0 to full height based on scroll
+      gsap.fromTo(
+        timelineLineRef.current,
+        {
+          height: '0%',
+        },
+        {
+          height: '100%',
+          ease: 'none',
+          scrollTrigger: {
+            trigger: timelineSectionRef.current,
+            start: 'top center',
+            end: 'bottom bottom',
+            scrub: 0.5,
+            markers: false, // Set to true for debugging
+          },
+        }
+      );
     }
-  ];
+
+    // Cleanup
+    return () => {
+      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
+    };
+  }, []);
 
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-white-900 mb-6">
-              About George Anastasiou
-            </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              From professional basketball to physiotherapy—combining athlete mindset, 
-              scientific knowledge, and genuine care to help you move without pain.
-            </p>
-          </div>
+    <div className="min-h-screen bg-white">
+      {/* Hero Section with Wavy Banner */}
+      <section className="relative h-[350px] md:h-[400px] overflow-hidden">
+        {/* Wavy SVG Background */}
+        <svg 
+          className="absolute inset-0 w-full h-full" 
+          viewBox="0 0 1443 618" 
+          fill="none"
+          preserveAspectRatio="none"
+          xmlns="http://www.w3.org/2000/svg"
+        >
+          <path 
+            d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z" 
+            fill="#A4A2AD"
+          />
+        </svg>
+        
+        {/* Hero Content */}
+        <div className="relative z-10 flex items-center justify-center h-full">
+          <h1 className="text-4xl md:text-5xl font-semibold text-black text-center px-4">
+            Meet George Anastasiou
+          </h1>
         </div>
       </section>
 
-      {/* Personal Story */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center mb-16">
-            {/* Journey Text - Left */}
-            <div>
-              <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-6">About Me</h2>
-              <div className="space-y-6 text-lg text-gray-700 leading-relaxed">
-                <p>
-                  Hi, I&apos;m George Anastasiou. My journey into physiotherapy started on the basketball 
-                  court—I&apos;ve been playing since I was a kid and eventually competed at a professional level. 
-                  But it was through my own injuries and physical challenges that I became deeply curious about 
-                  what happens inside our bodies. That curiosity led me to study Sports Science and Physiotherapy, 
-                  because I wanted to see the body holistically—how everything connects instead of treating each 
-                  part separately.
-                </p>
-                <p>
-                  Today, I combine the mindset of an athlete, the knowledge of a physiotherapist, and the 
-                  curiosity of a scientist. My approach is simple, clear, and science-based, focused on helping 
-                  people move without pain. I believe in educating people, making them understand their body, 
-                  and giving them practical tools they can use in everyday life. As a new parent, I also understand 
-                  how busy life can be and how important small, meaningful habits are. I value honesty, continuous 
-                  learning, and genuine care—these principles guide everything I do.
-                </p>
-                <p>
-                  My goal is simple: to create a space where movement becomes enjoyable, healing, and empowering. 
-                  Whether you&apos;re recovering from an injury, managing chronic pain, or just wanting to move 
-                  better, I&apos;m here to help you understand your body and give you the tools to feel your best.
-                </p>
-              </div>
-              
-              <div className="flex flex-col sm:flex-row gap-4 mt-8">
-                <Link
-                  href="/services"
-                  className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
-                >
-                  My Services
-                </Link>
-                <Link
-                  href="/contact"
-                  className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#D84795] text-[#D84795] font-semibold rounded-lg hover:bg-[#D84795]/10 transition-colors"
-                >
-                  Contact Me
-                </Link>
-              </div>
+      {/* Timeline Section */}
+      <section ref={timelineSectionRef} className="timeline-section py-20 relative bg-white">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
+          <div className="space-y-32 relative">
+            {/* Vertical timeline line - Animated with GSAP */}
+            <div 
+              className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block" 
+              style={{
+                top: '275px',
+                height: `calc(100% - 550px)`
+              }}
+            >
+              {/* Animated line (purple dotted) - animates with GSAP */}
+              <div 
+                ref={timelineLineRef}
+                className="absolute left-0 w-0.5 top-0" 
+                style={{
+                  height: 0,
+                  backgroundImage: 'repeating-linear-gradient(0deg, #78428F 0px, #78428F 8px, transparent 8px, transparent 16px)',
+                  willChange: 'height'
+                }}
+              ></div>
             </div>
 
-            {/* Basketball Photo - Right */}
-            <div className="relative">
-              <div className="relative overflow-hidden rounded-2xl shadow-2xl aspect-[4/4] lg:aspect-[2/3]">
-                <Image
-                  src="/basketball/DSC_0079.jpg"
-                  alt="Basketball journey - Professional athlete"
-                  fill
-                  className="object-cover"
-                />
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
+            {timelineSteps.map((step, index) => (
+              <div key={index} className="relative timeline-item">
+                {/* Timeline dot */}
+                <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white rounded-full border-2 border-[#78428F] z-10 hidden lg:flex items-center justify-center" style={{
+                  top: '275px' // Center of 550px image
+                }}>
+                  <div className="w-2 h-2 bg-[#78428F] rounded-full"></div>
+                </div>
 
-      {/* Professional Timeline */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">Professional Timeline</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              My journey in physiotherapy, from Greece to Berlin and beyond.
-            </p>
-          </div>
-
-          <div className="relative">
-            {/* Timeline line */}
-            <div className="absolute left-1/2 transform -translate-x-1/2 w-1 h-full bg-[#D84795]/30"></div>
-            
-            <div className="space-y-12">
-              {timeline.map((item, index) => (
-                <div key={index} className={`flex items-center ${index % 2 === 0 ? 'flex-row' : 'flex-row-reverse'}`}>
-                  <div className={`w-1/2 ${index % 2 === 0 ? 'pr-8 text-right' : 'pl-8 text-left'}`}>
-                    <div className="bg-white rounded-xl shadow-lg p-6">
-                      <div className="flex items-center mb-4">
-                        <span className="text-2xl mr-3">{item.icon}</span>
-                        <div>
-                          <h3 className="text-xl font-semibold text-gray-900">{item.title}</h3>
-                          <p className="text-[#D84795] font-medium">{item.year}</p>
-                        </div>
-                      </div>
-                      <div className="flex items-center text-sm text-gray-600 mb-3">
-                        <MapPin className="w-4 h-4 mr-2" />
-                        {item.location}
-                      </div>
-                      <p className="text-gray-600">{item.description}</p>
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
+                  step.side === 'right' ? 'lg:flex-row-reverse' : ''
+                }`}>
+                  {/* Image */}
+                  <div className={`${step.side === 'right' ? 'lg:order-2 lg:pl-8' : 'lg:pr-8'}`}>
+                    <div className="timeline-image relative w-full h-[550px] bg-[#D9D9D9] rounded-[20px] overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
+                      <Image
+                        src={step.image}
+                        alt={step.imageAlt}
+                        fill
+                        className="object-cover transition-transform duration-500 hover:scale-110"
+                      />
                     </div>
                   </div>
-                  
-                  {/* Timeline dot */}
-                  <div className="absolute left-1/2 transform -translate-x-1/2 w-4 h-4 bg-[#D84795] rounded-full border-4 border-white shadow-lg"></div>
-                  
-                  <div className="w-1/2"></div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </div>
-      </section>
 
-      {/* My Values */}
-      <section className="py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">My Values</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              The principles that guide my approach to physiotherapy and patient care.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
-            {values.map((value, index) => (
-              <div key={index} className="text-center">
-                <div className="w-16 h-16 bg-gray-50 rounded-full flex items-center justify-center mx-auto mb-4 shadow-lg">
-                  {value.icon}
+                  {/* Content */}
+                  <div className={`${step.side === 'right' ? 'lg:order-1 lg:pr-8' : 'lg:pl-8'}`}>
+                    <div className="space-y-1">
+                      <h2 className="text-1xl font-medium text-black leading-[51.20px]">
+                        {step.title}
+                      </h2>
+                      <h3 className="text-2xl font-medium text-[#78428F] leading-[51.20px]">
+                        {step.subtitle}
+                      </h3>
+                      <p className="text-base font-normal text-black leading-6">
+                        {step.description}
+                      </p>
+                    </div>
+                  </div>
                 </div>
-                <h3 className="text-xl font-semibold text-gray-900 mb-3">{value.title}</h3>
-                <p className="text-gray-600">{value.description}</p>
               </div>
             ))}
           </div>
         </div>
       </section>
 
-      {/* Specializations */}
-      <section className="py-20 bg-gray-50">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-4">My Specializations</h2>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
-              Areas of expertise developed through years of practice and continuous learning.
-            </p>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <div className="w-16 h-16 bg-[#D84795]/20 rounded-full flex items-center justify-center mb-6">
-                <Award className="w-8 h-8 text-[#D84795]" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Sports Injury Rehabilitation</h3>
-              <p className="text-gray-600 mb-4">
-                Specialized training in treating athletes and active individuals, with experience 
-                from Berlin&apos;s sports-focused clinics.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  ACL Reconstruction Recovery
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Rotator Cuff Injuries
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Ankle Sprains & Strains
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <div className="w-16 h-16 bg-green-100 rounded-full flex items-center justify-center mb-6">
-                <Heart className="w-8 h-8 text-green-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Manual Therapy</h3>
-              <p className="text-gray-600 mb-4">
-                Hands-on techniques refined through years of practice, combining traditional 
-                methods with modern approaches.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Joint Mobilization
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Soft Tissue Massage
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Trigger Point Therapy
-                </li>
-              </ul>
-            </div>
-
-            <div className="bg-white rounded-xl shadow-lg p-8">
-              <div className="w-16 h-16 bg-purple-100 rounded-full flex items-center justify-center mb-6">
-                <Star className="w-8 h-8 text-purple-600" />
-              </div>
-              <h3 className="text-xl font-semibold text-gray-900 mb-4">Post-Surgical Recovery</h3>
-              <p className="text-gray-600 mb-4">
-                Comprehensive rehabilitation programs for patients recovering from various 
-                surgical procedures.
-              </p>
-              <ul className="space-y-2">
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Joint Replacement Therapy
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Spinal Surgery Recovery
-                </li>
-                <li className="flex items-center text-sm text-gray-600">
-                  <CheckCircle className="w-4 h-4 text-green-500 mr-2" />
-                  Soft Tissue Repair
-                </li>
-              </ul>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* CTA Section */}
-      <section className="py-20 bg-[#D84795]">
+      {/* WhatsApp CTA with Footer Background */}
+      <section className="relative bg-[#78428F] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
-            Ready to Start Your Recovery Journey?
+          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+            Ready to Start Your Journey?
           </h2>
-          <p className="text-xl text-white/90 mb-8 max-w-3xl mx-auto">
-            Book your consultation today and experience personalized physiotherapy care.
+          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+            Book your consultation today and experience personalized physiotherapy care tailored to your needs.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center">
-            <Link
-              href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#D84795] font-semibold rounded-lg hover:bg-gray-50 transition-colors"
-            >
-              Book Consultation
-            </Link>
-            <Link
-              href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#D84795] transition-colors"
-            >
-              View Services
-            </Link>
-          </div>
+          <Link
+            href="/contact"
+            className="inline-flex items-center justify-center px-12 py-5 bg-white text-[#78428F] font-bold text-lg rounded-lg hover:bg-white/90 transition-colors shadow-xl hover:scale-105 transform duration-300"
+          >
+            Book Appointment
+          </Link>
         </div>
       </section>
+
+      {/* Inline styles for animations */}
+      <style jsx>{`
+        :global(.timeline-image:hover) {
+          cursor: pointer;
+        }
+      `}</style>
     </div>
   );
 }

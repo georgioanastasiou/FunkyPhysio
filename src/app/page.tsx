@@ -21,7 +21,7 @@ export default function Home() {
   return (
     <>
       {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center">
+      <section className="relative h-screen overflow-hidden flex items-center justify-center bg-black">
         {/* Video Background */}
         <video
           ref={videoRef}
@@ -35,9 +35,6 @@ export default function Home() {
           <source src="/hero-video.mp4" type="video/mp4" />
           Your browser does not support the video tag.
         </video>
-        
-        {/* Dark Overlay */}
-        <div className="absolute inset-0 bg-opacity-40 z-10"></div>
         
         {/* Centered Content */}
         <div className="relative z-20 text-center px-4">
@@ -67,17 +64,19 @@ export default function Home() {
           </Link>
         </div>
 
-        {/* Wavy Bottom Border */}
-        <div className="absolute bottom-0 left-0 w-full z-10">
+        {/* Wavy Transition at Bottom of Hero */}
+        <div className="absolute bottom-0 left-0 w-full z-10" style={{ transform: 'translateY(1px)' }}>
           <svg
-            viewBox="0 0 1440 120"
+            width="1442"
+            height="101"
+            viewBox="0 0 1442 101"
             fill="none"
             xmlns="http://www.w3.org/2000/svg"
-            className="w-full h-20 md:h-32 lg:h-40"
+            className="w-full block"
             preserveAspectRatio="none"
           >
             <path
-              d="M0,64L48,69.3C96,75,192,85,288,80C384,75,480,53,576,48C672,43,768,53,864,58.7C960,64,1056,64,1152,58.7C1248,53,1344,43,1392,37.3L1440,32L1440,120L1392,120C1344,120,1248,120,1152,120C1056,120,960,120,864,120C768,120,672,120,576,120C480,120,384,120,288,120C192,120,96,120,48,120L0,120Z"
+              d="M0 0C50.0042 106.18 243.242 93.9596 659.915 30.7419C1087.51 -34.1338 1352.6 37.0078 1442 100.304H721.5H1L0 0Z"
               fill="white"
             />
           </svg>
@@ -85,7 +84,7 @@ export default function Home() {
       </section>
 
       {/* What We Do Section */}
-      <section className="py-10 bg-white pb-[100px]">
+      <section className="pt-24 pb-[100px] bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
           <div className="text-left mb-8">
             <h2 className="font-poppins text-h2 text-gray-900 mb-4">
@@ -227,7 +226,7 @@ export default function Home() {
               </div>
               
               <div className="mt-8">
-                <button className="bg-[#78428F] text-white font-semibold py-4 px-12 rounded-2xl hover:bg-[#7a4f84] transition-colors text-lg">
+                <button className="bg-[#78428F] text-white font-semibold py-4 px-12 rounded-xl hover:bg-[#7a4f84] transition-colors text-lg">
                   Learn More
                 </button>
               </div>
