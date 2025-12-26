@@ -2,6 +2,8 @@
 
 import { useState, useEffect, useRef } from 'react';
 import { MessageSquare } from 'lucide-react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { faUser, faEnvelope, faPhone } from '@fortawesome/free-solid-svg-icons';
 import Image from 'next/image';
 
 export default function ContactForm() {
@@ -66,10 +68,24 @@ export default function ContactForm() {
 
   return (
     <section className="min-h-screen bg-white overflow-hidden">
-      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen">
-        {/* Left Side - Contact Form */}
-        <div className="flex items-center justify-center px-4 sm:px-8 md:px-12 lg:px-16 xl:px-24 py-8 sm:py-12 lg:py-0 relative z-10">
-          <div className="w-full max-w-lg ml-0 sm:ml-0 md:ml-0 lg:ml-16 xl:ml-32">
+      <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen gap-4">
+        {/* Left Side - Image */}
+        <div className="relative hidden lg:flex items-center justify-end overflow-hidden pr-8">
+          <div className="relative w-[576px] h-[554px] rounded-[20px] overflow-hidden">
+            <Image
+              src="/contact-image.png"
+              alt="Contact Image"
+              fill
+              className="object-cover"
+              priority
+              quality={100}
+            />
+          </div>
+        </div>
+
+        {/* Right Side - Contact Form */}
+        <div className="flex items-center justify-start px-4 sm:px-8 md:px-12 lg:pl-8 lg:pr-16 xl:pr-24 py-8 sm:py-12 lg:py-0 relative z-10">
+          <div className="w-full max-w-lg">
             <div className="mb-8 sm:mb-12">
               <h1 className="font-poppins text-3xl sm:text-4xl lg:text-5xl text-gray-900 leading-tight mb-4 font-bold">
                 Let&apos;s work together<span className="text-[#78428F]">.</span>
@@ -96,9 +112,7 @@ export default function ContactForm() {
                   <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
                     First Name
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 6c0-1.66-1.34-3-3-3S8 7.34 8 9s1.34 3 3 3 3-1.34 3-3zm-6 6c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H8v-1z"/>
-                  </svg>
+                  <FontAwesomeIcon icon={faUser} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
                 </div>
 
                 {/* Last Name */}
@@ -116,9 +130,7 @@ export default function ContactForm() {
                   <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
                     Last Name
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M19 3H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2V5c0-1.1-.9-2-2-2zm-5 6c0-1.66-1.34-3-3-3S8 7.34 8 9s1.34 3 3 3 3-1.34 3-3zm-6 6c0-2 4-3.1 6-3.1s6 1.1 6 3.1v1H8v-1z"/>
-                  </svg>
+                  <FontAwesomeIcon icon={faUser} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
                 </div>
               </div>
 
@@ -138,9 +150,7 @@ export default function ContactForm() {
                   <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
                     Email
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z"/>
-                  </svg>
+                  <FontAwesomeIcon icon={faEnvelope} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
                 </div>
 
                 {/* Phone */}
@@ -158,9 +168,7 @@ export default function ContactForm() {
                   <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
                     Phone
                   </label>
-                  <svg className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" fill="currentColor" viewBox="0 0 24 24">
-                    <path d="M20.01 15.38c-1.23 0-2.42-.2-3.53-.56-.35-.12-.74-.03-1.01.24l-1.57 1.97c-2.83-1.35-5.48-3.9-6.89-6.83l1.95-1.66c.27-.28.35-.67.24-1.02-.37-1.11-.56-2.3-.56-3.53 0-.54-.45-.99-.99-.99H4.19C3.65 3 3 3.24 3 3.99 3 13.28 10.73 21 20.01 21c.71 0 .99-.63.99-1.18v-3.45c0-.54-.44-.99-.99-.99z"/>
-                  </svg>
+                  <FontAwesomeIcon icon={faPhone} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
                 </div>
               </div>
 
@@ -189,58 +197,6 @@ export default function ContactForm() {
                 Send Message
               </button>
             </form>
-          </div>
-        </div>
-
-        {/* Right Side - Image */}
-        <div className="relative hidden lg:block overflow-hidden">
-          {/* Mountain Image wrapper */}
-          <div className="absolute inset-0 overflow-hidden">
-            <Image
-              src="/contact-image2.png"
-              alt="Contact Image"
-              fill
-              className="object-cover"
-              priority
-              quality={100}
-              sizes="(min-width: 1024px) 50vw, 100vw"
-            />
-            
-            {/* Wave Wrap */}
-            <div className="absolute inset-0 right-full bg-white">
-              <svg 
-                className="absolute h-[calc(110%+100px)] top-2/2 transform -translate-y-3/5 left-[calc(1%-50px)]" 
-                viewBox="0 150 783 1650" 
-                fill="none" 
-                xmlns="http://www.w3.org/2000/svg"
-                preserveAspectRatio="none"
-              >
-                <path 
-                  id="wave"
-                  d="M236 1320 C180 1420 80 1460 30 1500 C10 1520 5 1530 1 1535 V1 H770 C795 70 790 200 620 235 C410 280 280 340 455 575 C630 810 505 825 345 950 C190 1070 285 1195 236 1320 Z" 
-                  fill="white"
-                />
-              </svg>
-            </div>
-            
-            {/* Dashed Wave - matching the solid wave path */}
-            <svg 
-              className="absolute z-30 h-[calc(110%+100px)] top-2/2 transform -translate-y-3/5 left-[-100px]" 
-              viewBox="0 150 783 1500" 
-              fill="none" 
-              xmlns="http://www.w3.org/2000/svg"
-              preserveAspectRatio="none"
-            >
-              <path 
-                id="dashed-wave"
-                d="M770 200 C790 200 620 235 620 235 C410 280 280 340 455 575 C630 810 505 825 345 950 C190 1070 285 1195 236 1320" 
-                fill="none"
-                stroke="#c4d1e0"
-                strokeWidth="2"
-                strokeDasharray="8 8"
-                opacity="0.6"
-              />
-            </svg>
           </div>
         </div>
       </div>
