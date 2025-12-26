@@ -151,17 +151,16 @@ export default function Home() {
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
             {/* Physiotherapy Card */}
             <div className="w-full max-w-[384px] h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="relative h-48 overflow-hidden">
-                <div 
-                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
-                  style={{ 
-                    backgroundImage: 'url("/physiotherapy.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+              <div className="relative h-48 overflow-hidden rounded-t-[20px]">
+                <Image
+                  src="/physiotherapy.png"
+                  alt="Physiotherapy"
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute bottom-4 left-6 md:left-10">
-                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight">
+                <div className="absolute bottom-4 left-6 md:left-10 z-10">
+                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight drop-shadow-lg">
                     Physiotherapy
                   </h3>
                 </div>
@@ -180,17 +179,16 @@ export default function Home() {
 
             {/* Massage Card */}
             <div className="w-full max-w-[384px] h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="relative h-48 overflow-hidden">
-                <div 
-                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
-                  style={{ 
-                    backgroundImage: 'url("/massage.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+              <div className="relative h-48 overflow-hidden rounded-t-[20px]">
+                <Image
+                  src="/massage.png"
+                  alt="Massage"
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute bottom-4 left-6 md:left-10">
-                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight">
+                <div className="absolute bottom-4 left-6 md:left-10 z-10">
+                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight drop-shadow-lg">
                     Massage
                   </h3>
                 </div>
@@ -209,17 +207,16 @@ export default function Home() {
 
             {/* Therapeutic Training Card */}
             <div className="w-full max-w-[384px] h-[470px] bg-white rounded-[20px] shadow-[0px_4px_14.899999618530273px_0px_rgba(0,0,0,0.25)] overflow-hidden hover:shadow-xl transition-shadow">
-              <div className="relative h-48 overflow-hidden">
-                <div 
-                  className="absolute inset-0 rounded-t-xl transition-transform duration-300 hover:scale-110"
-                  style={{ 
-                    backgroundImage: 'url("/therapeutic-training.png")',
-                    backgroundSize: 'cover',
-                    backgroundPosition: 'center'
-                  }}
+              <div className="relative h-48 overflow-hidden rounded-t-[20px]">
+                <Image
+                  src="/therapeutic-training.png"
+                  alt="Therapeutic Training"
+                  fill
+                  className="object-cover transition-transform duration-300 hover:scale-110"
+                  sizes="(max-width: 768px) 100vw, (max-width: 1024px) 50vw, 33vw"
                 />
-                <div className="absolute bottom-4 left-6 md:left-10">
-                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight">
+                <div className="absolute bottom-4 left-6 md:left-10 z-10">
+                  <h3 className="font-figtree text-2xl md:text-3xl font-semibold text-white leading-tight drop-shadow-lg">
                     Therapeutic Training
                   </h3>
                 </div>
