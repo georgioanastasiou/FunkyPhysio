@@ -4,6 +4,7 @@ import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
+import SmoothScroll from '@/components/SmoothScroll';
 
 const inter = Inter({ subsets: ['latin'] });
 const museoModerno = MuseoModerno({ 
@@ -91,7 +92,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en" className="scroll-smooth">
+    <html lang="en">
       <head>
         <link rel="icon" href="/icon.png" type="image/png" />
         <link rel="shortcut icon" href="/icon.png" type="image/png" />
@@ -133,6 +134,7 @@ export default function RootLayout({
       </head>
       <body className={`${inter.className} ${museoModerno.variable} antialiased`}>
         <ServiceWorkerCleanup />
+        <SmoothScroll />
         <div className="min-h-screen flex flex-col">
           <Navbar />
           <main className="flex-grow">
