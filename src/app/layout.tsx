@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 import SmoothScroll from '@/components/SmoothScroll';
+import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
 const museoModerno = MuseoModerno({ 
@@ -133,6 +134,20 @@ export default function RootLayout({
         />
       </head>
       <body className={`${inter.className} ${museoModerno.variable} antialiased`}>
+        {/* Google Analytics */}
+        <Script
+          src="https://www.googletagmanager.com/gtag/js?id=G-4VVBW0BEVL"
+          strategy="afterInteractive"
+        />
+        <Script id="google-analytics" strategy="afterInteractive">
+          {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-4VVBW0BEVL');
+          `}
+        </Script>
+
         <ServiceWorkerCleanup />
         <SmoothScroll />
         <div className="min-h-screen flex flex-col">

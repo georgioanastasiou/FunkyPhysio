@@ -170,7 +170,7 @@ export default function About() {
                     <div className="space-y-4">
                       {/* Year Badge */}
                       <div className="inline-block mb-4">
-                        <span className="px-4 py-2 bg-white text-[#78428F] font-semibold rounded-full text-sm border-2 border-[#78428F] shadow-md">
+                        <span className="px-4 py-2 bg-white text-[#78428F] font-semibold rounded-full text-sm border-2 border-[#78428F]">
                           {step.year}
                         </span>
                       </div>
