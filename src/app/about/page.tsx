@@ -17,6 +17,7 @@ export default function About() {
 
   const timelineSteps = [
     {
+      year: '2018',
       image: '/basketball/DSC_0079.jpg',
       imageAlt: 'George playing professional basketball',
       title: 'Pro basketball player',
@@ -25,6 +26,7 @@ export default function About() {
       side: 'left'
     },
     {
+      year: '2020',
       image: '/basketball/DSC_0114.jpg',
       imageAlt: 'Sports Science studies',
       title: 'Sports Science',
@@ -33,6 +35,7 @@ export default function About() {
       side: 'right'
     },
     {
+      year: '2022',
       image: '/basketball/DSC_0231.jpg',
       imageAlt: 'Physiotherapy studies',
       title: 'Physiotherapy',
@@ -41,6 +44,7 @@ export default function About() {
       side: 'left'
     },
     {
+      year: '2024',
       image: '/basketball/DSC_0676.jpg',
       imageAlt: 'Working in Berlin',
       title: 'Berlin Practice',
@@ -49,6 +53,7 @@ export default function About() {
       side: 'right'
     },
     {
+      year: '2026',
       image: '/basketball/DSC_0079.jpg',
       imageAlt: 'Barcelona studio',
       title: 'Barcelona Studio',
@@ -162,14 +167,21 @@ export default function About() {
 
                   {/* Content */}
                   <div className={`${step.side === 'right' ? 'lg:order-1 lg:pr-8' : 'lg:pl-8'}`}>
-                    <div className="space-y-1">
-                      <h2 className="text-1xl font-medium text-black leading-[51.20px]">
+                    <div className="space-y-4">
+                      {/* Year Badge */}
+                      <div className="inline-block mb-4">
+                        <span className="px-4 py-2 bg-white text-[#78428F] font-semibold rounded-full text-sm border-2 border-[#78428F] shadow-md">
+                          {step.year}
+                        </span>
+                      </div>
+                      
+                      <h2 className="text-4xl font-semibold text-black leading-tight">
                         {step.title}
                       </h2>
-                      <h3 className="text-2xl font-medium text-[#78428F] leading-[51.20px]">
+                      <h3 className="text-2xl font-medium text-[#78428F] leading-tight">
                         {step.subtitle}
                       </h3>
-                      <p className="text-base font-normal text-black leading-6">
+                      <p className="text-base font-normal text-gray-700 leading-relaxed">
                         {step.description}
                       </p>
                     </div>

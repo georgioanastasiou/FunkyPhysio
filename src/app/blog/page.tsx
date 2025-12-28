@@ -94,13 +94,13 @@ export default function Blog() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
+      <section className="bg-gradient-to-br from-[#78428F] to-[#D84795] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 drop-shadow-lg">
               Physiotherapy Blog
             </h1>
-            <p className="text-xl text-gray-600 max-w-3xl mx-auto">
+            <p className="text-xl text-white/95 max-w-3xl mx-auto leading-relaxed">
               Expert advice, health tips, and wellness guidance to help you maintain 
               optimal physical health and prevent common injuries.
             </p>
@@ -118,12 +118,12 @@ export default function Blog() {
       </section>
 
       {/* Newsletter Signup */}
-      <section className="py-20 bg-[#D84795]">
+      <section className="py-20 bg-gradient-to-br from-[#78428F] via-[#8B5A9E] to-[#A06BB0]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4">
+          <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">
             Stay Updated with Health Tips
           </h2>
-          <p className="text-xl text-white/90 mb-8">
+          <p className="text-xl text-white/95 mb-8">
             Get the latest physiotherapy advice and health tips delivered to your inbox.
           </p>
           <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
@@ -132,7 +132,7 @@ export default function Blog() {
               placeholder="Enter your email"
               className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none"
             />
-            <button className="px-6 py-3 bg-white text-[#D84795] font-semibold rounded-lg hover:bg-gray-50 transition-colors">
+            <button className="px-6 py-3 bg-white text-[#78428F] font-semibold rounded-lg hover:bg-gray-50 transition-colors shadow-lg">
               Subscribe
             </button>
           </div>

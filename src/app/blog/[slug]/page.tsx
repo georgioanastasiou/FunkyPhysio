@@ -42,19 +42,19 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
   return (
     <div className="min-h-screen">
       {/* Article Header */}
-      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
+      <section className="bg-gradient-to-br from-[#78428F] via-[#8B5A9E] to-[#A06BB0] py-20">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <Link 
             href="/blog" 
-            className="inline-flex items-center text-[#D84795] hover:text-[#c43d82] mb-6"
+            className="inline-flex items-center text-white/90 hover:text-white mb-6 transition-colors"
           >
             <ArrowLeft className="w-4 h-4 mr-2" />
             Back to Blog
           </Link>
           
-          <div className="flex items-center space-x-4 text-sm text-gray-600 mb-6">
+          <div className="flex items-center space-x-4 text-sm text-white/80 mb-6">
             {post.category && (
-              <span className="bg-[#D84795]/20 text-[#c43d82] px-3 py-1 rounded-full text-xs font-medium">
+              <span className="bg-white/20 backdrop-blur-sm text-white px-3 py-1 rounded-full text-xs font-medium border border-white/30">
                 {post.category}
               </span>
             )}
@@ -74,12 +74,12 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             )}
           </div>
           
-          <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
+          <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 drop-shadow-lg">
             {post.title}
           </h1>
           
           {post.excerpt && (
-            <p className="text-xl text-gray-700 leading-relaxed">
+            <p className="text-xl text-white/95 leading-relaxed">
               {post.excerpt}
             </p>
           )}
@@ -90,7 +90,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       {post.mainImage?.asset && (
         <section className="py-8 bg-white">
           <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
-            <div className="relative w-full h-[400px] rounded-xl overflow-hidden">
+            <div className="relative w-full h-[400px] rounded-xl overflow-hidden shadow-xl">
               <Image
                 src={urlFor(post.mainImage.asset).width(1200).height(600).url()}
                 alt={post.mainImage.alt || post.title}
@@ -107,14 +107,15 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <article className="py-12 bg-white">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="prose prose-lg max-w-none 
-            [&_h1]:text-gray-600 
-            [&_h2]:text-gray-600 
-            [&_h3]:text-gray-600 
-            [&_h4]:text-gray-600 
-            [&_p]:text-gray-600 
-            [&_li]:text-gray-600 
-            [&_strong]:text-gray-600
-            [&_a]:text-[#D84795] [&_a]:no-underline hover:[&_a]:underline">
+            [&_h1]:text-[#78428F] [&_h1]:font-bold
+            [&_h2]:text-[#78428F] [&_h2]:font-semibold
+            [&_h3]:text-[#8B5A9E] [&_h3]:font-semibold
+            [&_h4]:text-gray-800 [&_h4]:font-medium
+            [&_p]:text-gray-700 [&_p]:leading-relaxed
+            [&_li]:text-gray-700 
+            [&_strong]:text-gray-900 [&_strong]:font-semibold
+            [&_a]:text-[#D84795] [&_a]:no-underline hover:[&_a]:underline hover:[&_a]:text-[#c43d82]
+            [&_blockquote]:border-l-4 [&_blockquote]:border-[#78428F] [&_blockquote]:text-gray-700">
             {post.body && <PortableText value={post.body} />}
           </div>
 
@@ -123,7 +124,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             <div className="mt-12 pt-8 border-t border-gray-200">
               <div className="flex items-center space-x-4">
                 {post.author.image?.asset && (
-                  <div className="relative w-16 h-16 rounded-full overflow-hidden">
+                  <div className="relative w-16 h-16 rounded-full overflow-hidden ring-2 ring-[#78428F]/20">
                     <Image
                       src={urlFor(post.author.image.asset).width(64).height(64).url()}
                       alt={post.author.name}
@@ -134,7 +135,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 )}
                 <div>
                   <p className="text-sm text-gray-500">Written by</p>
-                  <p className="text-lg font-semibold text-gray-900">{post.author.name}</p>
+                  <p className="text-lg font-semibold text-[#78428F]">{post.author.name}</p>
                 </div>
               </div>
             </div>
@@ -143,7 +144,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       </article>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#D84795]">
+      <section className="py-20 bg-gradient-to-br from-[#78428F] to-[#D84795]">
         <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl font-bold text-white mb-4">
             Need Professional Help?
@@ -154,13 +155,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
           <div className="flex flex-col sm:flex-row gap-4 justify-center">
             <Link
               href="/contact"
-              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#D84795] font-semibold rounded-lg hover:bg-gray-50 transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 bg-white text-[#78428F] font-semibold rounded-lg hover:bg-gray-50 transition-colors shadow-lg"
             >
               Book Consultation
             </Link>
             <Link
               href="/services"
-              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#D84795] transition-colors"
+              className="inline-flex items-center justify-center px-8 py-4 border-2 border-white text-white font-semibold rounded-lg hover:bg-white hover:text-[#78428F] transition-colors"
             >
               View Services
             </Link>
