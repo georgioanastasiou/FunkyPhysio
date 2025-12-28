@@ -4,198 +4,316 @@
 **Project Name**: FunkyPhysio - George Anastasiou Physiotherapy Website  
 **Repository**: https://github.com/georgioanastasiou/FunkyPhysio.git  
 **Technology Stack**: Next.js 15, TypeScript, Tailwind CSS, Sanity CMS  
-**Last Updated**: December 18, 2025
+**Last Updated**: December 28, 2025
 
-## 🎨 Typography System
-### Font Hierarchy Implemented:
-- **H2**: Poppins 48px Semibold
-- **H3**: Figtree 24px Semibold  
-- **H4**: Figtree 18px Medium
-- **Body Text**: Figtree 16px Regular
 
-### Font Configuration:
-- Fonts loaded via Google Fonts in `globals.css`
-- Custom Tailwind classes: `text-h2`, `text-h3`, `text-h4`, `text-body`
-- Font families: `font-poppins`, `font-figtree`, `font-museo-moderno`
-
-## 🎨 Color Palette
-### Primary Colors:
-- **Purple**: `#8B5A96` (buttons, accents)
-- **Blue**: `#1A7BF0` (contact form highlights)
-- **Pink**: `#D84795` (CTA buttons, testimonials play buttons)
-- **Dark Purple**: `#331d3d` (testimonials background)
-
-## 📁 Important File Locations
-
-### Images & Media:
-- **Logo**: `/public/logo.png`
-- **Hero Video**: `/public/hero-video.mp4` ⚠️ (76.89MB - exceeds GitHub limit)
-- **Contact Image**: `/public/contact-image.png`
-- **Service Images**: 
-  - `/public/physiotherapy.png`
-  - `/public/massage.png` 
-  - `/public/therapeutic-training.png`
-- **Basketball Photos**: `/public/basketball/DSC_0079.jpg` (used in "Meet George" section)
-
-### Key Components:
-- **Homepage**: `/src/app/page.tsx`
-- **Contact Form**: `/src/app/contact/page.tsx`
-- **Navigation**: `/src/components/Navbar.tsx`
-- **Footer**: `/src/components/Footer.tsx`
-
-## 🏠 Homepage Sections
-
-### 1. Hero Section
-- Full-screen video background (`/public/hero-video.mp4`)
-- Logo and title overlay
-- Custom wavy bottom border using SVG from `Group 5223.svg`
-
-### 2. What We Do Section
-- 3 service cards with image overlays
-- Purple tint overlay (70% opacity #3A306F)
-- Services: Physiotherapy, Massage, Therapeutic Training
-
-### 3. Meet George Anastasiou Section
-- Side-by-side layout
-- Basketball photo on left
-- Bio content on right
-- Purple "Learn More" button
-
-### 4. Services Overview Section
-- 3-column grid layout
-- Sports Injury, Post-Surgical Recovery, Chronic Pain Management
-- Icons and bullet points
-
-### 5. Testimonials Section
-- Dark purple background (`#331d3d`)
-- Custom wave borders (top and bottom)
-- 4 testimonial cards with placeholder images
-- Pink play buttons (decorative, no functionality)
-
-## 📧 Contact Form Features
-
-### Form Fields:
-- First Name & Last Name (side by side)
-- Email & Phone (side by side)
-- Message (full width)
-- Single purple "Send Message" button
-
-### Styling Features:
-- Floating labels with animation
-- Focus states with blue highlights
-- Custom wave overlay on right side
-- Mountain image background
-- Decorative dashed wave SVG
-
-### Form Functionality:
-- React state management
-- Input focus/blur animations
-- Form validation (required fields)
-- Console logging on submit (ready for backend integration)
-
-## ⚠️ Important Issues & Recommendations
-
-### 1. Large File Warning
-- **Issue**: `hero-video.mp4` is 76.89MB (exceeds GitHub's 50MB limit)
-- **Solutions**:
-  - Compress video to reduce file size
-  - Use Git LFS (Large File Storage)
-  - Host video on CDN (Cloudinary, AWS S3, etc.)
-
-### 2. Contact Image Format
-- **Note**: Originally had `contact-image.pdf` 
-- **Solution**: Converted to PNG format
-- **Current**: Using `/public/contact-image.png`
-
-### 3. Video Optimization
-- **Current**: Videos removed from testimonials for performance
-- **Future**: Add lightweight video testimonials when ready
-- **Alternative**: Consider using optimized video formats (WebM, MP4 with smaller bitrate)
-
-## 🚀 Deployment Considerations
-
-### Environment Setup:
-- Ensure all environment variables are set
-- Configure Sanity CMS credentials
-- Set up domain and SSL certificates
-
-### Performance Optimizations Needed:
-- [ ] Optimize hero video size
-- [ ] Implement lazy loading for images
-- [ ] Add video compression pipeline
-- [ ] Set up CDN for media files
-
-### SEO & Accessibility:
-- [ ] Add meta descriptions
-- [ ] Implement structured data
-- [ ] Add alt text for all images
-- [ ] Test keyboard navigation
-- [ ] Validate color contrast ratios
-
-## 🛠️ Development Setup
-
-### Required Dependencies:
-- Next.js 15
-- TypeScript
-- Tailwind CSS
-- Lucide React (for icons)
-- Sanity CMS
-
-### Custom Fonts:
-```css
-@import url('https://fonts.googleapis.com/css2?family=Poppins:wght@600&family=Figtree:wght@400;500;600&display=swap');
-```
-
-### Key Configuration Files:
-- `tailwind.config.ts` - Custom typography and font classes
-- `globals.css` - Typography hierarchy and font imports
-- `layout.tsx` - Favicon and meta configuration
-
-## 📱 Responsive Design Notes
-
-### Breakpoints Used:
-- Mobile: Default (320px+)
-- Tablet: `md:` (768px+)
-- Desktop: `lg:` (1024px+)
-
-### Mobile Considerations:
-- Hero video responsive sizing
-- Contact form stacks vertically on mobile
-- Testimonials grid collapses to single column
-- Service cards stack on smaller screens
 
 ## 🎯 Future Enhancements
 
 ### High Priority:
-1. **Backend Integration**: Connect contact form to email service
-2. **Video Optimization**: Compress and optimize hero video
-3. **Content Management**: Set up Sanity CMS for easy content updates
-4. **Performance**: Implement image optimization and lazy loading
+1. **Backend Integration**: Connect contact form to email service (Resend/SendGrid)
+2. **Analytics**: Implement Google Analytics or Plausible
+3. **Real Testimonials**: Replace placeholder testimonials with real patient videos
 
-### Medium Priority:
-1. **Blog System**: Complete blog functionality with Sanity
-2. **Booking System**: Add appointment booking capability
-3. **Testimonial Videos**: Add real patient testimonial videos
-4. **Analytics**: Implement Google Analytics or similar
-
-### Low Priority:
-1. **Animations**: Add subtle scroll animations
-2. **Dark Mode**: Consider dark mode toggle
+### Planned Features:
+1. **Customer Authentication & Dashboard** - See detailed plan below
+2. **Booking System**: Calendar integration (Calendly/Cal.com)
 3. **Multi-language**: Add Greek language support
-4. **PWA**: Make the site a Progressive Web App
+4. **Newsletter**: Email subscription system
 
-## 📞 Contact Information
-- **Email**: g.anastasiou.dev@gmail.com
-- **GitHub**: https://github.com/georgioanastasiou/FunkyPhysio
-- **Project Type**: Professional Physiotherapy Website
+## 💳 FUTURE: Program Sales & Customer Authentication System
 
-## 🔗 Useful Links
-- [Next.js Documentation](https://nextjs.org/docs)
-- [Tailwind CSS Documentation](https://tailwindcss.com/docs)
-- [Sanity CMS Documentation](https://www.sanity.io/docs)
-- [Git LFS Documentation](https://git-lfs.github.com/)
+### Overview
+Add full authentication and customer dashboard for selling exercise programs with Stripe integration.
+
+### Implementation Plan:
+
+#### 1. **Authentication System** (NextAuth.js)
+**Dependencies to install:**
+```bash
+npm install next-auth@latest @auth/prisma-adapter prisma @prisma/client bcryptjs
+npm install -D @types/bcryptjs
+```
+
+**Features:**
+- Email/Password authentication
+- Google OAuth (optional)
+- Session management
+- Protected routes
+
+#### 2. **Database Setup** (Prisma + PostgreSQL/MongoDB)
+**What to store:**
+- User accounts (email, password hash, name)
+- Purchased programs (user_id, program_id, purchase_date)
+- Program access (which programs user owns)
+- Stripe payment records
+
+**Prisma Schema Example:**
+```prisma
+model User {
+  id            String    @id @default(cuid())
+  name          String?
+  email         String?   @unique
+  password      String
+  emailVerified DateTime?
+  image         String?
+  accounts      Account[]
+  sessions      Session[]
+  purchases     Purchase[]
+  createdAt     DateTime  @default(now())
+  updatedAt     DateTime  @updatedAt
+}
+
+model Purchase {
+  id              String   @id @default(cuid())
+  userId          String
+  programId       String
+  stripePaymentId String   @unique
+  amount          Int
+  purchaseDate    DateTime @default(now())
+  user            User     @relation(fields: [userId], references: [id])
+}
+```
+
+#### 3. **Customer Flow**
+```
+Step 1: Browse Programs (No login needed)
+  ↓
+Step 2: Click "Buy Now" 
+  ↓
+Step 3: Check if logged in
+  - Not logged in → Redirect to /auth/signup or /auth/login
+  - Already logged in → Proceed to checkout
+  ↓
+Step 4: Stripe Checkout (existing)
+  ↓
+Step 5: After successful payment:
+  - Save purchase to database (user_id + program_id)
+  - Send confirmation email
+  - Redirect to /dashboard
+  ↓
+Step 6: Customer Dashboard
+  - View purchased programs
+  - Access program content (videos, PDFs, exercises)
+  - Download resources
+  - Track progress
+```
+
+#### 4. **Pages to Create**
+
+**Authentication Pages:**
+- `/auth/login` - Login form
+- `/auth/signup` - Registration form
+- `/auth/forgot-password` - Password reset
+
+**Customer Pages:**
+- `/dashboard` - Main customer dashboard
+- `/dashboard/programs` - List of purchased programs
+- `/dashboard/programs/[id]` - Individual program content
+- `/dashboard/settings` - Account settings
+- `/dashboard/billing` - Payment history
+
+#### 5. **Components to Create**
+
+```
+/src/components/auth/
+  - LoginForm.tsx
+  - SignupForm.tsx
+  - ProtectedRoute.tsx
+  - AuthProvider.tsx
+
+/src/components/dashboard/
+  - DashboardLayout.tsx
+  - ProgramCard.tsx
+  - ProgramContent.tsx (videos, exercises, PDFs)
+  - ProgressTracker.tsx
+  - BillingHistory.tsx
+```
+
+#### 6. **API Routes to Create**
+
+```
+/src/app/api/auth/
+  - [...nextauth]/route.ts (NextAuth configuration)
+  - register/route.ts (user registration)
+  
+/src/app/api/
+  - purchases/route.ts (get user purchases)
+  - programs/[id]/route.ts (get program content)
+  - webhook/route.ts (Stripe webhook to save purchases)
+```
+
+#### 7. **Stripe Webhook Integration**
+**Purpose:** After successful payment, Stripe sends webhook to save purchase
+
+**Implementation:**
+```typescript
+// /src/app/api/webhook/route.ts
+// Listen for 'checkout.session.completed' event
+// Extract user_id and program_id from metadata
+// Save purchase to database
+// Send confirmation email
+```
+
+#### 8. **Environment Variables Needed**
+
+```env
+# Authentication
+NEXTAUTH_URL=http://localhost:3000
+NEXTAUTH_SECRET=your-secret-key
+
+# Database (choose one)
+DATABASE_URL=postgresql://user:password@localhost:5432/funkyphysio
+# OR
+DATABASE_URL=mongodb+srv://username:password@cluster.mongodb.net/funkyphysio
+
+# Email Service (for confirmations)
+SMTP_HOST=smtp.gmail.com
+SMTP_PORT=587
+SMTP_USER=your-email@gmail.com
+SMTP_PASSWORD=your-app-password
+
+# Stripe (already have these)
+NEXT_PUBLIC_STRIPE_PUBLISHABLE_KEY=pk_test_...
+STRIPE_SECRET_KEY=sk_test_...
+STRIPE_WEBHOOK_SECRET=whsec_...
+```
+
+#### 9. **Program Content Storage Options**
+
+**Option A: Sanity CMS** (Recommended - already using)
+- Store program videos in Sanity
+- Store exercise descriptions
+- Store downloadable PDFs
+- Easy content management
+
+**Option B: AWS S3 / Cloudflare R2**
+- Store large video files
+- Generate signed URLs for access
+- More cost-effective for large files
+
+**Option C: Hybrid**
+- Metadata in Sanity
+- Large files in S3/R2
+- Best of both worlds
+
+#### 10. **Security Considerations**
+
+**Must Implement:**
+- ✅ Password hashing (bcrypt)
+- ✅ Protected API routes (check authentication)
+- ✅ Secure session management
+- ✅ CSRF protection (NextAuth handles this)
+- ✅ Rate limiting on auth endpoints
+- ✅ Email verification (optional but recommended)
+- ✅ Stripe webhook signature verification
+
+**Content Protection:**
+- ✅ Check user owns program before showing content
+- ✅ Use signed URLs for video/PDF downloads
+- ✅ Implement video DRM (optional, for high-value content)
+- ✅ Watermark PDFs with user email (prevents sharing)
+
+#### 11. **Email Notifications**
+
+**When to send:**
+- Account creation (welcome email)
+- Purchase confirmation (with receipt)
+- Program access instructions
+- Password reset
+- Payment failed/declined
+
+**Email Service Options:**
+- SendGrid (free tier: 100 emails/day)
+- Resend (modern, developer-friendly)
+- AWS SES (cost-effective for high volume)
+- Postmark (reliable, good deliverability)
+
+#### 12. **User Experience Enhancements**
+
+**Dashboard Features:**
+```typescript
+// Example dashboard sections:
+- "My Programs" - Grid of purchased programs
+- "Recently Accessed" - Quick access to programs
+- "Progress Tracking" - Mark exercises as complete
+- "Recommendations" - Suggest related programs
+- "Support" - Contact form for program questions
+```
+
+**Program Content Features:**
+```typescript
+// Example program page:
+- Video player with progress tracking
+- Exercise list with checkboxes
+- Downloadable PDF workout sheets
+- Notes section (user can add personal notes)
+- FAQ section
+- Email support button
+```
+
+#### 13. **Testing Checklist**
+
+**Before Launch:**
+- [ ] Test signup/login flow
+- [ ] Test password reset
+- [ ] Test Stripe checkout
+- [ ] Test webhook (purchase saving)
+- [ ] Test program access after purchase
+- [ ] Test protected routes (can't access without login)
+- [ ] Test email notifications
+- [ ] Test on mobile devices
+- [ ] Load test with multiple concurrent users
+
+#### 14. **Estimated Implementation Time**
+
+**Phase 1: Basic Auth (1-2 days)**
+- NextAuth.js setup
+- Login/signup pages
+- Database setup
+
+**Phase 2: Purchase Integration (1 day)**
+- Stripe webhook
+- Save purchases to database
+
+**Phase 3: Dashboard (2-3 days)**
+- Dashboard layout
+- Display purchased programs
+- Program content pages
+
+**Phase 4: Content Management (1-2 days)**
+- Upload program content to Sanity
+- Video player integration
+- PDF download system
+
+**Phase 5: Testing & Polish (1-2 days)**
+- Email notifications
+- Bug fixes
+- Mobile optimization
+
+**Total: ~1-2 weeks** (depending on complexity and features)
+
+#### 15. **Revenue Optimization Ideas**
+
+**Upsell Opportunities:**
+- Bundle programs (buy 3, get 1 free)
+- Subscription model (access all programs for monthly fee)
+- Add consultation calls (program + 1 video call)
+- Progress coaching (paid accountability partner)
+
+**Marketing Integration:**
+- Abandoned cart emails (if they don't complete purchase)
+- Re-engagement emails (come back and buy more programs)
+- Referral system (give friends 10% off, you get $10)
+- Affiliate program (trainers promote your programs)
 
 ---
 
-**Last Updated**: December 18, 2025  
-**Status**: Ready for deployment with minor optimizations needed
+**Status**: Implementation planned for future development  
+**Priority**: Medium-High (revenue-generating feature)  
+**Dependencies**: Stripe integration ✅ (already complete)
+
+---
+
+**Last Updated**: December 28, 2025  
+**Status**: Production-ready. All performance optimizations complete. Authentication system planned for future implementation.
