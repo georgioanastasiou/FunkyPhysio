@@ -46,11 +46,11 @@ export const metadata: Metadata = {
   },
   icons: {
     icon: [
-      { url: '/favicon.ico', type: 'image/x-icon' },
-      { url: '/logo.png', type: 'image/png' },
+      { url: '/favicon.ico', sizes: 'any' },
+      { url: '/icon.png', type: 'image/png', sizes: '192x192' },
     ],
     apple: [
-      { url: '/logo.png' },
+      { url: '/icon.png', sizes: '180x180', type: 'image/png' },
     ],
     shortcut: '/favicon.ico',
   },
@@ -63,7 +63,7 @@ export const metadata: Metadata = {
     siteName: 'Funky Physio',
     images: [
       {
-        url: '/og-image.jpg',
+        url: '/logo.png',
         width: 1200,
         height: 630,
         alt: 'Funky Physio - Professional Physiotherapy Services',
@@ -128,7 +128,8 @@ export default function RootLayout({
                 "Chronic Pain Management",
                 "Manual Therapy",
                 "Exercise Prescription"
-              ]
+              ],
+              "logo": "https://www.funkyphysio.com/logo.png"
             })
           }}
         />
