@@ -5,6 +5,7 @@ import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
 import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 import SmoothScroll from '@/components/SmoothScroll';
+import WhatsAppButton from '@/components/WhatsAppButton';
 import Script from 'next/script';
 
 const inter = Inter({ subsets: ['latin'] });
@@ -158,6 +159,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
+        <WhatsAppButton phone="4915731384994" bgStyle="gradient" />
       </body>
     </html>
   );
