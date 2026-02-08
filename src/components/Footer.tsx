@@ -91,11 +91,11 @@ export default function Footer() {
               </div>
               <div className="flex items-center">
                 <Phone className="w-5 h-5 text-[#D84795] mr-3 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">+1 (555) 123-4567</p>
+                <p className="text-gray-300 text-sm">+34 675 335 798</p>
               </div>
               <div className="flex items-center">
                 <Mail className="w-5 h-5 text-[#D84795] mr-3 flex-shrink-0" />
-                <p className="text-gray-300 text-sm">info@funkyPhysio.com</p>
+                <p className="text-gray-300 text-sm">george@funkyphysio.com</p>
               </div>
               <div className="flex items-start">
                 <Clock className="w-5 h-5 text-[#D84795] mt-0.5 mr-3 flex-shrink-0" />

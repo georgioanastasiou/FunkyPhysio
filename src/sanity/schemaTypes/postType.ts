@@ -9,22 +9,29 @@ export const postType = defineType({
   fields: [
     defineField({
       name: 'title',
+      title: 'Title',
       type: 'string',
+      validation: Rule => Rule.required()
     }),
     defineField({
       name: 'slug',
+      title: 'Slug',
       type: 'slug',
       options: {
         source: 'title',
       },
+      validation: Rule => Rule.required()
     }),
     defineField({
       name: 'author',
+      title: 'Author',
       type: 'reference',
       to: {type: 'author'},
+      validation: Rule => Rule.required()
     }),
     defineField({
       name: 'mainImage',
+      title: 'Main Image',
       type: 'image',
       options: {
         hotspot: true,
@@ -38,36 +45,51 @@ export const postType = defineType({
       ]
     }),
     defineField({
-      name: 'categories',
-      type: 'array',
-      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
-    }),
-    defineField({
-      name: 'publishedAt',
-      type: 'datetime',
-    }),
-    defineField({
-      name: 'body',
-      type: 'blockContent',
-    }),
-    defineField({
       name: 'excerpt',
       title: 'Excerpt',
       type: 'text',
-      description: 'Short description for blog listing page',
-      validation: Rule => Rule.max(200)
+      description: 'Short description for blog listing page (max 200 characters)',
+      rows: 3,
+      validation: Rule => Rule.max(200).required()
+    }),
+    defineField({
+      name: 'body',
+      title: 'Body',
+      type: 'blockContent',
+      validation: Rule => Rule.required()
     }),
     defineField({
       name: 'category',
       title: 'Category',
       type: 'string',
-      description: 'Blog post category (e.g., Workplace Health, Home Exercises)'
+      description: 'Blog post category',
+      options: {
+        list: [
+          {title: 'Workplace Health', value: 'workplace-health'},
+          {title: 'Home Exercises', value: 'home-exercises'},
+          {title: 'Sports Injury', value: 'sports-injury'},
+          {title: 'Pain Management', value: 'pain-management'},
+          {title: 'Recovery Tips', value: 'recovery-tips'}
+        ]
+      }
+    }),
+    defineField({
+      name: 'categories',
+      title: 'Categories (Multiple)',
+      type: 'array',
+      of: [defineArrayMember({type: 'reference', to: {type: 'category'}})],
     }),
     defineField({
       name: 'readTime',
       title: 'Read Time',
       type: 'string',
-      description: 'Estimated read time (e.g., "5 min read")'
+      description: 'Estimated read time (e.g., "5 min read")',
+      placeholder: '5 min read'
+    }),
+    defineField({
+      name: 'publishedAt',
+      title: 'Published At',
+      type: 'datetime',
     }),
   ],
   preview: {

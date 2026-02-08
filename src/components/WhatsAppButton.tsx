@@ -63,8 +63,6 @@ export default function WhatsAppButton({
     }
   };
 
-  const isDarkBg = bgStyle === "dark" || bgStyle === "gradient" || bgStyle === "funky";
-
   return (
     <>
       {/* Chat Popup */}

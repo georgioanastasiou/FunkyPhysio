@@ -91,7 +91,7 @@ export default function ContactForm() {
                 Let&apos;s work together<span className="text-[#78428F]">.</span>
               </h1>
               <p className="font-figtree text-sm sm:text-base text-gray-500">
-                Or reach me via: <a href="mailto:g.anastasiou.dev@gmail.com" className="text-[#78428F] hover:text-[#7a4f84] transition-colors">g.anastasiou.dev@gmail.com</a>
+                Or reach me via: <a href="mailto:george@funkyphysio.com" className="text-[#78428F] hover:text-[#7a4f84] transition-colors">george@funkyphysio.com</a>
               </p>
             </div>
 

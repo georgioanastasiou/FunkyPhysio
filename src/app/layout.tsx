@@ -108,8 +108,8 @@ export default function RootLayout({
               "name": "Funky Physio Physiotherapy",
               "description": "Professional physiotherapy services by Funky Physio. Expert care for sports injury rehabilitation, post-surgical recovery, chronic pain management, and manual therapy.",
               "url": "https://www.funkyphysio.com",
-              "telephone": "+1-555-123-4567",
-              "email": "info@funkyphysio.com",
+              "telephone": "+34675335798",
+              "email": "george@funkyphysio.com",
               "address": {
                 "@type": "PostalAddress",
                 "streetAddress": "123 Health Street",
@@ -159,7 +159,7 @@ export default function RootLayout({
           </main>
           <Footer />
         </div>
-        <WhatsAppButton phone="4915731384994" bgStyle="gradient" />
+        <WhatsAppButton phone="34675335798" bgStyle="gradient" />
       </body>
     </html>
   );
