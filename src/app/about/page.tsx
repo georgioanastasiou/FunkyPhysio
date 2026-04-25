@@ -29,7 +29,7 @@ export default function About() {
       year: '2020',
       image: '/basketball/DSC_0114.jpg',
       imageAlt: 'Sports Science studies',
-      title: 'Sports Science',
+      title: 'BSc Sports Science',
       subtitle: 'Academic Foundation',
       description: 'Pursued Sports Science to understand the body holistically—how everything connects rather than treating each part separately. This foundation gave me the scientific knowledge to approach movement and recovery systematically.',
       side: 'right'
@@ -38,7 +38,7 @@ export default function About() {
       year: '2022',
       image: '/basketball/DSC_0231.jpg',
       imageAlt: 'Physiotherapy studies',
-      title: 'Physiotherapy',
+      title: 'BSc Physiotherapy',
       subtitle: 'Professional Training',
       description: 'Combined my athletic experience with professional physiotherapy training. Learning evidence-based practices and manual therapy techniques to help others move without pain and achieve their goals.',
       side: 'left'
@@ -105,7 +105,7 @@ export default function About() {
         >
           <path 
             d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z" 
-            fill="#A4A2AD"
+            fill="#A4A9"
           />
         </svg>
         
