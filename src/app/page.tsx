@@ -186,7 +186,7 @@ export default function Home() {
       {/* Meet George Anastasiou Section */}
       <section className="relative bg-white">
         {/* Layout: image on left edge, text on right */}
-        <div className="flex flex-col lg:flex-row min-h-[700px]">
+        <div className="flex flex-col lg:flex-row min-h-[950px]">
           {/* Left Side - Image stretches full height to left edge */}
           <div className="relative w-full lg:w-1/2 h-[400px] lg:h-auto">
             <Image
@@ -233,8 +233,8 @@ export default function Home() {
           </svg>
         </div>
 
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-24 pb-80">
-          <div className="text-center mb-10">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-36 pb-40">
+          <div className="text-center mb-20">
             <h2 className="text-fuchsia-800 text-xl font-medium font-poppins uppercase leading-8 tracking-[6.40px] mb-4">Real People, Real Results</h2>
           </div>
 
