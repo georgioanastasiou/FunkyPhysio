@@ -7,6 +7,7 @@ import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 import SmoothScroll from '@/components/SmoothScroll';
 import WhatsAppButton from '@/components/WhatsAppButton';
 import Script from 'next/script';
+import { SpeedInsights } from '@vercel/speed-insights/next';
 
 const inter = Inter({ subsets: ['latin'] });
 const museoModerno = MuseoModerno({ 
@@ -160,6 +161,7 @@ export default function RootLayout({
           <Footer />
         </div>
         <WhatsAppButton phone="34675335798" bgStyle="gradient" />
+        <SpeedInsights />
       </body>
     </html>
   );
