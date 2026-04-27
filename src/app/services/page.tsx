@@ -4,7 +4,7 @@ import { Metadata } from 'next';
 
 export const metadata: Metadata = {
   title: 'Physiotherapy Services Barcelona - Sports Injury, Rehabilitation & More | Funky Physio',
-  description: 'Physiotherapy services in Barcelona — sports injury rehabilitation, post-surgical recovery, chronic pain, massage and manual therapy. Expert fisioterapeuta in Barcelona.'),
+  description: 'Physiotherapy services in Barcelona — sports injury rehabilitation, post-surgical recovery, chronic pain, massage and manual therapy. Expert fisioterapeuta in Barcelona.',
   keywords: [
     'physiotherapy services Barcelona',
     'fisioterapia Barcelona',
