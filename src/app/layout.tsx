@@ -18,21 +18,25 @@ const museoModerno = MuseoModerno({
 
 export const metadata: Metadata = {
   title: {
-    default: 'Funky Physio - Professional Physiotherapy Services',
+    default: 'Funky Physio - Physiotherapist in Barcelona | Fisioterapeuta Barcelona',
     template: '%s | Funky Physio'
   },
-  description: 'Expert physiotherapy for sports injuries, chronic pain, and post-surgical recovery. Personalized treatment plans to get you moving pain-free.',
+  description: 'Expert physiotherapy in Barcelona for sports injuries, chronic pain, and post-surgical recovery. Fisioterapeuta en Barcelona — personalized treatment plans to get you moving pain-free.',
   keywords: [
-    'physiotherapy',
-    'physical therapy',
+    'physiotherapy Barcelona',
+    'fisioterapeuta Barcelona',
+    'fisioterapia Barcelona',
+    'fisioterapia deportiva Barcelona',
+    'sports physio Barcelona',
+    'physiotherapist Barcelona',
+    'masaje deportivo Barcelona',
+    'rehabilitacion Barcelona',
     'sports injury rehabilitation',
     'post-surgical recovery',
     'chronic pain management',
     'manual therapy',
-    'exercise prescription',
-    'rehabilitation',
-    'physical health',
-    'wellness'
+    'Funky Physio',
+    'George Anastasiou physiotherapist',
   ],
   authors: [{ name: 'Funky Physio' }],
   creator: 'Funky Physio',
@@ -61,7 +65,7 @@ export const metadata: Metadata = {
     locale: 'en_US',
     url: 'https://funkyphysio.com',
     title: 'Funky Physio - Professional Physiotherapy Services',
-    description: 'Expert physiotherapy for sports injuries, chronic pain, and post-surgical recovery. Personalized treatment plans to get you moving pain-free.',
+    description: 'Expert physiotherapy in Barcelona for sports injuries, chronic pain, and post-surgical recovery. Fisioterapeuta en Barcelona — personalized treatment plans to get you moving pain-free.',
     siteName: 'Funky Physio',
     images: [
       {
@@ -113,11 +117,9 @@ export default function RootLayout({
               "email": "george@funkyphysio.com",
               "address": {
                 "@type": "PostalAddress",
-                "streetAddress": "123 Health Street",
-                "addressLocality": "Medical District",
-                "addressRegion": "NY",
-                "postalCode": "10001",
-                "addressCountry": "ESP"
+                "addressLocality": "Barcelona",
+                "addressRegion": "Catalonia",
+                "addressCountry": "ES"
               },
               "openingHours": [
                 "Mo-Fr 08:00-18:00",

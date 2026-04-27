@@ -3,17 +3,19 @@ import Link from 'next/link';
 import { Metadata } from 'next';
 
 export const metadata: Metadata = {
-  title: 'Physiotherapy Services - Sports Injury, Post-Surgical Recovery & More',
-  description: 'Comprehensive physiotherapy services including sports injury rehabilitation, post-surgical recovery, chronic pain management, manual therapy, and exercise prescription. Expert care for all your rehabilitation needs.',
+  title: 'Physiotherapy Services Barcelona - Sports Injury, Rehabilitation & More | Funky Physio',
+  description: 'Physiotherapy services in Barcelona — sports injury rehabilitation, post-surgical recovery, chronic pain, massage and manual therapy. Expert fisioterapeuta in Barcelona.'),
   keywords: [
-    'physiotherapy services',
-    'sports injury rehabilitation',
-    'post-surgical recovery',
-    'chronic pain management',
-    'manual therapy',
-    'exercise prescription',
-    'physical therapy services',
-    'rehabilitation programs'
+    'physiotherapy services Barcelona',
+    'fisioterapia Barcelona',
+    'sports injury rehabilitation Barcelona',
+    'post-surgical recovery Barcelona',
+    'chronic pain management Barcelona',
+    'masaje deportivo Barcelona',
+    'manual therapy Barcelona',
+    'exercise prescription Barcelona',
+    'fisioterapeuta deportivo Barcelona',
+    'rehabilitation Barcelona'
   ],
 };
 
@@ -32,7 +34,7 @@ export default function Services() {
         'Concussion Management'
       ],
       duration: '6-12 weeks',
-      price: 'From $120/session'
+      price: 'From EUR 60/session'
     },
     {
       title: 'Post-Surgical Recovery',
@@ -47,7 +49,7 @@ export default function Services() {
         'Arthroscopic Surgery Recovery'
       ],
       duration: '8-16 weeks',
-      price: 'From $130/session'
+      price: 'From EUR 60/session'
     },
     {
       title: 'Chronic Pain Management',
@@ -62,7 +64,7 @@ export default function Services() {
         'Sciatica Treatment'
       ],
       duration: '4-8 weeks',
-      price: 'From $110/session'
+      price: 'From EUR 60/session'
     },
     {
       title: 'Manual Therapy',
@@ -77,7 +79,7 @@ export default function Services() {
         'Visceral Manipulation'
       ],
       duration: '4-6 weeks',
-      price: 'From $100/session'
+      price: 'From EUR 60/session'
     },
     {
       title: 'Exercise Prescription',
@@ -92,7 +94,7 @@ export default function Services() {
         'Sport-Specific Conditioning'
       ],
       duration: '6-12 weeks',
-      price: 'From $90/session'
+      price: 'From EUR 60/session'
     },
     {
       title: 'Pediatric Physiotherapy',
@@ -107,7 +109,7 @@ export default function Services() {
         'Genetic Condition Support'
       ],
       duration: 'Varies',
-      price: 'From $100/session'
+      price: 'From EUR 60/session'
     }
   ];
 
