@@ -97,7 +97,7 @@ export default function Home() {
           {/* Logo */}
           <div className="mb-4 md:mb-6 flex justify-center">
             <Image
-              src="/logo.png"
+              src="/logo1.png"
               alt="Funky Physio Logo"
               width={120}
               height={120}

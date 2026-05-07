@@ -10,7 +10,7 @@ export default function Footer() {
           <div className="space-y-4">
             <div className="flex items-center">
               <Image
-                src="/logo.png"
+                src="/logo1.png"
                 alt="Funky Physio Logo"
                 width={50}
                 height={50}
