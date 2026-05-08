@@ -87,10 +87,10 @@ export default function ContactForm() {
         <div className="flex items-center justify-start px-4 sm:px-8 md:px-12 lg:pl-8 lg:pr-16 xl:pr-24 py-8 sm:py-12 lg:py-0 relative z-10">
           <div className="w-full max-w-lg">
             <div className="mb-8 sm:mb-12">
-              <h1 className="font-poppins text-3xl sm:text-4xl lg:text-5xl text-gray-900 leading-tight mb-4 font-bold">
+              <h1 className="font-syne text-3xl sm:text-4xl lg:text-5xl text-gray-900 leading-tight mb-4 font-bold">
                 Let&apos;s work together<span className="text-[#78428F]">.</span>
               </h1>
-              <p className="font-figtree text-sm sm:text-base text-gray-500">
+              <p className="font-syne text-sm sm:text-base text-gray-500">
                 Or reach me via: <a href="mailto:george@funkyphysio.com" className="text-[#78428F] hover:text-[#7a4f84] transition-colors">george@funkyphysio.com</a>
               </p>
             </div>
@@ -101,7 +101,7 @@ export default function ContactForm() {
                 <div className="input-wrap relative">
                   <input
                     ref={el => { inputRefs.current[0] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-syne text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
                     autoComplete="off"
                     name="firstName"
                     type="text"
@@ -109,7 +109,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-syne text-sm sm:text-base">
                     First Name
                   </label>
                   <FontAwesomeIcon icon={faUser} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
@@ -119,7 +119,7 @@ export default function ContactForm() {
                 <div className="input-wrap relative">
                   <input
                     ref={el => { inputRefs.current[1] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-syne text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
                     autoComplete="off"
                     name="lastName"
                     type="text"
@@ -127,7 +127,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-syne text-sm sm:text-base">
                     Last Name
                   </label>
                   <FontAwesomeIcon icon={faUser} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
@@ -139,7 +139,7 @@ export default function ContactForm() {
                 <div className="input-wrap relative">
                   <input
                     ref={el => { inputRefs.current[2] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-syne text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
                     autoComplete="off"
                     name="email"
                     type="email"
@@ -147,7 +147,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-syne text-sm sm:text-base">
                     Email
                   </label>
                   <FontAwesomeIcon icon={faEnvelope} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
@@ -157,7 +157,7 @@ export default function ContactForm() {
                 <div className="input-wrap relative">
                   <input
                     ref={el => { inputRefs.current[3] = el; }}
-                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                    className="contact-input w-full bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-syne text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
                     autoComplete="off"
                     name="phone"
                     type="tel"
@@ -165,7 +165,7 @@ export default function ContactForm() {
                     onChange={handleChange}
                     required
                   />
-                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
+                  <label className="absolute top-1/2 left-[calc(1.35rem+2px)] transform -translate-y-1/2 text-[#8c9aaf] pointer-events-none transition-all duration-250 font-syne text-sm sm:text-base">
                     Phone
                   </label>
                   <FontAwesomeIcon icon={faPhone} className="icon absolute right-[calc(1.35rem+2px)] top-1/2 transform -translate-y-1/2 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
@@ -176,14 +176,14 @@ export default function ContactForm() {
               <div className="input-wrap textarea relative">
                 <textarea
                   ref={el => { inputRefs.current[4] = el; }}
-                  className="contact-input w-full min-h-[120px] sm:min-h-[150px] resize-none bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-figtree text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
+                  className="contact-input w-full min-h-[120px] sm:min-h-[150px] resize-none bg-[hsla(208,50%,50%,0.065)] border-2 border-transparent rounded-[20px] px-[1.35rem] pt-6 pb-3 font-syne text-sm sm:text-base font-semibold text-gray-900 outline-none transition-all duration-300 focus:bg-white focus:border-[#78428F] focus:shadow-[0_0_0_0px_hsla(208,91%,55%,0.11%)]"
                   name="message"
                   autoComplete="off"
                   value={formData.message}
                   onChange={handleChange}
                   required
                 />
-                <label className="absolute top-5 left-[calc(1.35rem+2px)] text-[#8c9aaf] pointer-events-none transition-all duration-250 font-figtree text-sm sm:text-base">
+                <label className="absolute top-5 left-[calc(1.35rem+2px)] text-[#8c9aaf] pointer-events-none transition-all duration-250 font-syne text-sm sm:text-base">
                   Message
                 </label>
                 <MessageSquare className="icon absolute right-[calc(1.35rem+2px)] top-5 pointer-events-none text-[#8c9aaf] w-5 h-5 transition-colors duration-300" />
@@ -192,7 +192,7 @@ export default function ContactForm() {
               {/* Send Message Button */}
               <button
                 type="submit"
-                className="w-full bg-[#78428F] text-white font-medium py-3 sm:py-[1.1rem] px-6 sm:px-8 rounded-[40px] border-none font-figtree text-sm sm:text-base transition-colors duration-300 hover:bg-[#7a4f84] flex items-center justify-center gap-2"
+                className="w-full bg-[#78428F] text-white font-medium py-3 sm:py-[1.1rem] px-6 sm:px-8 rounded-[40px] border-none font-syne text-sm sm:text-base transition-colors duration-300 hover:bg-[#7a4f84] flex items-center justify-center gap-2"
               >
                 Send Message
               </button>

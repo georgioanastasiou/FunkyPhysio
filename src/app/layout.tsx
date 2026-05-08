@@ -1,5 +1,5 @@
 import type { Metadata } from 'next';
-import { Inter, MuseoModerno } from 'next/font/google';
+import { Syne, MuseoModerno } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
 import Footer from '@/components/Footer';
@@ -9,7 +9,7 @@ import WhatsAppButton from '@/components/WhatsAppButton';
 import Script from 'next/script';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
-const inter = Inter({ subsets: ['latin'] });
+const syne = Syne({ subsets: ['latin'], weight: ['400', '500', '600', '700', '800'] });
 const museoModerno = MuseoModerno({ 
   subsets: ['latin'],
   weight: ['400', '500', '600', '700'],
@@ -53,11 +53,11 @@ export const metadata: Metadata = {
   icons: {
     icon: [
       { url: '/favicon.ico', sizes: 'any' },
-      { url: '/icon.png', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-48x48.png', type: 'image/png', sizes: '48x48' },
+      { url: '/favicon-192x192.png', type: 'image/png', sizes: '192x192' },
+      { url: '/favicon-512x512.png', type: 'image/png', sizes: '512x512' },
     ],
-    apple: [
-      { url: '/icon.png', sizes: '180x180', type: 'image/png' },
-    ],
+    apple: [{ url: '/favicon-192x192.png', sizes: '192x192', type: 'image/png' }],
     shortcut: '/favicon.ico',
   },
   openGraph: {
@@ -101,9 +101,10 @@ export default function RootLayout({
   return (
     <html lang="en">
       <head>
-        <link rel="icon" href="/icon.png" type="image/png" />
-        <link rel="shortcut icon" href="/icon.png" type="image/png" />
-        <link rel="apple-touch-icon" href="/icon.png" />
+        <link rel="icon" href="/favicon.ico" />
+        <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
+        <link rel="icon" type="image/png" sizes="192x192" href="/favicon-192x192.png" />
+        <link rel="apple-touch-icon" href="/favicon-192x192.png" />
         <script
           type="application/ld+json"
           dangerouslySetInnerHTML={{
@@ -138,7 +139,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${inter.className} ${museoModerno.variable} antialiased`}>
+      <body className={`${syne.className} ${museoModerno.variable} antialiased`}>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4VVBW0BEVL"

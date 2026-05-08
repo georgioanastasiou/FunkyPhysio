@@ -93,37 +93,37 @@ export default function Contact() {
 
         {/* Right — Minimalistic Contact */}
         <div className="w-full lg:w-1/2 bg-[#f5f0eb] flex flex-col justify-center px-10 md:px-20 py-20">
-          <p className="text-xs uppercase tracking-[4px] text-gray-400 font-poppins mb-6">Get in touch</p>
-          <h1 className="text-4xl md:text-5xl font-semibold font-poppins text-black leading-tight mb-12">
+          <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-6">Get in touch</p>
+          <h1 className="text-4xl md:text-5xl font-semibold font-syne text-black leading-tight mb-12">
             Let&apos;s get<br />in touch
           </h1>
           <div className="space-y-2 mb-12">
-            <a href="mailto:george@funkyphysio.com" className="block text-gray-500 hover:text-black transition-colors font-figtree text-sm tracking-wide">
+            <a href="mailto:george@funkyphysio.com" className="block text-gray-500 hover:text-black transition-colors font-syne text-sm tracking-wide">
               george@funkyphysio.com
             </a>
-            <a href="tel:+34675335798" className="block text-gray-500 hover:text-black transition-colors font-figtree text-sm tracking-wide">
+            <a href="tel:+34675335798" className="block text-gray-500 hover:text-black transition-colors font-syne text-sm tracking-wide">
               +34 675 335 798
             </a>
-            <p className="text-gray-400 font-figtree text-sm tracking-wide">Poblenou, Barcelona</p>
+            <p className="text-gray-400 font-syne text-sm tracking-wide">Poblenou, Barcelona</p>
           </div>
           <div className="w-12 h-px bg-gray-300 mb-12" />
           {submitted ? (
-            <p className="text-black font-figtree text-lg">Thank you — we&apos;ll be in touch soon.</p>
+            <p className="text-black font-syne text-lg">Thank you — we&apos;ll be in touch soon.</p>
           ) : (
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="border-b border-gray-300 pb-2">
-                <input type="text" placeholder="Your name" required className="w-full bg-transparent text-black placeholder-gray-400 font-figtree text-sm outline-none" />
+                <input type="text" placeholder="Your name" required className="w-full bg-transparent text-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <input type="email" placeholder="Your email" required className="w-full bg-transparent text-black placeholder-gray-400 font-figtree text-sm outline-none" />
+                <input type="email" placeholder="Your email" required className="w-full bg-transparent text-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <input type="text" placeholder="Subject" className="w-full bg-transparent text-black placeholder-gray-400 font-figtree text-sm outline-none" />
+                <input type="text" placeholder="Subject" className="w-full bg-transparent text-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <textarea placeholder="Message" rows={3} className="w-full bg-transparent text-black placeholder-gray-400 font-figtree text-sm outline-none resize-none" />
+                <textarea placeholder="Message" rows={3} className="w-full bg-transparent text-black placeholder-gray-400 font-syne text-sm outline-none resize-none" />
               </div>
-              <button type="submit" className="flex items-center gap-3 text-black font-figtree text-sm uppercase tracking-[3px] hover:gap-5 transition-all duration-300 group">
+              <button type="submit" className="flex items-center gap-3 text-black font-syne text-sm uppercase tracking-[3px] hover:gap-5 transition-all duration-300 group">
                 Send <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
               </button>
             </form>
@@ -135,10 +135,10 @@ export default function Contact() {
           <div className="flex w-[520px] h-[300px] overflow-hidden">
           {/* Left half — Newsletter (solid bg) */}
           <div className="w-1/2 h-full bg-[#f2ede8] flex flex-col justify-between px-8 py-9">
-            <p className="text-xs font-semibold font-poppins text-black tracking-widest uppercase">Newsletter</p>
+            <p className="text-xs font-semibold font-syne text-black tracking-widest uppercase">Newsletter</p>
             <div className="flex-1" />
             {newsletterSubmitted ? (
-              <p className="text-[10px] font-figtree text-gray-500 uppercase tracking-widest">Thanks for subscribing!</p>
+              <p className="text-[10px] font-syne text-gray-500 uppercase tracking-widest">Thanks for subscribing!</p>
             ) : (
               <form onSubmit={handleNewsletterSubmit}>
                 <div className="flex items-end border-b border-gray-400 pb-1 gap-2">
@@ -148,7 +148,7 @@ export default function Contact() {
                     value={newsletterEmail}
                     onChange={(e) => setNewsletterEmail(e.target.value)}
                     placeholder="VOTRE EMAIL"
-                    className="flex-1 bg-transparent text-[10px] uppercase tracking-[3px] text-gray-500 placeholder-gray-400 font-figtree outline-none"
+                    className="flex-1 bg-transparent text-[10px] uppercase tracking-[3px] text-gray-500 placeholder-gray-400 font-syne outline-none"
                   />
                   <button type="submit" className="text-black hover:scale-110 transition-transform text-sm leading-none pb-0.5">
                     &#8599;
@@ -177,7 +177,7 @@ export default function Contact() {
                 className="object-contain opacity-20"
               />
             </div>
-            <p className="text-[10px] uppercase tracking-[3px] text-gray-500 font-figtree text-center leading-loose">
+            <p className="text-[10px] uppercase tracking-[3px] text-gray-500 font-syne text-center leading-loose">
               Carrer de Roc Boronat, 1<br />Barcelona 08005
             </p>
           </div>

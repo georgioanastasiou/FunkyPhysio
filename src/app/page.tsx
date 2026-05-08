@@ -101,20 +101,20 @@ export default function Home() {
               alt="Funky Physio Logo"
               width={120}
               height={120}
-              className="h-16 w-auto md:h-20 lg:h-24 drop-shadow-lg"
+              className="h-16 w-auto md:h-20 lg:h-24"
               priority
             />
           </div>
           
           {/* Title */}
-          <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8 drop-shadow-lg">
+          <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8">
             Funky Physio
           </h1>
           
           {/* Book Appointment Button */}
           <Link
             href="/contact"
-            className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold text-base md:text-lg rounded-[10px] hover:bg-white hover:text-gray-900 transition-colors drop-shadow-lg"
+            className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold text-base md:text-lg rounded-[10px] hover:bg-white hover:text-gray-900 transition-colors"
           >
             Book Appointment
           </Link>
@@ -143,7 +143,7 @@ export default function Home() {
       <section className="pt-12 md:pt-24 pb-80 md:pb-[140px] bg-[#0d0a1a]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
           <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-white text-xl font-medium font-poppins uppercase leading-8 tracking-[6.40px] text-center">What we do</h2>
+            <h2 className="text-white text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] text-center">What we do</h2>
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
@@ -167,10 +167,10 @@ export default function Home() {
                 style={{ background: 'linear-gradient(135deg, #ec4899, #a855f7, #38bdf8)' }}
               >
                 <div className="bg-[#1a1030] rounded-[18px] flex flex-col h-full p-8 gap-4">
-                  <h3 className="text-white text-3xl font-semibold font-figtree">{card.title}</h3>
+                  <h3 className="text-white text-3xl font-semibold font-syne">{card.title}</h3>
                   <div className="flex flex-col gap-2 flex-1">
                     {card.items.map((item) => (
-                      <div key={item} className="opacity-80 text-white text-base font-medium font-figtree leading-7">{item}</div>
+                      <div key={item} className="opacity-80 text-white text-base font-medium font-syne leading-7">{item}</div>
                     ))}
                   </div>
                   <button className="w-72 h-14 bg-fuchsia-800 hover:bg-fuchsia-700 text-white font-semibold rounded-[29px] transition-colors flex items-center justify-center gap-2 mx-auto">
@@ -199,12 +199,12 @@ export default function Home() {
 
           {/* Right Side - Text Content */}
           <div className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 py-20">
-            <p className="text-black text-xl font-medium font-poppins uppercase leading-8 tracking-[6.40px] mb-2">The Funky Physio</p>
-            <h2 className="text-black text-5xl font-semibold font-poppins leading-[76.80px] mb-6">
+            <p className="text-black text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] mb-2">The Funky Physio</p>
+            <h2 className="text-black text-5xl font-semibold font-syne leading-[76.80px] mb-6">
               Meet George Anastasiou
             </h2>
             
-            <div className="space-y-4 font-figtree text-sm md:text-base text-gray-700 leading-relaxed">
+            <div className="space-y-4 font-syne text-sm md:text-base text-gray-700 leading-relaxed">
               <p>
                 As a former professional athlete, I understand firsthand the physical demands and challenges that come with pushing your body to its limits. My journey from the court to the clinic has shaped my unique approach to physiotherapy—one that combines evidence-based treatment with real-world athletic experience.
               </p>
@@ -235,7 +235,7 @@ export default function Home() {
 
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-36 pb-40">
           <div className="text-center mb-20">
-            <h2 className="text-fuchsia-800 text-xl font-medium font-poppins uppercase leading-8 tracking-[6.40px] mb-4">Real People, Real Results</h2>
+            <h2 className="text-fuchsia-800 text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] mb-4">Real People, Real Results</h2>
           </div>
 
           {/* Mobile/Tablet Carousel */}
@@ -272,8 +272,8 @@ export default function Home() {
                         
                         {/* Info overlay at bottom */}
                         <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
-                          <div className="text-black text-xl font-bold font-figtree leading-8">{testimonial.name}</div>
-                          <div className="text-black text-base font-medium font-figtree leading-6">{testimonial.title}</div>
+                          <div className="text-black text-xl font-bold font-syne leading-8">{testimonial.name}</div>
+                          <div className="text-black text-base font-medium font-syne leading-6">{testimonial.title}</div>
                         </div>
                       </div>
                     </div>
@@ -337,8 +337,8 @@ export default function Home() {
                   
                   {/* Info overlay at bottom */}
                   <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
-                    <div className="text-black text-xl font-bold font-figtree leading-8">{testimonial.name}</div>
-                    <div className="text-black text-base font-medium font-figtree leading-6">{testimonial.title}</div>
+                    <div className="text-black text-xl font-bold font-syne leading-8">{testimonial.name}</div>
+                    <div className="text-black text-base font-medium font-syne leading-6">{testimonial.title}</div>
                   </div>
                 </div>
               </div>
@@ -353,7 +353,7 @@ export default function Home() {
       <section className="py-12 md:py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-black text-xl font-medium font-poppins uppercase leading-8 tracking-[6.40px]">
+            <h2 className="text-black text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px]">
               Location of your choice
             </h2>
           </div>
@@ -379,11 +379,11 @@ export default function Home() {
                     strokeDasharray="6 4"
                   />
                 </svg>
-                <h3 className="text-black text-3xl font-semibold font-figtree leading-[51.20px]">{card.title}</h3>
-                <p className="opacity-80 text-black text-base font-medium font-figtree leading-6">{card.description}</p>
+                <h3 className="text-black text-3xl font-semibold font-syne leading-[51.20px]">{card.title}</h3>
+                <p className="opacity-80 text-black text-base font-medium font-syne leading-6">{card.description}</p>
                 <div className="flex flex-col gap-2 mt-4">
                   {card.prices.map((price) => (
-                    <div key={price} className="opacity-80 text-black text-xl font-medium font-figtree leading-8">{price}</div>
+                    <div key={price} className="opacity-80 text-black text-xl font-medium font-syne leading-8">{price}</div>
                   ))}
                 </div>
               </div>

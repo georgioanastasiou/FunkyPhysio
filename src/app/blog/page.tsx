@@ -7,83 +7,24 @@ import { BlogPostsSkeleton } from '@/components/SkeletonLoader';
 
 export const metadata: Metadata = {
   title: 'Physiotherapy Blog - Health Tips & Advice',
-  description: 'Expert physiotherapy advice, health tips, and wellness guidance from Funky Fisio. Learn about injury prevention, recovery, and maintaining optimal physical health.',
-  keywords: [
-    'physiotherapy blog',
-    'health tips',
-    'injury prevention',
-    'neck pain relief',
-    'workplace ergonomics',
-    'home exercises',
-    'physical therapy advice'
-  ],
-  openGraph: {
-    title: 'Physiotherapy Blog - Health Tips & Advice | Funky Physio',
-    description: 'Expert physiotherapy advice, health tips, and wellness guidance. Learn about injury prevention, recovery, and maintaining optimal physical health.',
-    url: 'https://funkyphysio.com/blog',
-    type: 'website',
-    images: [
-      {
-        url: '/og-image-blog.jpg',
-        width: 1200,
-        height: 630,
-        alt: 'Funky Physio Blog',
-      },
-    ],
-  },
+  description: 'Expert physiotherapy advice, health tips, and wellness guidance from Funky Physio.',
 };
 
 async function BlogContent() {
-  // Fetch blog posts and categories from Sanity
-  const [blogPosts, categories] = await Promise.all([
-    getBlogPosts(),
-    getCategories()
-  ]);
+  const [blogPosts, categories] = await Promise.all([getBlogPosts(), getCategories()]);
 
   return (
     <>
       {blogPosts.length > 0 ? (
         <BlogPostsGrid posts={blogPosts} categories={categories} />
       ) : (
-        // No posts yet - show placeholder
-        <div className="text-center py-12">
-          <div className="text-6xl mb-4">📝</div>
-          <h3 className="text-2xl font-bold text-gray-900 mb-4">No Blog Posts Yet</h3>
-          <p className="text-gray-600 mb-6">
-            Start creating content in Sanity Studio to see posts here.
-          </p>
-          <Link
-            href="/studio"
-            className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
-          >
-            Open Sanity Studio
+        <div className="text-center py-24">
+          <p className="text-gray-400 font-syne text-sm uppercase tracking-[4px] mb-4">Coming soon</p>
+          <h3 className="text-3xl font-semibold font-syne text-black mb-4">No posts yet</h3>
+          <p className="text-gray-500 font-syne mb-8">Start creating content in Sanity Studio.</p>
+          <Link href="/studio" className="text-sm uppercase tracking-[3px] font-syne text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity">
+            Open Studio →
           </Link>
-        </div>
-      )}
-
-      {/* Coming Soon */}
-      {blogPosts.length > 0 && (
-        <div className="mt-16 text-center">
-          <div className="bg-gray-50 rounded-xl p-8 max-w-2xl mx-auto">
-            <h3 className="text-2xl font-bold text-gray-900 mb-4">More Articles Coming Soon</h3>
-            <p className="text-gray-600 mb-6">
-              I&apos;m constantly working on new content to help you maintain optimal health and prevent injuries.
-            </p>
-            <div className="flex flex-col sm:flex-row gap-4 justify-center">
-              <Link
-                href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 bg-[#D84795] text-white font-semibold rounded-lg hover:bg-[#c43d82] transition-colors"
-              >
-                Request a Topic
-              </Link>
-              <Link
-                href="/services"
-                className="inline-flex items-center justify-center px-6 py-3 border-2 border-[#D84795] text-[#D84795] font-semibold rounded-lg hover:bg-[#D84795]/10 transition-colors"
-              >
-                Book Consultation
-              </Link>
-            </div>
-          </div>
         </div>
       )}
     </>
@@ -92,23 +33,24 @@ async function BlogContent() {
 
 export default function Blog() {
   return (
-    <div className="min-h-screen">
-      {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#78428F] to-[#D84795] py-20">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center">
-            <h1 className="text-4xl lg:text-5xl font-bold text-white mb-6 drop-shadow-lg">
-              Physiotherapy Blog
-            </h1>
-            <p className="text-xl text-white/95 max-w-3xl mx-auto leading-relaxed">
-              Expert advice, health tips, and wellness guidance to help you maintain 
-              optimal physical health and prevent common injuries.
-            </p>
-          </div>
+    <div className="min-h-screen bg-white">
+
+      {/* Hero */}
+      <section className="bg-[#f5f0eb] pt-32 pb-20 px-4">
+        <div className="max-w-4xl mx-auto">
+          <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-6">Our Blog</p>
+          <h1 className="text-5xl lg:text-6xl font-semibold font-syne text-black leading-tight mb-6">
+            Health tips &<br />expert advice
+          </h1>
+          <p className="text-gray-500 font-syne text-lg max-w-xl leading-relaxed">
+            Physiotherapy insights, injury prevention guides, and wellness tips — written by George.
+          </p>
         </div>
       </section>
 
-      {/* Blog Posts */}
+      <div className="w-full h-px bg-gray-200" />
+
+      {/* Posts */}
       <section className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense fallback={<BlogPostsSkeleton count={6} />}>
@@ -117,30 +59,31 @@ export default function Blog() {
         </div>
       </section>
 
-      {/* Newsletter Signup */}
-      <section className="py-20 bg-gradient-to-br from-[#78428F] via-[#8B5A9E] to-[#A06BB0]">
-        <div className="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-3xl font-bold text-white mb-4 drop-shadow-lg">
-            Stay Updated with Health Tips
-          </h2>
-          <p className="text-xl text-white/95 mb-8">
-            Get the latest physiotherapy advice and health tips delivered to your inbox.
+      {/* Newsletter */}
+      <section className="bg-[#f5f0eb] py-24 px-4">
+        <div className="max-w-2xl mx-auto text-center">
+          <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-4">Newsletter</p>
+          <h2 className="text-3xl font-semibold font-syne text-black mb-4">Stay in the loop</h2>
+          <p className="text-gray-500 font-syne mb-10">
+            Get the latest health tips and physiotherapy advice straight to your inbox.
           </p>
-          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-md mx-auto">
+          <form className="flex flex-col sm:flex-row gap-3 max-w-md mx-auto">
             <input
               type="email"
-              placeholder="Enter your email"
-              className="flex-1 px-4 py-3 rounded-lg text-gray-900 placeholder-gray-500 focus:ring-2 focus:ring-white focus:outline-none"
+              placeholder="Your email address"
+              className="flex-1 bg-white border border-gray-300 px-5 py-3 text-sm font-syne text-black placeholder-gray-400 outline-none focus:border-black transition-colors"
             />
-            <button className="px-6 py-3 bg-white text-[#78428F] font-semibold rounded-lg hover:bg-gray-50 transition-colors shadow-lg">
+            <button
+              type="submit"
+              className="px-6 py-3 bg-black text-white text-sm uppercase tracking-[3px] font-syne hover:bg-gray-800 transition-colors"
+            >
               Subscribe
             </button>
-          </div>
-          <p className="text-sm text-white/80 mt-4">
-            No spam, unsubscribe at any time.
-          </p>
+          </form>
+          <p className="text-xs text-gray-400 font-syne mt-4">No spam. Unsubscribe anytime.</p>
         </div>
       </section>
+
     </div>
   );
 }
