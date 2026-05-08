@@ -99,7 +99,7 @@ export default function RootLayout({
   children: React.ReactNode;
 }) {
   return (
-    <html lang="en">
+    <html lang="en" suppressHydrationWarning>
       <head>
         <link rel="icon" href="/favicon.ico" />
         <link rel="icon" type="image/png" sizes="48x48" href="/favicon-48x48.png" />
@@ -139,7 +139,7 @@ export default function RootLayout({
           }}
         />
       </head>
-      <body className={`${syne.className} ${museoModerno.variable} antialiased`}>
+      <body className={`${syne.className} ${museoModerno.variable} antialiased`} suppressHydrationWarning>
         {/* Google Analytics */}
         <Script
           src="https://www.googletagmanager.com/gtag/js?id=G-4VVBW0BEVL"
