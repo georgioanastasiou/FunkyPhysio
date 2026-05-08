@@ -37,12 +37,20 @@ export default function Home() {
   ];
 
   useEffect(() => {
-    // Ensure hero video plays when component mounts
-    if (videoRef.current) {
-      videoRef.current.play().catch((error: Error) => {
-        console.log('Video autoplay prevented:', error);
-      });
+    const video = videoRef.current;
+    if (video) {
+      const playPromise = video.play();
+      if (playPromise !== undefined) {
+        playPromise.catch(() => {
+          // Autoplay prevented or component unmounted — ignore
+        });
+      }
     }
+    return () => {
+      if (videoRef.current) {
+        videoRef.current.pause();
+      }
+    };
   }, []);
 
   const nextSlide = () => {
