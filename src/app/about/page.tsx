@@ -6,7 +6,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// Register ScrollTrigger plugin
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger);
 }
@@ -14,6 +13,8 @@ if (typeof window !== 'undefined') {
 export default function About() {
   const timelineLineRef = useRef<HTMLDivElement>(null);
   const timelineSectionRef = useRef<HTMLElement>(null);
+  const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const ctaSectionRef = useRef<HTMLElement>(null);
 
   const timelineSteps = [
     {
@@ -64,54 +65,125 @@ export default function About() {
   ];
 
   useEffect(() => {
-    if (timelineLineRef.current && timelineSectionRef.current) {
-      // Animate the timeline line from 0 to full height based on scroll
-      gsap.fromTo(
-        timelineLineRef.current,
-        {
-          height: '0%',
-        },
-        {
-          height: '100%',
-          ease: 'none',
-          scrollTrigger: {
-            trigger: timelineSectionRef.current,
-            start: 'top center',
-            end: 'bottom bottom',
-            scrub: 0.5,
-            markers: false, // Set to true for debugging
-          },
-        }
-      );
-    }
+    const ctx = gsap.context(() => {
+      // ── Hero title ──
+      if (heroTitleRef.current) {
+        gsap.from(heroTitleRef.current, {
+          opacity: 0,
+          y: 60,
+          duration: 1.1,
+          ease: 'power3.out',
+          delay: 0.2,
+        });
+      }
 
-    // Cleanup
-    return () => {
-      ScrollTrigger.getAll().forEach(trigger => trigger.kill());
-    };
+      // ── Timeline line ──
+      if (timelineLineRef.current && timelineSectionRef.current) {
+        gsap.fromTo(
+          timelineLineRef.current,
+          { height: '0%' },
+          {
+            height: '100%',
+            ease: 'none',
+            scrollTrigger: {
+              trigger: timelineSectionRef.current,
+              start: 'top center',
+              end: 'bottom bottom',
+              scrub: 0.5,
+            },
+          }
+        );
+      }
+
+      // ── Timeline items ──
+      document.querySelectorAll('.timeline-item').forEach((item, index) => {
+        const isRight = index % 2 !== 0;
+        const image = item.querySelector('.timeline-image');
+        const dot = item.querySelector('.timeline-dot');
+        const children = item.querySelectorAll('.animate-child');
+
+        if (dot) {
+          gsap.from(dot, {
+            scale: 0,
+            opacity: 0,
+            duration: 0.5,
+            ease: 'back.out(2)',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          });
+        }
+
+        if (image) {
+          gsap.from(image, {
+            opacity: 0,
+            x: isRight ? 100 : -100,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          });
+        }
+
+        if (children.length) {
+          gsap.from(children, {
+            opacity: 0,
+            y: 40,
+            duration: 0.8,
+            ease: 'power3.out',
+            stagger: 0.15,
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 75%',
+              toggleActions: 'play none none none',
+            },
+          });
+        }
+      });
+
+      // ── CTA section ──
+      if (ctaSectionRef.current) {
+        gsap.from(ctaSectionRef.current.querySelectorAll('.cta-animate'), {
+          opacity: 0,
+          y: 50,
+          duration: 0.9,
+          ease: 'power3.out',
+          stagger: 0.2,
+          scrollTrigger: {
+            trigger: ctaSectionRef.current,
+            start: 'top 80%',
+            toggleActions: 'play none none none',
+          },
+        });
+      }
+    });
+
+    return () => ctx.revert();
   }, []);
 
   return (
     <div className="min-h-screen bg-white">
-      {/* Hero Section with Wavy Banner */}
+      {/* Hero Section */}
       <section className="relative h-[350px] md:h-[400px] overflow-hidden">
-        {/* Wavy SVG Background */}
-        <svg 
-          className="absolute inset-0 w-full h-full" 
-          viewBox="0 0 1443 618" 
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1443 618"
           fill="none"
           preserveAspectRatio="none"
           xmlns="http://www.w3.org/2000/svg"
         >
-          <path 
-            d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z" 
+          <path
+            d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z"
             fill="#A4A9"
           />
         </svg>
-        
-        {/* Hero Content */}
         <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 className="text-4xl md:text-5xl font-semibold text-black text-center px-4">
+          <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-black text-center px-4">
             Meet George Anastasiou
           </h1>
         </div>
@@ -121,38 +193,33 @@ export default function About() {
       <section ref={timelineSectionRef} className="timeline-section py-20 relative bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="space-y-32 relative">
-            {/* Vertical timeline line - Animated with GSAP */}
-            <div 
-              className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block" 
-              style={{
-                top: '275px',
-                height: `calc(100% - 550px)`
-              }}
+            {/* Vertical timeline line */}
+            <div
+              className="absolute left-1/2 transform -translate-x-1/2 hidden lg:block"
+              style={{ top: '275px', height: 'calc(100% - 550px)' }}
             >
-              {/* Animated line (purple dotted) - animates with GSAP */}
-              <div 
+              <div
                 ref={timelineLineRef}
-                className="absolute left-0 w-0.5 top-0" 
+                className="absolute left-0 w-0.5 top-0"
                 style={{
                   height: 0,
                   backgroundImage: 'repeating-linear-gradient(0deg, #78428F 0px, #78428F 8px, transparent 8px, transparent 16px)',
-                  willChange: 'height'
+                  willChange: 'height',
                 }}
-              ></div>
+              />
             </div>
 
             {timelineSteps.map((step, index) => (
               <div key={index} className="relative timeline-item">
                 {/* Timeline dot */}
-                <div className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white rounded-full border-2 border-[#78428F] z-10 hidden lg:flex items-center justify-center" style={{
-                  top: '275px' // Center of 550px image
-                }}>
-                  <div className="w-2 h-2 bg-[#78428F] rounded-full"></div>
+                <div
+                  className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white rounded-full border-2 border-[#78428F] z-10 hidden lg:flex items-center justify-center"
+                  style={{ top: '275px' }}
+                >
+                  <div className="w-2 h-2 bg-[#78428F] rounded-full" />
                 </div>
 
-                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${
-                  step.side === 'right' ? 'lg:flex-row-reverse' : ''
-                }`}>
+                <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${step.side === 'right' ? 'lg:flex-row-reverse' : ''}`}>
                   {/* Image */}
                   <div className={`${step.side === 'right' ? 'lg:order-2 lg:pl-8' : 'lg:pr-8'}`}>
                     <div className="timeline-image relative w-full h-[550px] bg-[#D9D9D9] rounded-[20px] overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
@@ -168,20 +235,18 @@ export default function About() {
                   {/* Content */}
                   <div className={`${step.side === 'right' ? 'lg:order-1 lg:pr-8' : 'lg:pl-8'}`}>
                     <div className="space-y-4">
-                      {/* Year Badge */}
-                      <div className="inline-block mb-4">
+                      <div className="animate-child inline-block mb-4">
                         <span className="px-4 py-2 bg-white text-[#78428F] font-semibold rounded-full text-sm border-2 border-[#78428F]">
                           {step.year}
                         </span>
                       </div>
-                      
-                      <h2 className="text-4xl font-semibold text-black leading-tight">
+                      <h2 className="animate-child text-4xl font-semibold text-black leading-tight">
                         {step.title}
                       </h2>
-                      <h3 className="text-2xl font-medium text-[#78428F] leading-tight">
+                      <h3 className="animate-child text-2xl font-medium text-[#78428F] leading-tight">
                         {step.subtitle}
                       </h3>
-                      <p className="text-base font-normal text-gray-700 leading-relaxed">
+                      <p className="animate-child text-base font-normal text-gray-700 leading-relaxed">
                         {step.description}
                       </p>
                     </div>
@@ -193,30 +258,25 @@ export default function About() {
         </div>
       </section>
 
-      {/* WhatsApp CTA with Footer Background */}
-      <section className="relative bg-[#78428F] py-20">
+      {/* CTA Section */}
+      <section ref={ctaSectionRef} className="relative bg-[#78428F] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
-          <h2 className="text-4xl md:text-5xl font-bold text-white mb-6">
+          <h2 className="cta-animate text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Start Your Journey?
           </h2>
-          <p className="text-xl text-white/90 mb-10 max-w-2xl mx-auto">
+          <p className="cta-animate text-xl text-white/90 mb-10 max-w-2xl mx-auto">
             Book your consultation today and experience personalized physiotherapy care tailored to your needs.
           </p>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-12 py-5 bg-white text-[#78428F] font-bold text-lg rounded-lg hover:bg-white/90 transition-colors shadow-xl hover:scale-105 transform duration-300"
-          >
-            Book Appointment
-          </Link>
+          <div className="cta-animate">
+            <Link
+              href="/contact"
+              className="inline-flex items-center justify-center px-12 py-5 bg-white text-[#78428F] font-bold text-lg rounded-lg hover:bg-white/90 transition-colors shadow-xl hover:scale-105 transform duration-300"
+            >
+              Book Appointment
+            </Link>
+          </div>
         </div>
       </section>
-
-      {/* Inline styles for animations */}
-      <style jsx>{`
-        :global(.timeline-image:hover) {
-          cursor: pointer;
-        }
-      `}</style>
     </div>
   );
 }
