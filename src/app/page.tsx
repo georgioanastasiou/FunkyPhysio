@@ -5,6 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef, useState } from 'react';
 import ContactForm from '@/components/ContactForm';
+import WhatWeDo from '@/components/WhatWeDo';
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
@@ -140,48 +141,7 @@ export default function Home() {
       </section>
 
       {/* What We Do Section */}
-      <section className="pt-12 md:pt-24 pb-80 md:pb-[140px] bg-[#0d0a1a]">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-5">
-          <div className="text-center mb-16 md:mb-20">
-            <h2 className="text-white text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] text-center">What we do</h2>
-          </div>
-
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8 justify-items-center">
-            {[
-              {
-                title: 'Physiotherapy',
-                items: ['Treatment Sessions', 'Rehabilitation', 'Prevention & Education'],
-              },
-              {
-                title: 'Massage',
-                items: ['Sports Massage', 'Friction Massage', 'Deep Tissue Massage'],
-              },
-              {
-                title: 'Therapy Training',
-                items: ['Postural Reeducation', 'Functional Exercise', 'Movement Pattern Correction'],
-              },
-            ].map((card) => (
-              <div
-                key={card.title}
-                className="relative w-full max-w-[384px] h-[320px] rounded-[20px] p-[2px] flex flex-col"
-                style={{ background: 'linear-gradient(135deg, #ec4899, #a855f7, #38bdf8)' }}
-              >
-                <div className="bg-[#1a1030] rounded-[18px] flex flex-col h-full p-8 gap-4">
-                  <h3 className="text-white text-3xl font-semibold font-syne">{card.title}</h3>
-                  <div className="flex flex-col gap-2 flex-1">
-                    {card.items.map((item) => (
-                      <div key={item} className="opacity-80 text-white text-base font-medium font-syne leading-7">{item}</div>
-                    ))}
-                  </div>
-                  <button className="w-72 h-14 bg-fuchsia-800 hover:bg-fuchsia-700 text-white font-semibold rounded-[29px] transition-colors flex items-center justify-center gap-2 mx-auto">
-                    Book Appointment <span>→</span>
-                  </button>
-                </div>
-              </div>
-            ))}
-          </div>
-        </div>
-      </section>
+      <WhatWeDo />
 
       {/* Meet George Anastasiou Section */}
       <section className="relative bg-white">
