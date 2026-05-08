@@ -27,9 +27,9 @@ export default function WhatWeDo() {
         scrollTrigger: {
           trigger: section,
           start: 'top top',
-          end: isMobile ? '+=2400' : '+=3200',
+          end: isMobile ? '+=3000' : '+=3200',
           pin: true,
-          scrub: isMobile ? 1 : 2,
+          scrub: isMobile ? 2.5 : 2,
           anticipatePin: 1,
           onUpdate: (self) => {
             const p = self.progress;
