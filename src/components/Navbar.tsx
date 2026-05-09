@@ -30,7 +30,7 @@ export default function Navbar() {
   return (
     <>
       <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled ? 'bg-[#331D3D]/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
+        scrolled && !isOpen ? 'bg-[#331D3D]/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
       }`}>
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex justify-between items-center h-16">
@@ -39,24 +39,11 @@ export default function Navbar() {
             <div className="flex-shrink-0">
               <Link href="/" className="flex flex-col items-center" onClick={() => setIsOpen(false)}>
                 <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-                
               </Link>
             </div>
 
-            {/* Desktop Navigation */}
-            <div className="hidden min-[1001px]:flex items-center">
-              <div className="flex items-baseline space-x-8">
-                {links.map(({ href, label }) => (
-                  <Link key={href} href={href}
-                    className="font-syne text-white hover:text-[#D84795] px-3 py-2 text-sm font-semibold tracking-wide transition-colors">
-                    {label}
-                  </Link>
-                ))}
-              </div>
-            </div>
-
-            {/* Mobile menu button */}
-            <div className="min-[1001px]:hidden relative z-[60]">
+            {/* Burger — always visible */}
+            <div className="relative z-[60]">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className="inline-flex items-center justify-center p-2 text-white focus:outline-none"
@@ -70,9 +57,9 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Full-screen Mobile Menu */}
+      {/* Full-screen Menu */}
       <div
-        className={`fixed inset-0 z-40 bg-[#1a0d2e] flex flex-col transition-all duration-500 ease-in-out min-[1001px]:hidden ${
+        className={`fixed inset-0 z-40 bg-[#1a0d2e] flex flex-col transition-all duration-500 ease-in-out ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
