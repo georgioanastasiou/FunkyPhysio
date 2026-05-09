@@ -1,6 +1,7 @@
 "use client";
 
 import React, { useState } from "react";
+import Image from "next/image";
 
 type WhatsAppButtonProps = {
   /** Phone in international format WITHOUT + or spaces. Example: 4915731384994 */
@@ -179,15 +180,7 @@ export default function WhatsAppButton({
         title="Chat with us on WhatsApp"
         className={`fixed ${posClass} z-50 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out`}
       >
-        <svg
-          className="h-6 w-6"
-          viewBox="0 0 32 32"
-          fill="currentColor"
-          aria-hidden="true"
-        >
-          <path d="M19.11 17.46c-.27-.13-1.58-.78-1.83-.87-.25-.09-.43-.13-.62.13-.18.27-.71.87-.87 1.05-.16.18-.32.2-.59.07-.27-.13-1.15-.42-2.18-1.34-.81-.72-1.35-1.61-1.51-1.88-.16-.27-.02-.41.12-.55.12-.12.27-.32.4-.48.13-.16.18-.27.27-.45.09-.18.04-.34-.02-.47-.07-.13-.62-1.46-.84-2.01-.22-.53-.45-.44-.62-.45-.16 0-.34 0-.52 0-.18 0-.47.07-.72.34-.25.27-.94.92-.94 2.25s.97 2.61 1.1 2.79c.13.18 1.9 2.89 4.6 4.05.64.28 1.15.45 1.54.57.64.2 1.22.17 1.68.1.51-.08 1.58-.65 1.8-1.28.22-.63.22-1.17.16-1.28-.06-.11-.25-.18-.52-.31z" />
-          <path d="M16 2.67C8.64 2.67 2.67 8.64 2.67 16c0 2.32.6 4.6 1.75 6.62L3.2 29.33l6.85-1.8A13.25 13.25 0 0 0 16 29.33c7.36 0 13.33-5.97 13.33-13.33S23.36 2.67 16 2.67zm0 24.1c-2.08 0-4.13-.56-5.93-1.63l-.42-.25-4.06 1.06 1.08-3.95-.27-.44A10.72 10.72 0 0 1 5.33 16C5.33 10.11 10.11 5.33 16 5.33S26.67 10.11 26.67 16 21.89 26.77 16 26.77z" />
-        </svg>
+        <Image src="/whatsappicon.png" alt="WhatsApp" width={24} height={24} className="h-6 w-6" />
         <span className="text-sm font-semibold">Chat with us</span>
       </button>
     </>
