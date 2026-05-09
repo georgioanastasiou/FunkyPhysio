@@ -7,13 +7,6 @@ import { Menu, X } from 'lucide-react';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
-
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 50);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -29,30 +22,25 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className={`fixed top-0 w-full z-50 transition-all duration-300 ${
-        scrolled && !isOpen ? 'bg-[#331D3D]/95 backdrop-blur-sm shadow-lg' : 'bg-transparent'
-      }`}>
+      <nav className="fixed top-0 w-full z-50 bg-transparent">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="flex justify-between items-center h-16">
+          <div className="flex items-center h-16 gap-4">
 
-            {/* Left: Burger + Logo */}
-            <div className="flex items-center gap-4">
-              {/* Burger button */}
-              <div className="relative z-[60]">
-                <button
-                  onClick={() => setIsOpen(!isOpen)}
-                  className="inline-flex items-center justify-center w-14 h-14 rounded-2xl bg-white/10 hover:bg-white/20 text-white focus:outline-none transition-colors duration-200"
-                  aria-label="Toggle menu"
-                >
-                  {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
-                </button>
-              </div>
-
-              {/* Logo */}
-              <Link href="/" className="flex flex-col items-center" onClick={() => setIsOpen(false)}>
-                <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-              </Link>
+            {/* Burger button */}
+            <div className="relative z-[60]">
+              <button
+                onClick={() => setIsOpen(!isOpen)}
+                className="inline-flex items-center justify-center w-14 h-14 rounded-2xl border border-white text-white focus:outline-none hover:bg-white/10 transition-colors duration-200"
+                aria-label="Toggle menu"
+              >
+                {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
+              </button>
             </div>
+
+            {/* Logo */}
+            <Link href="/" className="flex flex-col items-center" onClick={() => setIsOpen(false)}>
+              <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
+            </Link>
 
           </div>
         </div>
@@ -64,7 +52,6 @@ export default function Navbar() {
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        {/* Links */}
         <div className="flex flex-col justify-center flex-1 px-10 gap-2">
           {links.map(({ href, label }, i) => (
             <Link
@@ -79,7 +66,6 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Bottom bar */}
         <div className="px-10 pb-14 flex items-center justify-end">
           <p className="font-syne text-xs uppercase tracking-[3px] text-white/30">Barcelona</p>
         </div>
