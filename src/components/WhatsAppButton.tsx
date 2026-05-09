@@ -181,6 +181,7 @@ export default function WhatsAppButton({
         className={`fixed ${posClass} z-50 inline-flex items-center gap-2 rounded-full bg-[#25D366] px-4 py-3 text-white shadow-lg hover:shadow-xl hover:scale-105 transition-all duration-300 ease-in-out`}
       >
         <Image src="/whatsappicon2.png" alt="WhatsApp" width={24} height={24} className="h-6 w-6" />
+        <span className="text-sm font-semibold">Chat with us</span>
         
       </button>
     </>
