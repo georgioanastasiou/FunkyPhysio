@@ -39,7 +39,7 @@ export default function Navbar() {
             <div className="flex-shrink-0">
               <Link href="/" className="flex flex-col items-center" onClick={() => setIsOpen(false)}>
                 <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-                <span className="font-museo-moderno text-xs font-bold text-white tracking-wide">Funky Physio</span>
+                
               </Link>
             </div>
 
