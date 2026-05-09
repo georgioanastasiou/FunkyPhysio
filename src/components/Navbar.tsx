@@ -44,7 +44,7 @@ export default function Navbar() {
             </div>
 
             {/* Desktop Navigation */}
-            <div className="hidden min-[1001px]:flex items-center space-x-6">
+            <div className="hidden min-[1001px]:flex items-center">
               <div className="flex items-baseline space-x-8">
                 {links.map(({ href, label }) => (
                   <Link key={href} href={href}
@@ -53,13 +53,9 @@ export default function Navbar() {
                   </Link>
                 ))}
               </div>
-              <a href="https://wa.me/34675335798" target="_blank" rel="noopener noreferrer"
-                className="font-syne border-2 border-white text-white px-4 py-2 rounded-lg hover:bg-white hover:text-[#78428f] transition-colors duration-300 font-semibold tracking-wide">
-                WhatsApp
-              </a>
             </div>
 
-            {/* Mobile menu button — always on top */}
+            {/* Mobile menu button */}
             <div className="min-[1001px]:hidden relative z-[60]">
               <button
                 onClick={() => setIsOpen(!isOpen)}
@@ -96,16 +92,7 @@ export default function Navbar() {
         </div>
 
         {/* Bottom bar */}
-        <div className="px-10 pb-14 flex items-center justify-between">
-          <a
-            href="https://wa.me/34675335798"
-            target="_blank"
-            rel="noopener noreferrer"
-            onClick={() => setIsOpen(false)}
-            className="font-syne text-sm uppercase tracking-[4px] text-white/60 hover:text-white transition-colors"
-          >
-            WhatsApp ↗
-          </a>
+        <div className="px-10 pb-14 flex items-center justify-end">
           <p className="font-syne text-xs uppercase tracking-[3px] text-white/30">Barcelona</p>
         </div>
       </div>
