@@ -30,7 +30,7 @@ export default function Navbar() {
             <div className="relative z-[60]">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center w-14 h-14 rounded-[1px] border border-white text-white focus:outline-none hover:bg-white/10 transition-colors duration-200"
+                className="inline-flex items-center justify-center w-14 h-14 rounded-[6px] border border-white text-white focus:outline-none hover:bg-white/10 transition-colors duration-200"
                 aria-label="Toggle menu"
               >
                 {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
