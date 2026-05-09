@@ -14,6 +14,7 @@ export default function About() {
   const timelineLineRef = useRef<HTMLDivElement>(null);
   const timelineSectionRef = useRef<HTMLElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
+  const heroSvgRef = useRef<HTMLDivElement>(null);
   const ctaSectionRef = useRef<HTMLElement>(null);
 
   const timelineSteps = [
@@ -66,6 +67,23 @@ export default function About() {
 
   useEffect(() => {
     const ctx = gsap.context(() => {
+      // ── Hero SVG parallax ──
+      if (heroSvgRef.current) {
+        gsap.fromTo(heroSvgRef.current,
+          { yPercent: -15 },
+          {
+            yPercent: 15,
+            ease: 'none',
+            scrollTrigger: {
+              trigger: heroSvgRef.current.closest('section'),
+              start: 'top top',
+              end: 'bottom top',
+              scrub: true,
+            },
+          }
+        );
+      }
+
       // ── Hero title ──
       if (heroTitleRef.current) {
         gsap.from(heroTitleRef.current, {
@@ -170,8 +188,9 @@ export default function About() {
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
       <section className="relative h-[350px] md:h-[400px] overflow-hidden">
+        <div ref={heroSvgRef} className="absolute inset-0 w-full h-full" style={{ willChange: 'transform' }}>
         <svg
-          className="absolute inset-0 w-full h-full"
+          className="w-full h-full"
           viewBox="0 0 1443 618"
           fill="none"
           preserveAspectRatio="none"
@@ -182,6 +201,7 @@ export default function About() {
             fill="#A4A9"
           />
         </svg>
+        </div>
         <div className="relative z-10 flex items-center justify-center h-full">
           <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-black text-center px-4">
             Meet George Anastasiou
