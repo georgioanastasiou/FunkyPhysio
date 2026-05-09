@@ -40,7 +40,7 @@ export default function Navbar() {
             {/* Logo */}
             <Link href="/" className="flex flex-col items-center" onClick={() => setIsOpen(false)}>
               <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-              <span className="font-museo-moderno text-sm font-bold text-white tracking-wide leading-tight">Funky Physio</span>
+              <span className="font-museo-moderno text-xl font-bold text-white tracking-wide leading-tight">Funky Physio</span>
             </Link>
 
           </div>
