@@ -6,6 +6,7 @@ import Footer from '@/components/Footer';
 import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 import SmoothScroll from '@/components/SmoothScroll';
 import WhatsAppButton from '@/components/WhatsAppButton';
+import CustomCursor from '@/components/CustomCursor';
 import Script from 'next/script';
 import { SpeedInsights } from '@vercel/speed-insights/next';
 
@@ -155,6 +156,7 @@ export default function RootLayout({
         </Script>
 
         <ServiceWorkerCleanup />
+        <CustomCursor />
         <SmoothScroll />
         <div className="min-h-screen flex flex-col">
           <Navbar />

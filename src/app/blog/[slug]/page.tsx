@@ -39,7 +39,7 @@ const portableTextComponents: any = {
       <h4 className="text-lg font-medium font-syne text-gray-800 mt-6 mb-2">{children}</h4>
     ),
     normal: ({ children }: { children: React.ReactNode }) => (
-      <p className="text-gray-600 font-syne text-[17px] leading-[1.85] mb-6">{children}</p>
+      <p className="font-syne text-[24px] leading-[1.85] mb-6" style={{ color: "#4b5563", fontWeight: 450, maxWidth: "95ch" }}>{children}</p>
     ),
     blockquote: ({ children }: { children: React.ReactNode }) => (
       <blockquote className="border-l-2 border-black pl-6 my-8 text-gray-500 font-syne text-lg italic leading-relaxed">
@@ -57,10 +57,10 @@ const portableTextComponents: any = {
   },
   listItem: {
     bullet: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-gray-600 font-syne text-[17px] leading-relaxed">{children}</li>
+      <li className="font-syne text-[24px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
     ),
     number: ({ children }: { children: React.ReactNode }) => (
-      <li className="text-gray-600 font-syne text-[17px] leading-relaxed">{children}</li>
+      <li className="font-syne text-[24px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
     ),
   },
   marks: {
@@ -150,7 +150,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Article body */}
       <article className="py-16 px-6 lg:px-16">
-        <div className="max-w-3xl mx-auto">
+        <div className="mx-auto" style={{ maxWidth: "95ch" }}>
           {post.body && <PortableText value={post.body} components={portableTextComponents} />}
         </div>
       </article>
