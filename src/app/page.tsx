@@ -39,7 +39,7 @@ export default function Home() {
       }
     }
     return () => {
-      if (videoRef.current) videoRef.current.pause();
+      video?.pause();
     };
   }, []);
 

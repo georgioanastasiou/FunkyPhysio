@@ -34,6 +34,7 @@ const ExerciseDemo = ({ value }: { value: any }) => {
       >
         {fileUrl ? (
           isGif ? (
+            {/* eslint-disable-next-line @next/next/no-img-element */}
             <img src={fileUrl} alt={value.exerciseName || 'Exercise'} style={{ width: '100%', display: 'block' }} />
           ) : (
             <video
