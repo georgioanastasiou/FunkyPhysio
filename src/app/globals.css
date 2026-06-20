@@ -3,9 +3,6 @@
 @tailwind components;
 @tailwind utilities;
 
-*, *::before, *::after {
-  cursor: none !important;
-}
 
 :root {
   --background: #ffffff;

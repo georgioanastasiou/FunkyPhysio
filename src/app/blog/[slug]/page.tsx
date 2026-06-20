@@ -24,6 +24,49 @@ export async function generateMetadata({ params }: { params: Promise<{ slug: str
 }
 
 // eslint-disable-next-line @typescript-eslint/no-explicit-any
+const ExerciseDemo = ({ value }: { value: any }) => {
+  const fileUrl = value?.video?.asset?.url;
+  const isGif = fileUrl?.endsWith('.gif');
+  return (
+    <div className="my-8 inline-block">
+      <div
+        style={{ borderRadius: 6, overflow: 'hidden', width: 280, background: '#f5f0eb' }}
+      >
+        {fileUrl ? (
+          isGif ? (
+            <img src={fileUrl} alt={value.exerciseName || 'Exercise'} style={{ width: '100%', display: 'block' }} />
+          ) : (
+            <video
+              src={fileUrl}
+              autoPlay
+              loop
+              muted
+              playsInline
+              style={{ width: '100%', display: 'block' }}
+            />
+          )
+        ) : (
+          // Placeholder when no video uploaded yet
+          <div style={{ width: 280, height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+            <span style={{ fontSize: 40 }}>🏃</span>
+          </div>
+        )}
+      </div>
+      {(value.exerciseName || value.caption) && (
+        <div style={{ paddingTop: 8 }}>
+          {value.exerciseName && (
+            <p className="font-syne font-semibold text-black text-sm">{value.exerciseName}</p>
+          )}
+          {value.caption && (
+            <p className="font-syne text-gray-400 text-xs mt-0.5">{value.caption}</p>
+          )}
+        </div>
+      )}
+    </div>
+  );
+};
+
+// eslint-disable-next-line @typescript-eslint/no-explicit-any
 const portableTextComponents: any = {
   block: {
     h1: ({ children }: { children: React.ReactNode }) => (
@@ -62,6 +105,9 @@ const portableTextComponents: any = {
     number: ({ children }: { children: React.ReactNode }) => (
       <li className="font-syne text-[24px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
     ),
+  },
+  types: {
+    exerciseDemo: ExerciseDemo,
   },
   marks: {
     strong: ({ children }: { children: React.ReactNode }) => (
