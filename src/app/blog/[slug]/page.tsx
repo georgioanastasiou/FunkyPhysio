@@ -1,3 +1,4 @@
+/* eslint-disable @next/next/no-img-element */
 import { Calendar, Clock, ArrowLeft } from 'lucide-react';
 import Link from 'next/link';
 import { Metadata } from 'next';
@@ -34,7 +35,7 @@ const ExerciseDemo = ({ value }: { value: any }) => {
       >
         {fileUrl ? (
           isGif ? (
-            {/* eslint-disable-next-line @next/next/no-img-element */}
+
             <img src={fileUrl} alt={value.exerciseName || 'Exercise'} style={{ width: '100%', display: 'block' }} />
           ) : (
             <video
