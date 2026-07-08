@@ -1,32 +1,28 @@
 'use client';
 
-import { Play, ChevronLeft, ChevronRight } from 'lucide-react';
+import { Play } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ContactForm from '@/components/ContactForm';
 import WhatWeDo from '@/components/WhatWeDo';
 
-gsap.registerPlugin(ScrollTrigger);
 
 export default function Home() {
   const videoRef = useRef<HTMLVideoElement>(null);
   const heroContentRef = useRef<HTMLDivElement>(null);
+  const heroLogoRef = useRef<HTMLDivElement>(null);
   const georgeImageRef = useRef<HTMLDivElement>(null);
   const georgeTextRef = useRef<HTMLDivElement>(null);
-  const testimonialssvgRef = useRef<HTMLDivElement>(null);
-
-  const [currentSlide, setCurrentSlide] = useState(0);
-  const [touchStart, setTouchStart] = useState(0);
-  const [touchEnd, setTouchEnd] = useState(0);
 
   const testimonials = [
     { name: "John Doe", title: "Marathon Runner", image: "https://randomuser.me/api/portraits/men/32.jpg" },
     { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg" },
     { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg" },
-    { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg" }
+    { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg" },
+    { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg" }
   ];
 
   // Video play/pause
@@ -43,87 +39,52 @@ export default function Home() {
     };
   }, []);
 
-  // Parallax effects
+  // GSAP animations
   useEffect(() => {
+    gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
 
-      // 1. Hero video — slow scale + drift up as user scrolls away
-      if (videoRef.current) {
-        gsap.to(videoRef.current, {
-          yPercent: 25,
-          scale: 1.1,
-          ease: 'none',
+      // Hero Logo — starts at viewport center, flies diagonally to navbar on scroll
+      if (heroLogoRef.current) {
+        const logoEl = heroLogoRef.current;
+        const lw = logoEl.offsetWidth;
+        const lh = logoEl.offsetHeight;
+
+        // Start: centered in viewport
+        gsap.set(logoEl, {
+          x: window.innerWidth / 2 - lw / 2,
+          y: window.innerHeight / 2 - lh / 2 - 150,
+          scale: 1,
+        });
+
+        // End: next to burger button in navbar
+        gsap.to(logoEl, {
+          x: () => {
+            const p = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 640 ? 24 : 16;
+            // burger is 56px wide + 16px gap
+            return p + 35 + 50;
+          },
+          y: () => {
+            // mt-9 = 36px, navbar h-16 = 64px, center of navbar = 36 + 32 = 68, minus half logo height
+            const lhCurrent = heroLogoRef.current?.offsetHeight ?? 96;
+            return 5 + 32 - lhCurrent * 0.22 / 2;
+          },
+          scale: 0.42,
+          ease: 'power2.inOut',
           scrollTrigger: {
-            trigger: videoRef.current.closest('section'),
             start: 'top top',
-            end: 'bottom top',
-            scrub: true,
+            end: '+=480',
+            scrub: 1.2,
+            invalidateOnRefresh: true,
           },
         });
       }
 
-      // Hero content — drifts up faster than the video (depth effect)
-      if (heroContentRef.current) {
-        gsap.to(heroContentRef.current, {
-          yPercent: -20,
-          opacity: 0,
-          ease: 'none',
-          scrollTrigger: {
-            trigger: heroContentRef.current.closest('section'),
-            start: 'top top',
-            end: '60% top',
-            scrub: true,
-          },
-        });
-      }
-
-      // 2. Meet George — image slower than text
+      // Meet George parallax
       if (georgeImageRef.current) {
-        gsap.fromTo(georgeImageRef.current, 
+        gsap.fromTo(georgeImageRef.current,
           { yPercent: -8 },
-          {
-            yPercent: 8,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: georgeImageRef.current.closest('section'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
-      }
-
-      if (georgeTextRef.current) {
-        gsap.fromTo(georgeTextRef.current,
-          { yPercent: 5 },
-          {
-            yPercent: -5,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: georgeTextRef.current.closest('section'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
-      }
-
-      // 3. Testimonials SVG blob — drifts at a different speed
-      if (testimonialssvgRef.current) {
-        gsap.fromTo(testimonialssvgRef.current,
-          { yPercent: -12 },
-          {
-            yPercent: 12,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: testimonialssvgRef.current.closest('section'),
-              start: 'top bottom',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
+          { yPercent: 8, ease: "none", scrollTrigger: { trigger: georgeImageRef.current.closest("section"), start: "top bottom", end: "bottom top", scrub: true } }
         );
       }
     });
@@ -131,167 +92,154 @@ export default function Home() {
     return () => ctx.revert();
   }, []);
 
-  const nextSlide = () => setCurrentSlide((prev) => (prev + 1) % testimonials.length);
-  const prevSlide = () => setCurrentSlide((prev) => (prev - 1 + testimonials.length) % testimonials.length);
-  const goToSlide = (index: number) => setCurrentSlide(index);
-  const handleTouchStart = (e: React.TouchEvent) => setTouchStart(e.targetTouches[0].clientX);
-  const handleTouchMove = (e: React.TouchEvent) => setTouchEnd(e.targetTouches[0].clientX);
-  const handleTouchEnd = () => {
-    if (touchStart - touchEnd > 75) nextSlide();
-    if (touchStart - touchEnd < -75) prevSlide();
-  };
-
   return (
     <>
-      {/* Hero Section */}
-      <section className="relative h-screen overflow-hidden flex items-center justify-center bg-black">
-        <video
-          ref={videoRef}
-          autoPlay
-          muted
-          loop
-          playsInline
-          className="absolute inset-0 w-full h-full object-cover z-0"
-          preload="auto"
-        >
-          <source src="/hero-video1.mp4" type="video/mp4" />
-        </video>
+      {/* Hero Logo — fixed overlay, GSAP animates it diagonally to navbar on scroll */}
+      <div ref={heroLogoRef} className="fixed z-[55] pointer-events-none" style={{ left: 0, top: 0 }}>
+        <Image src="/logo1.png" alt="Funky Physio Logo" width={96} height={96} className="h-24 w-auto" priority />
+      </div>
 
-        {/* Centered Content */}
-        <div ref={heroContentRef} className="relative z-20 text-center px-4">
-          <div className="mb-4 md:mb-6 flex justify-center">
-            <Image src="/logo1.png" alt="Funky Physio Logo" width={120} height={120} className="h-16 w-auto md:h-20 lg:h-24" priority />
-          </div>
-          <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8">
-            Funky Physio
-          </h1>
-          <Link
-            href="/contact"
-            className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold text-base md:text-lg rounded-[10px] hover:bg-white hover:text-gray-900 transition-colors"
-          >
-            Book Appointment
-          </Link>
-        </div>
-
-        {/* Wavy Transition */}
-        <div className="absolute bottom-0 left-0 w-full z-10" style={{ transform: 'translateY(1px)' }}>
-          <svg width="1442" height="101" viewBox="0 0 1442 101" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
-            <path d="M0 0C50.0042 106.18 243.242 93.9596 659.915 30.7419C1087.51 -34.1338 1352.6 37.0078 1442 100.304H721.5H1L0 0Z" fill="#0d0a1a" />
-          </svg>
-        </div>
-      </section>
-
-      {/* What We Do Section */}
-      <WhatWeDo />
-
-      {/* Meet George Section */}
-      <section className="relative bg-white overflow-hidden">
-        <div className="flex flex-col lg:flex-row min-h-[950px]">
-          {/* Left — Image with parallax */}
-          <div className="relative w-full lg:w-1/2 h-[400px] lg:h-auto overflow-hidden">
-            <div ref={georgeImageRef} className="absolute inset-0 scale-110">
-              <Image
-                src="/basketball/DSC_0079.jpg"
-                alt="George Anastasiou - The Funky Physio"
-                fill
-                className="object-cover object-center"
-              />
-            </div>
-          </div>
-
-          {/* Right — Text with parallax */}
-          <div ref={georgeTextRef} className="w-full lg:w-1/2 flex flex-col justify-center px-8 md:px-16 py-20">
-            <p className="text-black text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] mb-2">The Funky Physio</p>
-            <h2 className="text-black text-5xl font-semibold font-syne leading-[76.80px] mb-6">Meet George Anastasiou</h2>
-            <div className="space-y-4 font-syne text-sm md:text-base text-gray-700 leading-relaxed">
-              <p>As a former professional athlete, I understand firsthand the physical demands and challenges that come with pushing your body to its limits. My journey from the court to the clinic has shaped my unique approach to physiotherapy—one that combines evidence-based treatment with real-world athletic experience.</p>
-              <p>With years of specialized training and hands-on experience, I&apos;ve dedicated my career to helping individuals recover from injuries, improve their movement patterns, and achieve their peak physical performance. Whether you&apos;re an elite athlete, weekend warrior, or simply looking to move better and feel stronger, I&apos;m here to guide you every step of the way.</p>
-            </div>
-            <div className="mt-6 md:mt-8">
-              <button className="bg-[#78428F] text-white font-semibold py-3 px-8 md:py-4 md:px-12 rounded-[10px] hover:bg-[#7a4f84] transition-colors text-base md:text-lg">
-                Show More →
-              </button>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Testimonials Section */}
-      <section className="relative bg-transparent overflow-hidden -mt-32 z-10">
-        {/* SVG blob with parallax */}
-        <div ref={testimonialssvgRef} className="absolute inset-0 w-full h-full z-0" style={{ willChange: 'transform' }}>
-          <svg width="100%" height="100%" viewBox="0 0 1440 674" fill="none" xmlns="http://www.w3.org/2000/svg" preserveAspectRatio="none">
-            <path d="M0 57.0935C213.965 -12.8637 649.849 -13.0232 941.5 46.2908C1199.77 98.815 1371.47 50.926 1441 0V541.919C1391.07 632.669 1198.09 694.219 782 640.187C354.993 584.739 89.2732 619.902 0 674V57.0935Z" fill="#E2D4CA"/>
-            <path d="M1441 541.919C1391.07 632.669 1198.09 694.219 782 640.187C354.993 584.739 89.2732 619.902 0 674V655C89.2732 601 354.993 565.739 782 621.187C1198.09 675.219 1391.07 613.669 1441 522.919V541.919Z" fill="#78428F"/>
-          </svg>
-        </div>
-
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10 pt-36 pb-40">
-          <div className="text-center mb-20">
-            <h2 className="text-fuchsia-800 text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px] mb-4">Real People, Real Results</h2>
-          </div>
-
-          {/* Mobile Carousel */}
-          <div className="lg:hidden relative pb-12">
-            <div className="relative overflow-hidden">
-              <div
-                className="flex transition-transform duration-500 ease-out"
-                style={{ transform: `translateX(-${currentSlide * 100}%)` }}
-                onTouchStart={handleTouchStart}
-                onTouchMove={handleTouchMove}
-                onTouchEnd={handleTouchEnd}
+      {/* Hero + WhatWeDo share a container so sticky hero only lives within it */}
+      <div>
+        <div className="sticky top-0 z-[1] h-screen">
+          <section className="relative h-screen overflow-hidden flex items-center justify-center bg-black">
+            <video
+              ref={videoRef}
+              autoPlay
+              muted
+              loop
+              playsInline
+              className="absolute inset-0 w-full h-full object-cover z-0"
+              preload="auto"
+            >
+              <source src="/hero-video1.mp4" type="video/mp4" />
+            </video>
+            <div ref={heroContentRef} className="relative z-20 text-center px-4">
+              <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8">
+                Funky Physio
+              </h1>
+              <Link
+                href="/contact"
+                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold text-base md:text-lg rounded-[10px] hover:bg-white hover:text-gray-900 transition-colors"
               >
-                {testimonials.map((testimonial, index) => (
-                  <div key={index} className="w-full flex-shrink-0 px-4">
-                    <div className="flex flex-col items-center">
-                      <div className="relative w-full max-w-[320px] mx-auto h-[450px] rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
-                        <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-                        <button className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors group" aria-label="Play testimonial video">
-                          <div className="w-16 h-16 bg-[#D84795] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                            <Play className="w-8 h-8 text-white ml-1" fill="#0d0a1a" />
-                          </div>
-                        </button>
-                        <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
-                          <div className="text-black text-xl font-bold font-syne leading-8">{testimonial.name}</div>
-                          <div className="text-black text-base font-medium font-syne leading-6">{testimonial.title}</div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                ))}
-              </div>
+                Book Appointment
+              </Link>
             </div>
-            <button className="absolute left-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg z-10 transition-all" onClick={prevSlide} aria-label="Previous testimonial">
-              <ChevronLeft className="w-6 h-6 text-gray-800" />
-            </button>
-            <button className="absolute right-2 top-1/2 transform -translate-y-1/2 bg-white/90 hover:bg-white p-3 rounded-full shadow-lg z-10 transition-all" onClick={nextSlide} aria-label="Next testimonial">
-              <ChevronRight className="w-6 h-6 text-gray-800" />
-            </button>
-            <div className="flex justify-center gap-2 mt-8">
-              {testimonials.map((_, index) => (
-                <button key={index} onClick={() => goToSlide(index)} className={`w-3 h-3 rounded-full transition-all ${index === currentSlide ? 'bg-white w-8' : 'bg-white/50 hover:bg-white/75'}`} aria-label={`Go to slide ${index + 1}`} />
-              ))}
+            <div className="absolute bottom-0 left-0 w-full z-10" style={{ transform: 'translateY(1px)' }}>
+              <svg width="1442" height="101" viewBox="0 0 1442 101" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
+                <path d="M0 0C50.0042 106.18 243.242 93.9596 659.915 30.7419C1087.51 -34.1338 1352.6 37.0078 1442 100.304H721.5H1L0 0Z" fill="#0d0a1a" />
+              </svg>
+            </div>
+          </section>
+        </div>
+        {/* WhatWeDo slides up over the hero — once done, container ends and hero scrolls away */}
+        <WhatWeDo />
+      </div>
+      {/* Meet George Section */}
+      <section className="relative bg-white py-16 px-8 md:px-20 lg:px-32">
+        <p className="font-syne text-lg font-bold text-black mb-10 tracking-wide">\George Anastasiou</p>
+
+        <div className="flex items-start gap-10">
+
+          <div className="flex-1">
+            {/* Image + first line, aligned to the bottom of the image */}
+            <div className="flex items-end gap-10">
+              <div
+                ref={georgeImageRef}
+                className="flex-shrink-0 overflow-hidden"
+                style={{ width: 260, height: 320 }}
+              >
+                <Image
+                  src="/basketball/DSC_0079.jpg"
+                  alt="George Anastasiou"
+                  width={260}
+                  height={320}
+                  className="object-cover object-top w-full h-full"
+                />
+              </div>
+              <p className="text-black text-4xl font-normal font-syne leading-10">
+                Lorem dolor sit amet consectetur  Nullam viverra purus 
+              </p>
+            </div>
+
+            {/* Rest of the paragraph — spreads full width below */}
+            <div ref={georgeTextRef} className="mt-2">
+              <p className="text-black text-4xl font-normal font-syne leading-10">
+                ac aliquet eget morbi non.
+                Maliquet eget morbi non. Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. aliquet eget morbi non.
+                Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. tis etiam lobortis tempor id. Sit aenean erat nunc
+                amet et euismod. Sollicitudin at ipsum amet risus in proin cras condimenean erat nunc amet et euismod. Sollicitudinean
+                erat nunc amet et euismod. Sollicitudin at ipsum amet risus in proin cras co at ipsum amet risus in proin cras coe&quot;
+              </p>
             </div>
           </div>
 
-          {/* Desktop Grid */}
-          <div className="hidden lg:grid lg:grid-cols-4 gap-8">
-            {testimonials.map((testimonial, index) => (
-              <div key={index} className="flex flex-col items-center">
-                <div className="relative w-72 h-96 rounded-[20px] overflow-hidden shadow-lg group cursor-pointer">
-                  <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-                  <button className="absolute inset-0 flex items-center justify-center bg-black/20 hover:bg-black/30 transition-colors group" aria-label="Play testimonial video">
-                    <div className="w-16 h-16 bg-[#D84795] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                      <Play className="w-8 h-8 text-white ml-1" fill="#0d0a1a" />
-                    </div>
-                  </button>
-                  <div className="absolute bottom-0 left-0 w-60 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 mb-10">
-                    <div className="text-black text-xl font-bold font-syne leading-8">{testimonial.name}</div>
-                    <div className="text-black text-base font-medium font-syne leading-6">{testimonial.title}</div>
-                  </div>
+          {/* Circular Learn More button — vertically centered against the whole text block */}
+          <div className="flex-shrink-0 self-center">
+            <Link href="/about" className="w-24 h-24 rounded-full border border-black flex flex-col items-center justify-center text-center hover:bg-black hover:text-white transition-colors duration-300 group">
+              <span className="font-syne text-[10px] uppercase tracking-[2px] leading-tight text-black group-hover:text-white">LEARN<br />MORE</span>
+              <span className="text-base mt-1 text-black group-hover:text-white">→</span>
+            </Link>
+          </div>
+
+        </div>
+      </section>
+
+      {/* Testimonials Section — flat cream strip, bleeds off the right edge */}
+      <section className="relative bg-[#EDE8DF] py-16 md:py-20">
+        <p className="font-syne text-lg font-bold text-black mb-10 tracking-wide px-8 md:px-20 lg:px-32">\Real People, Real Results</p>
+
+        <div className="flex gap-5 overflow-x-auto no-scrollbar pl-8 md:pl-20 lg:pl-32 pr-8 pb-2">
+          {testimonials.map((testimonial, index) => (
+            <div key={index} className="relative flex-shrink-0 w-64 h-80 rounded-[20px] overflow-hidden group cursor-pointer">
+              <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
+              <button className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-colors" aria-label="Play testimonial video">
+                <div className="w-14 h-14 bg-[#7C3AED] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
+                  <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
                 </div>
+              </button>
+              <div className="absolute bottom-0 left-0 w-52 h-14 bg-white rounded-tr-[10px] flex flex-col justify-center px-4">
+                <div className="text-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
+                <div className="text-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
               </div>
-            ))}
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Our Philosophy Section */}
+      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-8 md:px-20 lg:px-32 min-h-[900px] flex items-center">
+        {/* Decorative mask logo watermark, bleeding behind the left column */}
+        <div className="absolute left-0 top-0 bottom-0 w-full max-w-xl opacity-20 pointer-events-none">
+          <Image src="/MaskLogo.png" alt="" fill className="object-contain object-left" />
+        </div>
+
+        <div className="relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-20 w-full lg:items-stretch">
+          {/* Left column: label, intro paragraphs, big heading */}
+          <div className="flex-1 flex flex-col">
+            <p className="font-syne text-lg font-bold text-[#F3E9D6] tracking-wide mb-10">\Our Philosophy</p>
+
+            <div className="grid grid-cols-2 gap-8 max-w-xl mb-16 lg:mb-0">
+              <p className="text-[#F2FFAA] text-sm font-syne leading-6">
+                Lorem ipsum dolor sit amet consectetur. Nullam viverra purus
+                pellentesque ac aliquet eget morbi non. Mattis etiam lobortis tempor id.
+                Sit aenean erat nunc amet et euismod. Sit aenean erat nunc amet et euismod.
+              </p>
+              <p className="text-[#F2FFAA] text-sm font-syne leading-6">
+                pellentesque ac aliquet eget morbi non. Mattis etiam lobortis tempor id.
+                Sit aenean erat nunc amet et euismod. Sit aenean erat nunc
+                amet et euismod. Sit aenean erat nunc amet et euismod.
+              </p>
+            </div>
+
+            <p className="mt-auto pt-16 lg:pt-0 text-[#F2FFAA] text-3xl md:text-4xl font-bold font-syne leading-tight max-w-xl">
+              Lorem ipsum dolor sit amet consectetur. Nullam viverra purus pellentesque ac aliquet eget morbi non. Mataliquet eget morbi non.
+            </p>
+          </div>
+
+          {/* Right column: interior photo, stretches to match left column height on desktop, no border radius */}
+          <div className="relative w-full h-[420px] sm:h-[560px] lg:h-auto lg:w-[560px] flex-shrink-0 overflow-hidden">
+            <Image src="/funkydesk.png" alt="Funky Physio studio interior" fill className="object-cover" />
           </div>
         </div>
       </section>

@@ -75,3 +75,13 @@ p, body {
 .font-figtree {
   font-family: 'Figtree', sans-serif;
 }
+
+/* Hide scrollbar but keep native touch/drag scrolling for horizontal strips */
+.no-scrollbar {
+  -ms-overflow-style: none;
+  scrollbar-width: none;
+}
+
+.no-scrollbar::-webkit-scrollbar {
+  display: none;
+}

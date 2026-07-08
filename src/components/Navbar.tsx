@@ -5,20 +5,19 @@ import Link from 'next/link';
 import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
+import { usePathname } from 'next/navigation';
 
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
-  const [scrolled, setScrolled] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
 
   const highlightRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
-  useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 80);
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, []);
+  const pathname = usePathname();
+  const isHomePage = pathname === '/';
+  // On the homepage the GSAP flying hero logo takes over — never show the navbar logo there
+  const showNavLogo = !isHomePage;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -76,25 +75,12 @@ export default function Navbar() {
               </button>
             </div>
 
-            {/* Logo + text */}
-            <Link
-              href="/"
-              className="flex flex-col items-center transition-all duration-300"
-              style={{ transform: scrolled ? 'translateX(-40px)' : 'translateX(0px)' }}
-              onClick={() => setIsOpen(false)}
-            >
-              <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-              <span
-                className="font-museo-moderno text-xl font-bold text-white tracking-wide leading-tight transition-all duration-300 overflow-hidden"
-                style={{
-                  maxHeight: scrolled ? '0px' : '40px',
-                  opacity: scrolled ? 0 : 1,
-                  marginTop: scrolled ? '0px' : '2px',
-                }}
-              >
-                Funky Physio
-              </span>
-            </Link>
+            {/* Logo — hidden on homepage (GSAP flying logo handles it), visible on all other pages */}
+            {showNavLogo && (
+              <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
+                <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
+              </Link>
+            )}
 
           </div>
         </div>
