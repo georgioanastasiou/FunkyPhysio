@@ -75,7 +75,7 @@ export default function WhatWeDo() {
         const active = computeActive(i, p, N, segW, blend);
 
         if (panelRefs.current[i]) {
-          gsap.set(panelRefs.current[i], { opacity: active, y: (1 - active) * 20 });
+          gsap.set(panelRefs.current[i], { clipPath: `inset(0% 0% ${(1 - active) * 100}% 0%)` });
         }
         if (arrowRefs.current[i]) {
           gsap.set(arrowRefs.current[i], { opacity: active, x: (1 - active) * -8 });
@@ -163,8 +163,8 @@ export default function WhatWeDo() {
               <div
                 key={s.label}
                 ref={(el) => { panelRefs.current[i] = el; }}
-                className="absolute inset-0 flex flex-col justify-between px-10 md:px-16 lg:px-24 py-16 lg:py-24"
-                style={{ opacity: i === 0 ? 1 : 0 }}
+                className="absolute inset-0 flex flex-col justify-between px-10 md:px-16 lg:px-24 py-16 lg:py-24 bg-[#EDE8DF]"
+                style={{ clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }}
               >
                 <div>
                   {s.heading.map((word) => (

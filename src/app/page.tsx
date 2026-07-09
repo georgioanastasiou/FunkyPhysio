@@ -208,37 +208,37 @@ export default function Home() {
       </section>
 
       {/* Our Philosophy Section */}
-      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-8 md:px-20 lg:px-32 min-h-[900px] flex items-center">
+      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-8 md:px-20 lg:px-32 min-h-[900px] flex items-start">
         {/* Decorative mask logo watermark, bleeding behind the left column */}
-        <div className="absolute left-0 top-0 bottom-0 w-full max-w-xl opacity-20 pointer-events-none">
-          <Image src="/MaskLogo.png" alt="" fill className="object-contain object-left" />
+        <div className="absolute left-20 top-0 h-[750px] w-full max-w-2xl opacity-20 pointer-events-none translate-y-[60px]">
+          <Image src="/MaskLogo.png" alt="" fill className="object-contain object-left-bottom" />
         </div>
 
-        <div className="relative z-10 flex flex-col lg:flex-row gap-12 lg:gap-20 w-full lg:items-stretch">
-          {/* Left column: label, intro paragraphs, big heading */}
-          <div className="flex-1 flex flex-col">
-            <p className="font-syne text-lg font-bold text-[#F3E9D6] tracking-wide mb-10">\Our Philosophy</p>
+        <div className="relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-10 w-full lg:items-stretch">
+          {/* Left column: label + big heading pinned left, intro paragraphs pinned top-right next to the photo */}
+          <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_260px] lg:grid-rows-[auto_1fr] gap-x-8">
+            <p className="font-syne text-lg font-bold text-[#F3E9D6] tracking-wide mb-10 lg:mb-0 lg:col-start-1 lg:row-start-1">\Our Philosophy</p>
 
-            <div className="grid grid-cols-2 gap-8 max-w-xl mb-16 lg:mb-0">
-              <p className="text-[#F2FFAA] text-sm font-syne leading-6">
-                Lorem ipsum dolor sit amet consectetur. Nullam viverra purus
-                pellentesque ac aliquet eget morbi non. Mattis etiam lobortis tempor id.
-                Sit aenean erat nunc amet et euismod. Sit aenean erat nunc amet et euismod.
+            <div className="grid grid-cols-1 gap-5 max-w-xl mb-1 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-1 lg:max-w-none">
+              <p className="text-[#F2FFAA] text-sm font-syne leading-6 text-justify">
+                George holds a degree in Sports Science and Physiotherapy, and played
+                professional basketball before moving into clinical practice — first-hand
+                experience with how the body performs under load, and how it breaks down.
               </p>
-              <p className="text-[#F2FFAA] text-sm font-syne leading-6">
-                pellentesque ac aliquet eget morbi non. Mattis etiam lobortis tempor id.
-                Sit aenean erat nunc amet et euismod. Sit aenean erat nunc
-                amet et euismod. Sit aenean erat nunc amet et euismod.
+              <p className="text-[#F2FFAA] text-sm font-syne leading-6 text-justify">
+                Trained in Orthopaedic Manual Therapy (OMT), he practised for five years in
+                Berlin before opening his own studio in Barcelona. His focus areas include
+                sports injuries, post-surgical rehab, chronic pain, and shoulder, knee and hip conditions.
               </p>
             </div>
 
-            <p className="mt-auto pt-16 lg:pt-0 text-[#F2FFAA] text-3xl md:text-4xl font-bold font-syne leading-tight max-w-xl">
-              Lorem ipsum dolor sit amet consectetur. Nullam viverra purus pellentesque ac aliquet eget morbi non. Mataliquet eget morbi non.
+            <p className="pt-16 lg:pt-0 text-[#F2FFAA] text-3xl md:text-4xl font-bold font-syne leading-tight max-w-2xl lg:max-w-none lg:col-span-2 lg:row-start-2 lg:self-end text-justify">
+              Five years of clinical practice, one approach: an accurate diagnosis and a treatment plan built around how you actually move.
             </p>
           </div>
 
-          {/* Right column: interior photo, stretches to match left column height on desktop, no border radius */}
-          <div className="relative w-full h-[420px] sm:h-[560px] lg:h-auto lg:w-[560px] flex-shrink-0 overflow-hidden">
+          {/* Right column: interior photo, explicit larger height so it isn't capped by the text column's content height, no border radius */}
+          <div className="relative w-full h-[600px] sm:h-[600px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
             <Image src="/funkydesk.png" alt="Funky Physio studio interior" fill className="object-cover" />
           </div>
         </div>
