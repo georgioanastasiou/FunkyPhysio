@@ -55,13 +55,13 @@ export default function LocationSection() {
   const active = locations[activeIndex];
 
   return (
-    <section className="py-12 md:py-20 bg-white overflow-hidden">
+    <section className="py-12 md:py-20 bg-[#EDE8DF] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="font-syne text-lg font-bold text-black mb-10 sm:mb-16 tracking-wide">\Location of your choice</p>
+        <p className="font-syne text-lg font-bold text-black mb-20 sm:mb-16 tracking-wide">\Location of your choice</p>
 
         <div className="grid grid-cols-1 lg:grid-cols-[1fr_320px] gap-10 lg:gap-16 items-start">
           {/* List of location options */}
-          <div className="flex flex-col gap-[27px] sm:gap-[35px]">
+          <div className="flex flex-col items-center justify-center gap-[27px] sm:gap-[35px] self-end mt-10">
             {locations.map((loc, i) => (
               <button
                 key={loc.title}
@@ -70,7 +70,7 @@ export default function LocationSection() {
                 onMouseLeave={() => setHovering(false)}
                 onFocus={() => setActiveIndex(i)}
                 onClick={() => setActiveIndex(i)}
-                className="text-left font-syne text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight transition-colors duration-300 w-fit"
+                className="text-center font-syne text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight transition-colors duration-300"
                 style={{ color: activeIndex === i ? '#111111' : '#B0A898' }}
               >
                 {loc.title}
@@ -79,7 +79,7 @@ export default function LocationSection() {
           </div>
 
           {/* Price panel — swaps content to match the active location */}
-          <div className="relative p-8 flex flex-col gap-4 bg-white overflow-hidden w-full">
+          <div className="relative p-8 flex flex-col gap-4 bg-[#EDE8DF] overflow-hidden w-full">
             <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
               <rect x="1" y="1" width="98%" height="98%" fill="none" stroke="#000000" strokeWidth="1.5" strokeDasharray="6 4" />
             </svg>

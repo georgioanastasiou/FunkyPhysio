@@ -24,10 +24,10 @@ export default function Home() {
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
   // to alternate sides — left, right, left, right — for a nicer scroll rhythm.
   const healingImages = [
-    { src: '/physiotherapy.png', side: 'left', rotate: '-rotate-3' },
-    { src: '/therapeutic-training.png', side: 'right', rotate: 'rotate-2' },
-    { src: '/massage.png', side: 'left', rotate: 'rotate-2' },
-    { src: '/funkydesk.png', side: 'right', rotate: '-rotate-2' },
+    { src: '/physiotherapy.png', side: 'left', rotate: '' },
+    { src: '/therapeutic-training.png', side: 'right', rotate: '' },
+    { src: '/massage.png', side: 'left', rotate: '' },
+    { src: '/funkydesk.png', side: 'right', rotate: '' },
   ];
 
   const testimonials = [
@@ -149,7 +149,7 @@ export default function Home() {
             trigger: healingHeadingRef.current,
             pin: healingSectionRef.current,
             start: 'center center',
-            end: '+=2400',
+            end: '+=2500',
             scrub: 1,
             pinSpacing: true,
           },
@@ -319,7 +319,7 @@ export default function Home() {
       <LocationSection />
 
       {/* Healing Quote Section */}
-      <section ref={healingSectionRef} className="relative bg-white py-16 md:py-24 lg:py-10 px-6 overflow-hidden mt-[50px]">
+      <section ref={healingSectionRef} className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] lg:pt-[90px] pb-16 md:pb-24 lg:pb-10 px-6 overflow-hidden">
         {/* Mobile/tablet — simple static grid, no pin/scroll-jack (doesn't translate to touch) */}
         <div className="lg:hidden flex flex-col items-center text-center gap-8">
           <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">

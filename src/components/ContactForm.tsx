@@ -67,7 +67,7 @@ export default function ContactForm() {
   };
 
   return (
-    <section className="min-h-screen bg-white overflow-hidden">
+    <section className="min-h-screen bg-[#EDE8DF] overflow-hidden">
       <div className="grid grid-cols-1 lg:grid-cols-2 min-h-screen gap-4">
         {/* Left Side - Image */}
         <div className="relative hidden lg:flex items-center justify-end overflow-hidden pr-8">
