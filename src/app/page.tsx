@@ -8,6 +8,7 @@ import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import ContactForm from '@/components/ContactForm';
 import WhatWeDo from '@/components/WhatWeDo';
+import LocationSection from '@/components/LocationSection';
 
 
 export default function Home() {
@@ -16,6 +17,18 @@ export default function Home() {
   const heroLogoRef = useRef<HTMLDivElement>(null);
   const georgeImageRef = useRef<HTMLDivElement>(null);
   const georgeTextRef = useRef<HTMLDivElement>(null);
+  const healingSectionRef = useRef<HTMLElement>(null);
+  const healingHeadingRef = useRef<HTMLDivElement>(null);
+  const healingImageRefs = useRef<(HTMLDivElement | null)[]>([]);
+
+  // Order here is also the reveal order (index feeds healingImageRefs), chosen
+  // to alternate sides — left, right, left, right — for a nicer scroll rhythm.
+  const healingImages = [
+    { src: '/physiotherapy.png', side: 'left', rotate: '-rotate-3' },
+    { src: '/therapeutic-training.png', side: 'right', rotate: 'rotate-2' },
+    { src: '/massage.png', side: 'left', rotate: 'rotate-2' },
+    { src: '/funkydesk.png', side: 'right', rotate: '-rotate-2' },
+  ];
 
   const testimonials = [
     { name: "John Doe", title: "Marathon Runner", image: "https://randomuser.me/api/portraits/men/32.jpg" },
@@ -44,38 +57,58 @@ export default function Home() {
     gsap.registerPlugin(ScrollTrigger);
     const ctx = gsap.context(() => {
 
-      // Hero Logo — starts at viewport center, flies diagonally to navbar on scroll
-      if (heroLogoRef.current) {
+      // Hero Logo — starts above the "Funky Physio" heading, flies to sit left of the
+      // burger button on scroll. Both positions are measured live off real DOM rects
+      // (the heading, the burger button) instead of hardcoded breakpoint numbers, so
+      // it lines up correctly at any screen size — including after a resize, via
+      // onRefreshInit re-measuring the centered start position from scratch (a plain
+      // gsap.set only ran once at mount, so it went stale and drifted off-center on
+      // narrower viewports).
+      if (heroLogoRef.current && heroContentRef.current) {
         const logoEl = heroLogoRef.current;
-        const lw = logoEl.offsetWidth;
-        const lh = logoEl.offsetHeight;
+        const contentEl = heroContentRef.current;
+        const END_SCALE = 0.42;
+        const GAP = 16;
 
-        // Start: centered in viewport
-        gsap.set(logoEl, {
-          x: window.innerWidth / 2 - lw / 2,
-          y: window.innerHeight / 2 - lh / 2 - 150,
-          scale: 1,
-        });
+        // Scale from the top-left corner so translateX/Y keep lining up with that
+        // corner as the logo shrinks, instead of drifting from a center-origin scale.
+        gsap.set(logoEl, { transformOrigin: 'left top' });
 
-        // End: next to burger button in navbar
+        // Start: centered horizontally, sitting just above the heading text
+        const setStartPosition = () => {
+          const lw = logoEl.offsetWidth;
+          const lh = logoEl.offsetHeight;
+          const contentTop = contentEl.getBoundingClientRect().top;
+          gsap.set(logoEl, {
+            x: window.innerWidth / 2 - lw / 2,
+            y: contentTop - lh - 24,
+            scale: 1,
+          });
+        };
+        setStartPosition();
+
+        // End: always to the left of the burger button, whatever the screen size
         gsap.to(logoEl, {
           x: () => {
-            const p = window.innerWidth >= 1024 ? 32 : window.innerWidth >= 640 ? 24 : 16;
-            // burger is 56px wide + 16px gap
-            return p + 35 + 50;
+            const burger = document.querySelector<HTMLElement>('button[aria-label="Toggle menu"]');
+            if (!burger) return 16;
+            const rect = burger.getBoundingClientRect();
+            return rect.left - GAP - logoEl.offsetWidth * END_SCALE;
           },
           y: () => {
-            // mt-9 = 36px, navbar h-16 = 64px, center of navbar = 36 + 32 = 68, minus half logo height
-            const lhCurrent = heroLogoRef.current?.offsetHeight ?? 96;
-            return 5 + 32 - lhCurrent * 0.22 / 2;
+            const burger = document.querySelector<HTMLElement>('button[aria-label="Toggle menu"]');
+            if (!burger) return 20;
+            const rect = burger.getBoundingClientRect();
+            return rect.top + rect.height / 2 - (logoEl.offsetHeight * END_SCALE) / 2;
           },
-          scale: 0.42,
+          scale: END_SCALE,
           ease: 'power2.inOut',
           scrollTrigger: {
             start: 'top top',
             end: '+=480',
             scrub: 1.2,
             invalidateOnRefresh: true,
+            onRefreshInit: setStartPosition,
           },
         });
       }
@@ -87,6 +120,46 @@ export default function Home() {
           { yPercent: 8, ease: "none", scrollTrigger: { trigger: georgeImageRef.current.closest("section"), start: "top bottom", end: "bottom top", scrub: true } }
         );
       }
+
+      // Healing images — the whole section pins in place the moment the heading
+      // hits viewport center (trigger = heading, pin = section), so scrolling no
+      // longer moves the page at all; that captured scroll instead drives each
+      // image on a continuous rise: up from below the viewport, through its
+      // slot, and on past the top edge while fading out — it never parks in
+      // place. The next image only starts once the current one has fully
+      // exited, so only one is ever in motion at a time.
+      // Desktop only: the flanking photos are only visually shown at lg+ (the
+      // mobile block above is a separate, static, unanimated layout), but both
+      // blocks are always mounted in the DOM — Tailwind's responsive classes
+      // just toggle display:none, they don't unmount anything. Skipping this
+      // below lg matters because pinning/triggering off a display:none element
+      // measures a zero-size rect, which would fire the pin immediately at the
+      // top of the page instead of at the intended scroll position.
+      const healingEls = healingImageRefs.current.filter(Boolean);
+      if (window.innerWidth >= 1024 && healingSectionRef.current && healingHeadingRef.current && healingEls.length) {
+        // Start each image a full viewport height below its resting slot, so it
+        // begins below the fold. Using innerHeight rather than the element's own
+        // getBoundingClientRect() matters here: rect.top is measured at mount
+        // time, before the page has scrolled anywhere near this pinned section,
+        // so it reflects a stale pre-scroll position — innerHeight doesn't
+        // depend on scroll position at all, so it can't go stale like that.
+        gsap.set(healingEls, { y: () => window.innerHeight, opacity: 1 });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: healingHeadingRef.current,
+            pin: healingSectionRef.current,
+            start: 'center center',
+            end: '+=2400',
+            scrub: 1,
+            pinSpacing: true,
+          },
+        });
+        healingEls.forEach((el) => {
+          tl.to(el, { y: 0, ease: 'none', duration: 1 })
+            .to(el, { y: () => -window.innerHeight, opacity: 0, ease: 'none', duration: 1 });
+
+          });
+      }
     });
 
     return () => ctx.revert();
@@ -96,12 +169,12 @@ export default function Home() {
     <>
       {/* Hero Logo — fixed overlay, GSAP animates it diagonally to navbar on scroll */}
       <div ref={heroLogoRef} className="fixed z-[55] pointer-events-none" style={{ left: 0, top: 0 }}>
-        <Image src="/logo1.png" alt="Funky Physio Logo" width={96} height={96} className="h-24 w-auto" priority />
+        <Image src="/logonew.png" alt="Funky Physio Logo" width={96} height={96} className="h-24 w-auto" priority />
       </div>
 
       {/* Hero + WhatWeDo share a container so sticky hero only lives within it */}
       <div>
-        <div className="sticky top-0 z-[1] h-screen">
+        <div className="lg:sticky lg:top-0 z-[1] h-screen">
           <section className="relative h-screen overflow-hidden flex items-center justify-center bg-black">
             <video
               ref={videoRef}
@@ -136,18 +209,17 @@ export default function Home() {
         <WhatWeDo />
       </div>
       {/* Meet George Section */}
-      <section className="relative bg-white py-16 px-8 md:px-20 lg:px-32">
-        <p className="font-syne text-lg font-bold text-black mb-10 tracking-wide">\George Anastasiou</p>
+      <section className="relative bg-white py-12 sm:py-16 px-6 sm:px-8 md:px-20 lg:px-32">
+        <p className="font-syne text-lg font-bold text-black mb-8 sm:mb-10 tracking-wide">\George Anastasiou</p>
 
-        <div className="flex items-start gap-10">
+        <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10">
 
-          <div className="flex-1">
-            {/* Image + first line, aligned to the bottom of the image */}
-            <div className="flex items-end gap-10">
+          <div className="flex-1 w-full min-w-0">
+            {/* Image + first line, aligned to the bottom of the image on sm+, stacked on mobile */}
+            <div className="flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-10">
               <div
                 ref={georgeImageRef}
-                className="flex-shrink-0 overflow-hidden"
-                style={{ width: 260, height: 320 }}
+                className="flex-shrink-0 overflow-hidden w-40 h-52 sm:w-[200px] sm:h-[246px] md:w-[260px] md:h-[320px]"
               >
                 <Image
                   src="/basketball/DSC_0079.jpg"
@@ -157,14 +229,14 @@ export default function Home() {
                   className="object-cover object-top w-full h-full"
                 />
               </div>
-              <p className="text-black text-4xl font-normal font-syne leading-10">
-                Lorem dolor sit amet consectetur  Nullam viverra purus 
+              <p className="text-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
+                Lorem dolor sit amet consectetur  Nullam viverra purus
               </p>
             </div>
 
             {/* Rest of the paragraph — spreads full width below */}
-            <div ref={georgeTextRef} className="mt-2">
-              <p className="text-black text-4xl font-normal font-syne leading-10">
+            <div ref={georgeTextRef} className="mt-4 sm:mt-2">
+              <p className="text-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
                 ac aliquet eget morbi non.
                 Maliquet eget morbi non. Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. aliquet eget morbi non.
                 Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. tis etiam lobortis tempor id. Sit aenean erat nunc
@@ -174,10 +246,10 @@ export default function Home() {
             </div>
           </div>
 
-          {/* Circular Learn More button — vertically centered against the whole text block */}
-          <div className="flex-shrink-0 self-center">
-            <Link href="/about" className="w-24 h-24 rounded-full border border-black flex flex-col items-center justify-center text-center hover:bg-black hover:text-white transition-colors duration-300 group">
-              <span className="font-syne text-[10px] uppercase tracking-[2px] leading-tight text-black group-hover:text-white">LEARN<br />MORE</span>
+          {/* Circular Learn More button — vertically centered against the whole text block on desktop, left-aligned below on mobile */}
+          <div className="flex-shrink-0 self-start lg:self-center">
+            <Link href="/about" className="w-20 h-20 lg:w-24 lg:h-24 rounded-full border border-black flex flex-col items-center justify-center text-center hover:bg-black hover:text-white transition-colors duration-300 group">
+              <span className="font-syne text-[9px] lg:text-[10px] uppercase tracking-[2px] leading-tight text-black group-hover:text-white">LEARN<br />MORE</span>
               <span className="text-base mt-1 text-black group-hover:text-white">→</span>
             </Link>
           </div>
@@ -208,9 +280,9 @@ export default function Home() {
       </section>
 
       {/* Our Philosophy Section */}
-      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-8 md:px-20 lg:px-32 min-h-[900px] flex items-start">
+      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-6 sm:px-8 md:px-20 lg:px-32 lg:min-h-[900px] flex items-start">
         {/* Decorative mask logo watermark, bleeding behind the left column */}
-        <div className="absolute left-20 top-0 h-[750px] w-full max-w-2xl opacity-20 pointer-events-none translate-y-[60px]">
+        <div className="absolute left-4 sm:left-20 top-0 h-[500px] sm:h-[650px] lg:h-[750px] w-full max-w-2xl opacity-20 pointer-events-none translate-y-[60px]">
           <Image src="/MaskLogo.png" alt="" fill className="object-contain object-left-bottom" />
         </div>
 
@@ -238,41 +310,73 @@ export default function Home() {
           </div>
 
           {/* Right column: interior photo, explicit larger height so it isn't capped by the text column's content height, no border radius */}
-          <div className="relative w-full h-[600px] sm:h-[600px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
+          <div className="relative w-full h-[380px] sm:h-[460px] md:h-[550px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
             <Image src="/funkydesk.png" alt="Funky Physio studio interior" fill className="object-cover" />
           </div>
         </div>
       </section>
 
-      {/* Location Section */}
-      <section className="py-12 md:py-20 bg-white">
-        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-          <div className="text-center mb-8 md:mb-16">
-            <h2 className="text-black text-xl font-medium font-syne uppercase leading-8 tracking-[6.40px]">Location of your choice</h2>
+      <LocationSection />
+
+      {/* Healing Quote Section */}
+      <section ref={healingSectionRef} className="relative bg-white py-16 md:py-24 lg:py-10 px-6 overflow-hidden mt-[50px]">
+        {/* Mobile/tablet — simple static grid, no pin/scroll-jack (doesn't translate to touch) */}
+        <div className="lg:hidden flex flex-col items-center text-center gap-8">
+          <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
+            Healing isn&apos;t a return to before. It&apos;s a new way of moving forward.
           </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 md:gap-8">
-            {[
-              { title: 'At Funky Studio', description: 'In-person sessions in a fully equipped, professional studio environment.', prices: ['45 min / EUR 60', '60 min / EUR 70'] },
-              { title: 'Online Sessions', description: 'Guided virtual sessions tailored to your needs, wherever you are.', prices: ['60 min / EUR 60'] },
-              { title: 'At your place', description: 'Personalized treatment delivered in the comfort of your home.', prices: ['60 min / EUR 90'] },
-            ].map((card) => (
-              <div key={card.title} className="relative rounded-[20px] p-8 flex flex-col gap-4 bg-white overflow-hidden">
-                <svg className="absolute inset-0 w-full h-full pointer-events-none" xmlns="http://www.w3.org/2000/svg">
-                  <defs>
-                    <linearGradient id={`g-${card.title.replace(/\s/g, '')}`} x1="0%" y1="0%" x2="100%" y2="100%">
-                      <stop offset="0%" stopColor="#ec4899" />
-                      <stop offset="50%" stopColor="#a855f7" />
-                      <stop offset="100%" stopColor="#38bdf8" />
-                    </linearGradient>
-                  </defs>
-                  <rect x="1" y="1" width="98%" height="98%" rx="18" ry="18" fill="none" stroke={`url(#g-${card.title.replace(/\s/g, '')})`} strokeWidth="1.5" strokeDasharray="6 4" />
-                </svg>
-                <h3 className="text-black text-3xl font-semibold font-syne leading-[51.20px]">{card.title}</h3>
-                <p className="opacity-80 text-black text-base font-medium font-syne leading-6">{card.description}</p>
-                <div className="flex flex-col gap-2 mt-4">
-                  {card.prices.map((price) => (
-                    <div key={price} className="opacity-80 text-black text-xl font-medium font-syne leading-8">{price}</div>
-                  ))}
+          <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="w-16 h-10 object-contain brightness-0" />
+          <div className="max-w-md text-stone-800 text-base font-medium font-syne leading-6">
+            <p>Start your healing with us.</p>
+            <p>Healing isn&apos;t something that happens to you. It&apos;s something you do, one session at a time, with people who are paying attention.</p>
+          </div>
+          <div className="grid grid-cols-2 gap-4 mt-4 w-full max-w-xl">
+            {healingImages.map((img) => (
+              <div key={img.src} className={`bg-white p-2 pb-6 shadow-md ${img.rotate}`}>
+                <div className="relative w-full aspect-square">
+                  <Image src={img.src} alt="" fill sizes="300px" className="object-cover" />
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Desktop — photos flank the text and slide up into place, pinned scroll-jack */}
+        <div className="hidden lg:flex items-center justify-center gap-10 xl:gap-16 max-w-6xl mx-auto">
+          <div className="flex flex-col gap-10">
+            {[0, 2].map((i) => (
+              <div
+                key={healingImages[i].src}
+                ref={(el) => { healingImageRefs.current[i] = el; }}
+                className={`bg-white p-2 pb-6 shadow-md ${healingImages[i].rotate}`}
+              >
+                <div className="relative w-72 h-72">
+                  <Image src={healingImages[i].src} alt="" fill sizes="300px" className="object-cover" />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          <div className="flex flex-col items-center text-center gap-8 max-w-[456px] flex-shrink-0">
+            <div ref={healingHeadingRef} className="w-full text-stone-800 text-5xl font-semibold font-syne leading-[62.40px]">
+              Healing isn&apos;t a return to before. It&apos;s a new way of moving forward.
+            </div>
+            <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="w-16 h-10 object-contain brightness-0" />
+            <div className="max-w-md text-stone-800 text-base font-medium font-syne leading-6">
+              <p>Start your healing with us.</p>
+              <p>Healing isn&apos;t something that happens to you. It&apos;s something you do, one session at a time, with people who are paying attention.</p>
+            </div>
+          </div>
+
+          <div className="flex flex-col gap-10">
+            {[1, 3].map((i) => (
+              <div
+                key={healingImages[i].src}
+                ref={(el) => { healingImageRefs.current[i] = el; }}
+                className={`bg-white p-2 pb-6 shadow-md ${healingImages[i].rotate}`}
+              >
+                <div className="relative w-72 h-72">
+                  <Image src={healingImages[i].src} alt="" fill sizes="300px" className="object-cover" />
                 </div>
               </div>
             ))}

@@ -170,7 +170,7 @@ export default function Contact() {
           >
             <div className="flex-1 flex items-center justify-center w-full">
               <Image
-                src="/logo1.png"
+                src="/logonew.png"
                 alt="Funky Physio"
                 width={120}
                 height={80}

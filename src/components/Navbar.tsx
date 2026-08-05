@@ -78,7 +78,7 @@ export default function Navbar() {
             {/* Logo — hidden on homepage (GSAP flying logo handles it), visible on all other pages */}
             {showNavLogo && (
               <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
-                <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
+                <Image src="/logonew.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
               </Link>
             )}
 

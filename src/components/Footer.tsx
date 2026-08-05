@@ -11,7 +11,7 @@ export default function Footer() {
           {/* Company Info */}
           <div className="space-y-4">
             <div className="flex items-center">
-              <Image src="/logo1.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" />
+              <Image src="/logonew.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" />
               <span className="ml-3 text-xl font-bold font-syne">Funky Physio</span>
             </div>
             <p className="font-figtree text-gray-300 text-sm leading-relaxed">

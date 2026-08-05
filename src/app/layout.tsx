@@ -69,7 +69,7 @@ export const metadata: Metadata = {
     siteName: 'Funky Physio',
     images: [
       {
-        url: '/logo1.png',
+        url: '/logonew.png',
         width: 1200,
         height: 630,
         alt: 'Funky Physio - Professional Physiotherapy Services',
@@ -134,7 +134,7 @@ export default function RootLayout({
                 "Manual Therapy",
                 "Exercise Prescription"
               ],
-              "logo": "https://www.funkyphysio.com/logo1.png"
+              "logo": "https://www.funkyphysio.com/logonew.png"
             })
           }}
         />

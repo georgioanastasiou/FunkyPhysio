@@ -71,6 +71,7 @@ export default function WhatWeDo() {
     const blend = segW * 0.3; // width of each smooth crossfade zone
 
     const applyFrame = (p: number) => {
+      if (window.innerWidth < 1024) return; // desktop-only scroll-jack; mobile/tablet render a static stacked layout instead
       services.forEach((_, i) => {
         const active = computeActive(i, p, N, segW, blend);
 
@@ -119,7 +120,32 @@ export default function WhatWeDo() {
   }, []);
 
   return (
-    <div ref={wrapperRef} style={{ height: 'calc(100vh + 2400px)' }}>
+    <>
+      {/* Mobile/tablet — simple static stacked list, no scroll-jack (that interaction doesn't translate well to touch/short viewports) */}
+      <section className="lg:hidden bg-[#EDE8DF] px-6 sm:px-10 py-16 sm:py-20">
+        <div className="flex flex-col gap-12 sm:gap-16">
+          {services.map((s) => (
+            <div key={s.label} className="flex flex-col gap-3 sm:gap-4">
+              <span className="font-syne text-sm sm:text-base uppercase tracking-[2px] text-[#7C6F63] font-semibold">
+                {s.label}
+              </span>
+              <div>
+                {s.heading.map((word) => (
+                  <span key={word} className="block font-syne font-semibold text-4xl sm:text-5xl text-[#111] leading-[1.1]">
+                    {word}
+                  </span>
+                ))}
+              </div>
+              <p className="font-syne text-sm sm:text-base text-[#888] leading-relaxed max-w-sm">
+                {s.body}
+              </p>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      {/* Desktop — scroll-scrubbed pinned panel wipe */}
+      <div ref={wrapperRef} className="hidden lg:block" style={{ height: 'calc(100vh + 2400px)' }}>
       <section className="sticky top-0 z-[20] h-screen bg-[#EDE8DF] overflow-hidden">
         <div className="w-full h-full flex">
 
@@ -182,6 +208,7 @@ export default function WhatWeDo() {
 
         </div>
       </section>
-    </div>
+      </div>
+    </>
   );
 }
