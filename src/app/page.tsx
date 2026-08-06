@@ -6,9 +6,14 @@ import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+import { useGSAP } from '@gsap/react';
 import ContactForm from '@/components/ContactForm';
 import WhatWeDo from '@/components/WhatWeDo';
 import LocationSection from '@/components/LocationSection';
+
+if (typeof window !== 'undefined') {
+  gsap.registerPlugin(ScrollTrigger, useGSAP);
+}
 
 
 export default function Home() {
@@ -52,11 +57,14 @@ export default function Home() {
     };
   }, []);
 
-  // GSAP animations
-  useEffect(() => {
-    gsap.registerPlugin(ScrollTrigger);
-    const ctx = gsap.context(() => {
-
+  // GSAP animations — useGSAP (not a plain useEffect) matters here specifically because
+  // the Healing section below is pinned by ScrollTrigger, which physically relocates that
+  // <section> into an injected .pin-spacer wrapper outside React's knowledge. A plain
+  // useEffect's cleanup (ctx.revert()) runs *after* React's own commit-phase DOM removal,
+  // so on unmount/remount while pinned, React tries to removeChild the section from a
+  // parent it no longer actually has — "NotFoundError: node is not a child of this node".
+  // useGSAP cleans up synchronously before that removal (it's built for this).
+  useGSAP(() => {
       // Hero Logo — starts above the "Funky Physio" heading, flies to sit left of the
       // burger button on scroll. Both positions are measured live off real DOM rects
       // (the heading, the burger button) instead of hardcoded breakpoint numbers, so
@@ -160,9 +168,6 @@ export default function Home() {
 
           });
       }
-    });
-
-    return () => ctx.revert();
   }, []);
 
   return (
@@ -318,8 +323,11 @@ export default function Home() {
 
       <LocationSection />
 
-      {/* Healing Quote Section */}
-      <section ref={healingSectionRef} className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] lg:pt-[90px] pb-16 md:pb-24 lg:pb-10 px-6 overflow-hidden">
+      {/* Healing Quote Section — lg:min-h-screen so the pinned section always fills the
+          viewport exactly; without it, the section's own (shorter) content height left a
+          gap below it while pinned/fixed, showing the page's white background through and
+          making it look like a white box was being shoved in from below. */}
+      <section ref={healingSectionRef} className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center lg:justify-center px-6 overflow-hidden">
         {/* Mobile/tablet — simple static grid, no pin/scroll-jack (doesn't translate to touch) */}
         <div className="lg:hidden flex flex-col items-center text-center gap-8">
           <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
