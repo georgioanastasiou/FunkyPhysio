@@ -154,9 +154,14 @@ export default function Home() {
         gsap.set(healingEls, { y: () => window.innerHeight, opacity: 1 });
         const tl = gsap.timeline({
           scrollTrigger: {
-            trigger: healingHeadingRef.current,
+            // Trigger and pin are the same element on purpose: pinning off a
+            // different trigger (the heading, or anything not vertically centered
+            // within the section) locks the section at whatever offset the
+            // trigger condition happened to fire at, not at the viewport top —
+            // leaving a permanent gap above it for the entire pinned duration.
+            trigger: healingSectionRef.current,
             pin: healingSectionRef.current,
-            start: 'center center',
+            start: 'top top',
             end: '+=2500',
             scrub: 1,
             pinSpacing: true,
