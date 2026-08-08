@@ -1,6 +1,5 @@
 'use client';
 
-import { Play } from 'lucide-react';
 import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
@@ -65,24 +64,30 @@ export default function Home() {
   // parent it no longer actually has — "NotFoundError: node is not a child of this node".
   // useGSAP cleans up synchronously before that removal (it's built for this).
   useGSAP(() => {
-      // Hero Logo — starts above the "Funky Physio" heading, flies to sit left of the
-      // burger button on scroll. Both positions are measured live off real DOM rects
-      // (the heading, the burger button) instead of hardcoded breakpoint numbers, so
-      // it lines up correctly at any screen size — including after a resize, via
-      // onRefreshInit re-measuring the centered start position from scratch (a plain
-      // gsap.set only ran once at mount, so it went stale and drifted off-center on
-      // narrower viewports).
+      /* ── Hero Logo fly-to-navbar-on-scroll animation (disabled) ──────────
+      // Previously the logo lived outside this container as a fixed,
+      // page-level sibling (so it could end up pinned near the navbar
+      // regardless of scroll), and this block animated it from centered
+      // above the heading to sitting left of the burger button as you
+      // scrolled. Both positions were measured live off real DOM rects (the
+      // heading, the burger button) instead of hardcoded breakpoint numbers,
+      // so it lined up correctly at any screen size — including after a
+      // resize, via onRefreshInit re-measuring the centered start position
+      // from scratch (a plain gsap.set only ran once at mount, so it went
+      // stale and drifted off-center on narrower viewports).
+      //
+      // The logo now just lives in normal document flow inside heroContentRef
+      // (see the JSX below) so it scrolls away with the hero/WhatWeDo
+      // container instead of staying fixed over every section on the page.
+      // Re-enabling this would mean moving it back out to a fixed sibling.
       if (heroLogoRef.current && heroContentRef.current) {
         const logoEl = heroLogoRef.current;
         const contentEl = heroContentRef.current;
         const END_SCALE = 0.42;
         const GAP = 16;
 
-        // Scale from the top-left corner so translateX/Y keep lining up with that
-        // corner as the logo shrinks, instead of drifting from a center-origin scale.
         gsap.set(logoEl, { transformOrigin: 'left top' });
 
-        // Start: centered horizontally, sitting just above the heading text
         const setStartPosition = () => {
           const lw = logoEl.offsetWidth;
           const lh = logoEl.offsetHeight;
@@ -95,7 +100,6 @@ export default function Home() {
         };
         setStartPosition();
 
-        // End: always to the left of the burger button, whatever the screen size
         gsap.to(logoEl, {
           x: () => {
             const burger = document.querySelector<HTMLElement>('button[aria-label="Toggle menu"]');
@@ -120,6 +124,7 @@ export default function Home() {
           },
         });
       }
+      ── end disabled block ────────────────────────────────────────────── */
 
       // Meet George parallax
       if (georgeImageRef.current) {
@@ -177,11 +182,6 @@ export default function Home() {
 
   return (
     <>
-      {/* Hero Logo — fixed overlay, GSAP animates it diagonally to navbar on scroll */}
-      <div ref={heroLogoRef} className="fixed z-[55] pointer-events-none" style={{ left: 0, top: 0 }}>
-        <Image src="/logonew.png" alt="Funky Physio Logo" width={96} height={96} className="h-24 w-auto" priority />
-      </div>
-
       {/* Hero + WhatWeDo share a container so sticky hero only lives within it */}
       <div>
         <div className="lg:sticky lg:top-0 z-[1] h-screen">
@@ -198,6 +198,15 @@ export default function Home() {
               <source src="/hero-video1.mp4" type="video/mp4" />
             </video>
             <div ref={heroContentRef} className="relative z-20 text-center px-4">
+              {/* Logo — lives in normal flow with the rest of the hero content now
+                  (not position:fixed), so it scrolls away with the hero/WhatWeDo
+                  container instead of staying pinned over every section on the
+                  page. See the disabled fly-to-navbar block below for the old
+                  behavior; re-enabling it would need this moved back out to a
+                  fixed, page-level sibling the way it was before. */}
+              <div ref={heroLogoRef} className="mx-auto mb-6 md:mb-8 w-fit">
+                <Image src="/logonew.png" alt="Funky Physio Logo" width={96} height={96} className="h-16 md:h-24 w-auto" priority />
+              </div>
               <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8">
                 Funky Physio
               </h1>
@@ -220,7 +229,7 @@ export default function Home() {
       </div>
       {/* Meet George Section */}
       <section className="relative bg-white py-12 sm:py-16 px-6 sm:px-8 md:px-20 lg:px-32">
-        <p className="font-syne text-lg font-bold text-black mb-8 sm:mb-10 tracking-wide">\George Anastasiou</p>
+        <p className="font-syne font-semibold text-2xl tracking-[-0.02em] mb-8 sm:mb-10" style={{ color: '#241F21' }}>\George Anastasiou</p>
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10">
 
@@ -229,13 +238,13 @@ export default function Home() {
             <div className="flex flex-col sm:flex-row sm:items-end gap-6 sm:gap-10">
               <div
                 ref={georgeImageRef}
-                className="flex-shrink-0 overflow-hidden w-40 h-52 sm:w-[200px] sm:h-[246px] md:w-[260px] md:h-[320px]"
+                className="flex-shrink-0 overflow-hidden w-32 h-40 sm:w-[150px] sm:h-[185px] md:w-[195px] md:h-[240px]"
               >
                 <Image
                   src="/basketball/DSC_0079.jpg"
                   alt="George Anastasiou"
-                  width={260}
-                  height={320}
+                  width={195}
+                  height={240}
                   className="object-cover object-top w-full h-full"
                 />
               </div>
@@ -258,9 +267,8 @@ export default function Home() {
 
           {/* Circular Learn More button — vertically centered against the whole text block on desktop, left-aligned below on mobile */}
           <div className="flex-shrink-0 self-start lg:self-center">
-            <Link href="/about" className="w-20 h-20 lg:w-24 lg:h-24 rounded-full border border-black flex flex-col items-center justify-center text-center hover:bg-black hover:text-white transition-colors duration-300 group">
-              <span className="font-syne text-[9px] lg:text-[10px] uppercase tracking-[2px] leading-tight text-black group-hover:text-white">LEARN<br />MORE</span>
-              <span className="text-base mt-1 text-black group-hover:text-white">→</span>
+            <Link href="/about" className="block w-20 h-20 lg:w-24 lg:h-24 transition-transform duration-300 hover:scale-105">
+              <Image src="/Button Learn More.svg" alt="Learn more" width={110} height={110} className="w-full h-full" />
             </Link>
           </div>
 
@@ -269,18 +277,16 @@ export default function Home() {
 
       {/* Testimonials Section — flat cream strip, bleeds off the right edge */}
       <section className="relative bg-[#EDE8DF] py-16 md:py-20">
-        <p className="font-syne text-lg font-bold text-black mb-10 tracking-wide px-8 md:px-20 lg:px-32">\Real People, Real Results</p>
+        <p className="font-syne font-semibold text-2xl tracking-[-0.02em] mb-10 px-8 md:px-20 lg:px-32" style={{ color: '#241F21' }}>\Real People, Real Results</p>
 
         <div className="flex gap-5 overflow-x-auto no-scrollbar pl-8 md:pl-20 lg:pl-32 pr-8 pb-2">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="relative flex-shrink-0 w-64 h-80 rounded-[20px] overflow-hidden group cursor-pointer">
+            <div key={index} className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer">
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
               <button className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-colors" aria-label="Play testimonial video">
-                <div className="w-14 h-14 bg-[#7C3AED] rounded-full flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
-                  <Play className="w-6 h-6 text-white ml-0.5" fill="white" />
-                </div>
+                <Image src="/Group 11.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
               </button>
-              <div className="absolute bottom-0 left-0 w-52 h-14 bg-white rounded-tr-[10px] flex flex-col justify-center px-4">
+              <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
                 <div className="text-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
                 <div className="text-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
               </div>
@@ -299,22 +305,22 @@ export default function Home() {
         <div className="relative z-10 flex flex-col lg:flex-row gap-10 lg:gap-10 w-full lg:items-stretch">
           {/* Left column: label + big heading pinned left, intro paragraphs pinned top-right next to the photo */}
           <div className="flex-1 grid grid-cols-1 lg:grid-cols-[1fr_260px] lg:grid-rows-[auto_1fr] gap-x-8">
-            <p className="font-syne text-lg font-bold text-[#F3E9D6] tracking-wide mb-10 lg:mb-0 lg:col-start-1 lg:row-start-1">\Our Philosophy</p>
+            <p className="font-syne font-semibold text-2xl tracking-[-0.02em] text-[#F2FFAB] mb-10 lg:mb-0 lg:col-start-1 lg:row-start-1">\Our Philosophy</p>
 
             <div className="grid grid-cols-1 gap-5 max-w-xl mb-1 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-1 lg:max-w-none">
-              <p className="text-[#F2FFAA] text-sm font-syne leading-6 text-justify">
+              <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
                 George holds a degree in Sports Science and Physiotherapy, and played
                 professional basketball before moving into clinical practice — first-hand
                 experience with how the body performs under load, and how it breaks down.
               </p>
-              <p className="text-[#F2FFAA] text-sm font-syne leading-6 text-justify">
+              <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
                 Trained in Orthopaedic Manual Therapy (OMT), he practised for five years in
                 Berlin before opening his own studio in Barcelona. His focus areas include
                 sports injuries, post-surgical rehab, chronic pain, and shoulder, knee and hip conditions.
               </p>
             </div>
 
-            <p className="pt-16 lg:pt-0 text-[#F2FFAA] text-3xl md:text-4xl font-bold font-syne leading-tight max-w-2xl lg:max-w-none lg:col-span-2 lg:row-start-2 lg:self-end text-justify">
+            <p className="pt-16 lg:pt-0 text-[#F2FFAB] text-[48px] font-normal font-syne tracking-[-0.02em] leading-[110%] max-w-2xl lg:max-w-none lg:col-span-2 lg:row-start-2 lg:self-end text-left">
               Five years of clinical practice, one approach: an accurate diagnosis and a treatment plan built around how you actually move.
             </p>
           </div>
