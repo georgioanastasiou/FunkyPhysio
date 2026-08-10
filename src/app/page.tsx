@@ -217,11 +217,6 @@ export default function Home() {
                 Book Appointment
               </Link>
             </div>
-            <div className="absolute bottom-0 left-0 w-full z-10" style={{ transform: 'translateY(1px)' }}>
-              <svg width="1442" height="101" viewBox="0 0 1442 101" fill="none" xmlns="http://www.w3.org/2000/svg" className="w-full block" preserveAspectRatio="none">
-                <path d="M0 0C50.0042 106.18 243.242 93.9596 659.915 30.7419C1087.51 -34.1338 1352.6 37.0078 1442 100.304H721.5H1L0 0Z" fill="#0d0a1a" />
-              </svg>
-            </div>
           </section>
         </div>
         {/* WhatWeDo slides up over the hero — once done, container ends and hero scrolls away */}
