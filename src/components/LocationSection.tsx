@@ -57,7 +57,7 @@ export default function LocationSection() {
   return (
     <section className="py-12 md:py-20 bg-[#EDE8DF] overflow-hidden">
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <p className="font-syne text-lg font-bold text-black mb-20 sm:mb-16 tracking-wide">\Location of your choice</p>
+        <p className="font-syne text-lg font-bold text-funky-black mb-20 sm:mb-16 tracking-wide">\Location of your choice</p>
 
         {/* List of location options — text stays left-aligned within the block,
             but the block itself is centered in the page (mx-auto + w-fit) */}

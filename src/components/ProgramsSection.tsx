@@ -155,7 +155,7 @@ export default function ProgramsSection() {
                     unoptimized
                   />
                   {/* Overlay */}
-                  <div className="absolute inset-0 bg-black/30 group-hover:bg-black/50 transition-all flex items-center justify-center">
+                  <div className="absolute inset-0 bg-funky-black/30 group-hover:bg-funky-black/50 transition-all flex items-center justify-center">
                     <div className="w-14 h-14 rounded-full bg-white/90 flex items-center justify-center shadow-lg group-hover:scale-110 transition-transform">
                       <Play className="w-6 h-6 text-[#D84795] ml-1" fill="#D84795" />
                     </div>
@@ -174,7 +174,7 @@ export default function ProgramsSection() {
                   </div>
                   {/* Preview label */}
                   <div className="absolute bottom-3 right-3">
-                    <span className="bg-black/60 text-white text-xs px-2 py-1 rounded">
+                    <span className="bg-funky-black/60 text-white text-xs px-2 py-1 rounded">
                       Free Preview
                     </span>
                   </div>

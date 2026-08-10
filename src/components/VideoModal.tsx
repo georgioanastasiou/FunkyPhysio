@@ -35,10 +35,10 @@ export default function VideoModal({ videoUrl, title, onClose }: VideoModalProps
   return (
     <div
       ref={backdropRef}
-      className="fixed inset-0 z-50 flex items-center justify-center bg-black/80 backdrop-blur-sm p-4"
+      className="fixed inset-0 z-50 flex items-center justify-center bg-funky-black/80 backdrop-blur-sm p-4"
       onClick={(e) => { if (e.target === backdropRef.current) onClose(); }}
     >
-      <div className="relative w-full max-w-4xl bg-black rounded-2xl overflow-hidden shadow-2xl">
+      <div className="relative w-full max-w-4xl bg-funky-black rounded-2xl overflow-hidden shadow-2xl">
         {/* Header */}
         <div className="flex items-center justify-between px-5 py-3 bg-gray-900">
           <p className="text-white font-semibold text-sm truncate pr-4">▶ Preview — {title}</p>

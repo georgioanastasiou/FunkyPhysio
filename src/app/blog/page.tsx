@@ -20,9 +20,9 @@ async function BlogContent() {
       ) : (
         <div className="text-center py-24">
           <p className="text-gray-400 font-syne text-sm uppercase tracking-[4px] mb-4">Coming soon</p>
-          <h3 className="text-3xl font-semibold font-syne text-black mb-4">No posts yet</h3>
+          <h3 className="text-3xl font-semibold font-syne text-funky-black mb-4">No posts yet</h3>
           <p className="text-gray-500 font-syne mb-8">Start creating content in Sanity Studio.</p>
-          <Link href="/studio" className="text-sm uppercase tracking-[3px] font-syne text-black border-b border-black pb-0.5 hover:opacity-60 transition-opacity">
+          <Link href="/studio" className="text-sm uppercase tracking-[3px] font-syne text-funky-black border-b border-funky-black pb-0.5 hover:opacity-60 transition-opacity">
             Open Studio →
           </Link>
         </div>
@@ -39,7 +39,7 @@ export default function Blog() {
       <section className="bg-[#f5f0eb] pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
           <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-6">Our Blog</p>
-          <h1 className="text-5xl lg:text-6xl font-semibold font-syne text-black leading-tight mb-6">
+          <h1 className="text-5xl lg:text-6xl font-semibold font-syne text-funky-black leading-tight mb-6">
             Health tips &<br />expert advice
           </h1>
           <p className="text-gray-500 font-syne text-lg max-w-xl leading-relaxed">
@@ -63,7 +63,7 @@ export default function Blog() {
       <section className="bg-[#f5f0eb] py-24 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-4">Newsletter</p>
-          <h2 className="text-3xl font-semibold font-syne text-black mb-4">Stay in the loop</h2>
+          <h2 className="text-3xl font-semibold font-syne text-funky-black mb-4">Stay in the loop</h2>
           <p className="text-gray-500 font-syne mb-10">
             Get the latest health tips and physiotherapy advice straight to your inbox.
           </p>
@@ -71,11 +71,11 @@ export default function Blog() {
             <input
               type="email"
               placeholder="Your email address"
-              className="flex-1 bg-white border border-gray-300 px-5 py-3 text-sm font-syne text-black placeholder-gray-400 outline-none focus:border-black transition-colors"
+              className="flex-1 bg-white border border-gray-300 px-5 py-3 text-sm font-syne text-funky-black placeholder-gray-400 outline-none focus:border-funky-black transition-colors"
             />
             <button
               type="submit"
-              className="px-6 py-3 bg-black text-white text-sm uppercase tracking-[3px] font-syne hover:bg-gray-800 transition-colors"
+              className="px-6 py-3 bg-funky-black text-white text-sm uppercase tracking-[3px] font-syne hover:bg-gray-800 transition-colors"
             >
               Subscribe
             </button>

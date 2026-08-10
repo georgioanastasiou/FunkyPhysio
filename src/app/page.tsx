@@ -184,7 +184,7 @@ export default function Home() {
       {/* Hero + WhatWeDo share a container so sticky hero only lives within it */}
       <div>
         <div className="lg:sticky lg:top-0 z-[1] h-screen">
-          <section className="relative h-screen overflow-hidden flex items-center justify-center bg-black">
+          <section className="relative h-screen overflow-hidden flex items-center justify-center bg-funky-black">
             <video
               ref={videoRef}
               autoPlay
@@ -211,7 +211,7 @@ export default function Home() {
               </h1>
               <Link
                 href="/contact"
-                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border-2 border-white text-white font-semibold text-base md:text-lg rounded-[10px] hover:bg-white hover:text-gray-900 transition-colors"
+                className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border border-white text-white font-semibold text-base md:text-lg rounded-[4px] hover:bg-white hover:text-gray-900 transition-colors"
               >
                 Book Appointment
               </Link>
@@ -242,14 +242,14 @@ export default function Home() {
                   className="object-cover object-top w-full h-full"
                 />
               </div>
-              <p className="text-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
+              <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
                 Lorem dolor sit amet consectetur  Nullam viverra purus
               </p>
             </div>
 
             {/* Rest of the paragraph — spreads full width below */}
             <div ref={georgeTextRef} className="mt-4 sm:mt-2">
-              <p className="text-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
+              <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
                 ac aliquet eget morbi non.
                 Maliquet eget morbi non. Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. aliquet eget morbi non.
                 Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. tis etiam lobortis tempor id. Sit aenean erat nunc
@@ -277,12 +277,12 @@ export default function Home() {
           {testimonials.map((testimonial, index) => (
             <div key={index} className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer">
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-              <button className="absolute inset-0 flex items-center justify-center bg-black/10 hover:bg-black/20 transition-colors" aria-label="Play testimonial video">
+              <button className="absolute inset-0 flex items-center justify-center bg-funky-black/10 hover:bg-funky-black/20 transition-colors" aria-label="Play testimonial video">
                 <Image src="/Group 11.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
               </button>
               <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
-                <div className="text-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
-                <div className="text-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
+                <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
+                <div className="text-funky-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
               </div>
             </div>
           ))}

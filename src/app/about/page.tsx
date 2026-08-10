@@ -203,7 +203,7 @@ export default function About() {
         </svg>
         </div>
         <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-black text-center px-4">
+          <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-funky-black text-center px-4">
             Meet George Anastasiou
           </h1>
         </div>
@@ -260,7 +260,7 @@ export default function About() {
                           {step.year}
                         </span>
                       </div>
-                      <h2 className="animate-child text-4xl font-semibold text-black leading-tight">
+                      <h2 className="animate-child text-4xl font-semibold text-funky-black leading-tight">
                         {step.title}
                       </h2>
                       <h3 className="animate-child text-2xl font-medium text-[#78428F] leading-tight">

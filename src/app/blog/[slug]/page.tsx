@@ -57,7 +57,7 @@ const ExerciseDemo = ({ value }: { value: any }) => {
       {(value.exerciseName || value.caption) && (
         <div style={{ paddingTop: 8 }}>
           {value.exerciseName && (
-            <p className="font-syne font-semibold text-black text-sm">{value.exerciseName}</p>
+            <p className="font-syne font-semibold text-funky-black text-sm">{value.exerciseName}</p>
           )}
           {value.caption && (
             <p className="font-syne text-gray-400 text-xs mt-0.5">{value.caption}</p>
@@ -72,13 +72,13 @@ const ExerciseDemo = ({ value }: { value: any }) => {
 const portableTextComponents: any = {
   block: {
     h1: ({ children }: { children: React.ReactNode }) => (
-      <h1 className="text-3xl font-semibold font-syne text-black mt-12 mb-5">{children}</h1>
+      <h1 className="text-3xl font-semibold font-syne text-funky-black mt-12 mb-5">{children}</h1>
     ),
     h2: ({ children }: { children: React.ReactNode }) => (
-      <h2 className="text-2xl font-semibold font-syne text-black mt-10 mb-4">{children}</h2>
+      <h2 className="text-2xl font-semibold font-syne text-funky-black mt-10 mb-4">{children}</h2>
     ),
     h3: ({ children }: { children: React.ReactNode }) => (
-      <h3 className="text-xl font-semibold font-syne text-black mt-8 mb-3">{children}</h3>
+      <h3 className="text-xl font-semibold font-syne text-funky-black mt-8 mb-3">{children}</h3>
     ),
     h4: ({ children }: { children: React.ReactNode }) => (
       <h4 className="text-lg font-medium font-syne text-gray-800 mt-6 mb-2">{children}</h4>
@@ -87,7 +87,7 @@ const portableTextComponents: any = {
       <p className="font-syne text-[24px] leading-[1.85] mb-6" style={{ color: "#4b5563", fontWeight: 450, maxWidth: "95ch" }}>{children}</p>
     ),
     blockquote: ({ children }: { children: React.ReactNode }) => (
-      <blockquote className="border-l-2 border-black pl-6 my-8 text-gray-500 font-syne text-lg italic leading-relaxed">
+      <blockquote className="border-l-2 border-funky-black pl-6 my-8 text-gray-500 font-syne text-lg italic leading-relaxed">
         {children}
       </blockquote>
     ),
@@ -113,14 +113,14 @@ const portableTextComponents: any = {
   },
   marks: {
     strong: ({ children }: { children: React.ReactNode }) => (
-      <strong className="font-semibold text-black">{children}</strong>
+      <strong className="font-semibold text-funky-black">{children}</strong>
     ),
     em: ({ children }: { children: React.ReactNode }) => (
       <em className="italic text-gray-700">{children}</em>
     ),
     link: ({ children, value }: { children: React.ReactNode; value?: { href?: string } }) => (
       <a href={value?.href} target="_blank" rel="noopener noreferrer"
-        className="text-black underline underline-offset-4 decoration-gray-400 hover:decoration-black transition-all">
+        className="text-funky-black underline underline-offset-4 decoration-gray-400 hover:decoration-funky-black transition-all">
         {children}
       </a>
     ),
@@ -137,13 +137,13 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Back link */}
       <div className="pt-20 pb-4 px-6 lg:px-16 bg-white">
-        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-black font-syne text-sm uppercase tracking-[3px] transition-colors">
+        <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-funky-black font-syne text-sm uppercase tracking-[3px] transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
       </div>
 
       {/* Hero — full-width image with overlaid title */}
-      <section className="relative w-full h-[70vh] min-h-[500px] bg-black">
+      <section className="relative w-full h-[70vh] min-h-[500px] bg-funky-black">
         {post.mainImage?.asset ? (
           <Image
             src={urlFor(post.mainImage.asset).width(1800).height(900).url()}
@@ -221,7 +221,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             )}
             <div>
               <p className="text-[10px] uppercase tracking-[3px] text-gray-400 font-syne mb-1">Written by</p>
-              <p className="text-black font-semibold font-syne">{post.author.name}</p>
+              <p className="text-funky-black font-semibold font-syne">{post.author.name}</p>
             </div>
           </div>
         </section>
@@ -234,17 +234,17 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
         <div className="max-w-3xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10">
           <div>
             <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-4">Ready to feel better?</p>
-            <h2 className="text-4xl font-semibold font-syne text-black leading-tight">
+            <h2 className="text-4xl font-semibold font-syne text-funky-black leading-tight">
               Book a consultation<br />with George
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 shrink-0">
             <Link href="/contact"
-              className="px-8 py-4 bg-black text-white font-syne text-sm uppercase tracking-[3px] hover:bg-gray-800 transition-colors">
+              className="px-8 py-4 bg-funky-black text-white font-syne text-sm uppercase tracking-[3px] hover:bg-gray-800 transition-colors">
               Book now
             </Link>
             <Link href="/services"
-              className="px-8 py-4 border border-black text-black font-syne text-sm uppercase tracking-[3px] hover:bg-black hover:text-white transition-colors">
+              className="px-8 py-4 border border-funky-black text-funky-black font-syne text-sm uppercase tracking-[3px] hover:bg-funky-black hover:text-white transition-colors">
               Our services
             </Link>
           </div>

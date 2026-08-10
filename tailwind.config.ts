@@ -8,6 +8,9 @@ const config: Config = {
   ],
   theme: {
     extend: {
+      colors: {
+        'funky-black': '#241F21',
+      },
       fontFamily: {
         'museo-moderno': ['var(--font-museo-moderno)', 'sans-serif'],
         'poppins': ['Poppins', 'sans-serif'],
