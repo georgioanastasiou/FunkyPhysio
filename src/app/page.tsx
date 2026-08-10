@@ -222,7 +222,7 @@ export default function Home() {
         <WhatWeDo />
       </div>
       {/* Meet George Section */}
-      <section className="relative bg-white py-12 sm:py-16 px-6 sm:px-8 md:px-20 lg:px-32">
+      <section data-nav-theme="light" className="relative bg-white py-12 sm:py-16 px-6 sm:px-8 md:px-20 lg:px-32">
         <p className="font-syne font-semibold text-2xl tracking-[-0.02em] mb-8 sm:mb-10" style={{ color: '#241F21' }}>\George Anastasiou</p>
 
         <div className="flex flex-col lg:flex-row items-start gap-6 lg:gap-10">
