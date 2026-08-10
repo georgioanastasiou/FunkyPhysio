@@ -7,9 +7,20 @@ import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
 
+type NavTheme = 'default' | 'light' | 'purple';
+
+// Sections opt into a background theme via data-nav-theme="light" | "purple"
+// so the burger button can stay legible against whatever's scrolled behind it.
+const BURGER_THEME_CLASSES: Record<NavTheme, string> = {
+  default: 'border-white text-white hover:bg-white/10',
+  light: 'border-funky-black text-funky-black hover:bg-funky-black/10',
+  purple: 'border-[#F2FFAB] text-[#F2FFAB] hover:bg-[#F2FFAB]/10',
+};
+
 export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
+  const [bgTheme, setBgTheme] = useState<NavTheme>('default');
 
   const highlightRef = useRef<HTMLDivElement>(null);
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
@@ -23,6 +34,41 @@ export default function Navbar() {
     document.body.style.overflow = isOpen ? 'hidden' : '';
     return () => { document.body.style.overflow = ''; };
   }, [isOpen]);
+
+  // Track which themed section (if any) is currently scrolled behind the fixed
+  // burger button, via a thin intersection band roughly where the button sits.
+  useEffect(() => {
+    const targets = document.querySelectorAll<HTMLElement>('[data-nav-theme]');
+    if (!targets.length) {
+      setBgTheme('default');
+      return;
+    }
+
+    const active = new Map<Element, NavTheme>();
+    const recompute = () => {
+      const themes = Array.from(active.values());
+      setBgTheme(themes.includes('purple') ? 'purple' : themes.includes('light') ? 'light' : 'default');
+    };
+
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          const themeName = (entry.target as HTMLElement).dataset.navTheme as NavTheme;
+          if (entry.isIntersecting) active.set(entry.target, themeName);
+          else active.delete(entry.target);
+        });
+        recompute();
+      },
+      { rootMargin: '-90px 0px -85% 0px', threshold: 0 }
+    );
+
+    targets.forEach((el) => observer.observe(el));
+    return () => observer.disconnect();
+  }, [pathname]);
+
+  // The full-screen menu backdrop is dark regardless of scroll position, so
+  // the icon should stay white while it's open rather than follow bgTheme.
+  const burgerTheme: NavTheme = isOpen ? 'default' : bgTheme;
 
   const handleMouseEnter = (i: number) => {
     setHoveredIndex(i);
@@ -68,7 +114,7 @@ export default function Navbar() {
             <div className="relative z-[60]">
               <button
                 onClick={() => setIsOpen(!isOpen)}
-                className="inline-flex items-center justify-center w-14 h-14 rounded-[6px] border border-white text-white focus:outline-none hover:bg-white/10 transition-colors duration-200"
+                className={`inline-flex items-center justify-center w-14 h-14 rounded-[6px] border focus:outline-none transition-colors duration-200 ${BURGER_THEME_CLASSES[burgerTheme]}`}
                 aria-label="Toggle menu"
               >
                 {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}

@@ -270,7 +270,7 @@ export default function Home() {
       </section>
 
       {/* Testimonials Section — flat cream strip, bleeds off the right edge */}
-      <section className="relative bg-[#EDE8DF] py-16 md:py-20">
+      <section data-nav-theme="light" className="relative bg-[#EDE8DF] py-16 md:py-20">
         <p className="font-syne font-semibold text-2xl tracking-[-0.02em] mb-10 px-8 md:px-20 lg:px-32" style={{ color: '#241F21' }}>\Real People, Real Results</p>
 
         <div className="flex gap-5 overflow-x-auto no-scrollbar pl-8 md:pl-20 lg:pl-32 pr-8 pb-2">
@@ -290,7 +290,7 @@ export default function Home() {
       </section>
 
       {/* Our Philosophy Section */}
-      <section className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-6 sm:px-8 md:px-20 lg:px-32 lg:min-h-[900px] flex items-start">
+      <section data-nav-theme="purple" className="relative bg-[#412C46] overflow-hidden py-16 md:py-24 px-6 sm:px-8 md:px-20 lg:px-32 lg:min-h-[900px] flex items-start">
         {/* Decorative mask logo watermark, bleeding behind the left column */}
         <div className="absolute left-4 sm:left-20 top-0 h-[500px] sm:h-[650px] lg:h-[750px] w-full max-w-2xl opacity-20 pointer-events-none translate-y-[60px]">
           <Image src="/MaskLogo.png" alt="" fill className="object-contain object-left-bottom" />
@@ -332,7 +332,7 @@ export default function Home() {
           viewport exactly; without it, the section's own (shorter) content height left a
           gap below it while pinned/fixed, showing the page's white background through and
           making it look like a white box was being shoved in from below. */}
-      <section ref={healingSectionRef} className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center lg:justify-center px-6 overflow-hidden">
+      <section ref={healingSectionRef} data-nav-theme="light" className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center lg:justify-center px-6 overflow-hidden">
         {/* Mobile/tablet — simple static grid, no pin/scroll-jack (doesn't translate to touch) */}
         <div className="lg:hidden flex flex-col items-center text-center gap-8">
           <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">

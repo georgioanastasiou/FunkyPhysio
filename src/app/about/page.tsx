@@ -279,7 +279,7 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section ref={ctaSectionRef} className="relative bg-[#78428F] py-20">
+      <section ref={ctaSectionRef} data-nav-theme="purple" className="relative bg-[#78428F] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="cta-animate text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Start Your Journey?

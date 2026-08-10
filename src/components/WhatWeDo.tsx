@@ -138,7 +138,7 @@ export default function WhatWeDo() {
   return (
     <>
       {/* Mobile/tablet — simple static stacked list, no scroll-jack (that interaction doesn't translate well to touch/short viewports) */}
-      <section className="lg:hidden bg-[#EDE8DF] px-6 sm:px-10 py-16 sm:py-20">
+      <section data-nav-theme="light" className="lg:hidden bg-[#EDE8DF] px-6 sm:px-10 py-16 sm:py-20">
         <div className="flex flex-col gap-12 sm:gap-16">
           {services.map((s) => (
             <div key={s.label} className="flex flex-col gap-3 sm:gap-4">
@@ -162,7 +162,7 @@ export default function WhatWeDo() {
 
       {/* Desktop — scroll-scrubbed pinned panel wipe */}
       <div ref={wrapperRef} className="hidden lg:block" style={{ height: 'calc(100vh + 2400px)' }}>
-      <section className="sticky top-0 z-[20] h-screen bg-[#EDE8DF] overflow-hidden">
+      <section data-nav-theme="light" className="sticky top-0 z-[20] h-screen bg-[#EDE8DF] overflow-hidden">
         <div className="w-full h-full flex">
 
           {/* Left — service list */}
