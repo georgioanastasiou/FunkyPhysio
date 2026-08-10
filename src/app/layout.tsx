@@ -2,7 +2,6 @@ import type { Metadata } from 'next';
 import { Syne, MuseoModerno } from 'next/font/google';
 import './globals.css';
 import Navbar from '@/components/Navbar';
-import Footer from '@/components/Footer';
 import ServiceWorkerCleanup from '@/components/ServiceWorkerCleanup';
 import SmoothScroll from '@/components/SmoothScroll';
 import WhatsAppButton from '@/components/WhatsAppButton';
@@ -161,7 +160,6 @@ export default function RootLayout({
           <main className="flex-grow">
             {children}
           </main>
-          <Footer />
         </div>
         <WhatsAppButton phone="34675335798" bgStyle="gradient" />
         <SpeedInsights />

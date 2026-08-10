@@ -6,7 +6,6 @@ import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
-import ContactForm from '@/components/ContactForm';
 import WhatWeDo from '@/components/WhatWeDo';
 import LocationSection from '@/components/LocationSection';
 
@@ -397,8 +396,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-      <ContactForm />
     </>
   );
 }
