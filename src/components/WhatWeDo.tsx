@@ -86,8 +86,8 @@ export default function WhatWeDo() {
         }
         if (labelRefs.current[i]) {
           // Selected/unselected share the same weight, size, tracking and colour —
-          // only opacity distinguishes them (10% inactive, full at active).
-          gsap.set(labelRefs.current[i], { opacity: 0.1 + active * 0.9 });
+          // only opacity distinguishes them (40% inactive, full at active).
+          gsap.set(labelRefs.current[i], { opacity: 0.4 + active * 0.6 });
         }
         if (segmentRefs.current[i]) {
           gsap.set(segmentRefs.current[i], { backgroundColor: lerpColor(SEG_LIGHT, SEG_DARK, active) });
@@ -142,7 +142,7 @@ export default function WhatWeDo() {
         <div className="flex flex-col gap-12 sm:gap-16">
           {services.map((s) => (
             <div key={s.label} className="flex flex-col gap-3 sm:gap-4">
-              <span className="font-syne text-sm sm:text-base uppercase tracking-[2px] text-[#7C6F63] font-semibold">
+              <span className="font-syne text-sm sm:text-base uppercase tracking-[2px] text-funky-black font-semibold">
                 {s.label}
               </span>
               <div>
@@ -152,7 +152,7 @@ export default function WhatWeDo() {
                   </span>
                 ))}
               </div>
-              <p className="font-syne text-sm sm:text-base text-[#888] leading-relaxed max-w-sm">
+              <p className="font-syne text-sm sm:text-base text-funky-black leading-relaxed max-w-sm">
                 {s.body}
               </p>
             </div>
@@ -168,7 +168,7 @@ export default function WhatWeDo() {
           {/* Left — service list */}
           <div className="w-[40%] flex flex-col justify-center px-10 md:px-16 lg:px-24">
             {services.map((s, i) => (
-              <div key={s.label} className="flex items-center gap-3 mb-6 lg:mb-8">
+              <div key={s.label} className="flex items-center gap-3 mb-2">
                 <span
                   ref={(el) => { arrowRefs.current[i] = el; }}
                   className="flex-shrink-0"
@@ -179,7 +179,7 @@ export default function WhatWeDo() {
                 <span
                   ref={(el) => { labelRefs.current[i] = el; }}
                   className="font-syne font-semibold text-[40px] tracking-[-0.02em]"
-                  style={{ color: '#241F21', opacity: i === 0 ? 1 : 0.1 }}
+                  style={{ color: '#241F21', opacity: i === 0 ? 1 : 0.4 }}
                 >
                   {s.label}
                 </span>
@@ -187,8 +187,12 @@ export default function WhatWeDo() {
             ))}
           </div>
 
-          {/* Divider — 3 segments */}
-          <div className="flex flex-col self-stretch my-16 gap-1" style={{ width: '1px' }}>
+          {/* Divider — 3 segments. The image only renders at xl+ (hidden below
+              that), so only there does the divider match its height (same
+              clamp, since the image is aspect-square off that width) and
+              center the same way the image does; below xl it stretches full
+              height same as before, since there's no image to line up with. */}
+          <div className="flex flex-col self-stretch my-16 xl:self-center xl:my-0 xl:h-[clamp(320px,32vw,624px)] gap-1" style={{ width: '1px' }}>
             {services.map((_, i) => (
               <div
                 key={i}
@@ -220,7 +224,7 @@ export default function WhatWeDo() {
                       </span>
                     ))}
                   </div>
-                  <p className={`font-syne text-sm lg:text-base text-[#888] leading-relaxed ${s.image ? 'max-w-[200px]' : 'max-w-xs'}`}>
+                  <p className={`font-syne text-sm lg:text-base text-funky-black leading-relaxed ${s.image ? 'max-w-[200px]' : 'max-w-xs'}`}>
                     {s.body}
                   </p>
                 </div>
