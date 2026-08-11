@@ -125,8 +125,22 @@ export default function Home() {
       }
       ── end disabled block ────────────────────────────────────────────── */
 
-      // Meet George parallax
+      // Meet George — image reveal + parallax
       if (georgeImageRef.current) {
+        // Reveal: clipped fully closed from the bottom up, then wiped open
+        // top-to-bottom once as the image scrolls into view (plays once,
+        // doesn't reverse on scroll-out — a one-shot entrance, not a scrub).
+        gsap.fromTo(georgeImageRef.current,
+          { clipPath: 'inset(0% 0% 100% 0%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: georgeImageRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+          }
+        );
+
+        // Parallax: continuous subtle drift while the section is in view.
         gsap.fromTo(georgeImageRef.current,
           { yPercent: -8 },
           { yPercent: 8, ease: "none", scrollTrigger: { trigger: georgeImageRef.current.closest("section"), start: "top bottom", end: "bottom top", scrub: true } }
