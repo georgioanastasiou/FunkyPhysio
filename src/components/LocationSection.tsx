@@ -9,7 +9,7 @@ const locations = [
     title: 'At Funky Studio',
     description: 'In-person sessions in a fully equipped, professional studio environment.',
     prices: ['45 min / EUR 60', '60 min / EUR 70'],
-    image: '/funkydesk.png',
+    image: '/Image At funky studio.png',
   },
   {
     title: 'Online Sessions',
