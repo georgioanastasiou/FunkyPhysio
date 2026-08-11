@@ -401,7 +401,7 @@ export default function Home() {
           </div>
           <div className="grid grid-cols-2 gap-4 mt-4 w-full max-w-xl">
             {healingImages.map((img) => (
-              <div key={img.src} className={`bg-white p-2 pb-6 shadow-md ${img.rotate}`}>
+              <div key={img.src} className={`bg-white p-2 pb-6 ${img.rotate}`}>
                 <div className="relative w-full aspect-square">
                   <Image src={img.src} alt="" fill sizes="300px" className="object-cover" />
                 </div>
@@ -417,7 +417,7 @@ export default function Home() {
               <div
                 key={healingImages[i].src}
                 ref={(el) => { healingImageRefs.current[i] = el; }}
-                className={`bg-white p-2 pb-6 shadow-md ${healingImages[i].rotate}`}
+                className={`bg-white p-2 pb-6 ${healingImages[i].rotate}`}
               >
                 <div className="relative w-72 h-72">
                   <Image src={healingImages[i].src} alt="" fill sizes="300px" className="object-cover" />
@@ -442,7 +442,7 @@ export default function Home() {
               <div
                 key={healingImages[i].src}
                 ref={(el) => { healingImageRefs.current[i] = el; }}
-                className={`bg-white p-2 pb-6 shadow-md ${healingImages[i].rotate}`}
+                className={`bg-white p-2 pb-6 ${healingImages[i].rotate}`}
               >
                 <div className="relative w-72 h-72">
                   <Image src={healingImages[i].src} alt="" fill sizes="300px" className="object-cover" />
