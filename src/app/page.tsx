@@ -20,6 +20,7 @@ export default function Home() {
   const heroLogoRef = useRef<HTMLDivElement>(null);
   const georgeImageRef = useRef<HTMLDivElement>(null);
   const georgeTextRef = useRef<HTMLDivElement>(null);
+  const philosophyImageRef = useRef<HTMLDivElement>(null);
   const healingSectionRef = useRef<HTMLElement>(null);
   const healingHeadingRef = useRef<HTMLDivElement>(null);
   const healingImageRefs = useRef<(HTMLDivElement | null)[]>([]);
@@ -144,6 +145,20 @@ export default function Home() {
         gsap.fromTo(georgeImageRef.current,
           { yPercent: -8 },
           { yPercent: 8, ease: "none", scrollTrigger: { trigger: georgeImageRef.current.closest("section"), start: "top bottom", end: "bottom top", scrub: true } }
+        );
+      }
+
+      // Our Philosophy — studio photo, same one-shot top-to-bottom reveal as
+      // the Meet George image above.
+      if (philosophyImageRef.current) {
+        gsap.fromTo(philosophyImageRef.current,
+          { clipPath: 'inset(0% 0% 100% 0%)' },
+          {
+            clipPath: 'inset(0% 0% 0% 0%)',
+            duration: 1,
+            ease: 'power2.out',
+            scrollTrigger: { trigger: philosophyImageRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+          }
         );
       }
 
@@ -361,7 +376,7 @@ export default function Home() {
           </div>
 
           {/* Right column: interior photo, explicit larger height so it isn't capped by the text column's content height, no border radius */}
-          <div className="relative w-full h-[380px] sm:h-[460px] md:h-[550px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
+          <div ref={philosophyImageRef} className="relative w-full h-[380px] sm:h-[460px] md:h-[550px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
             <Image src="/funkydesk.png" alt="Funky Physio studio interior" fill className="object-cover" />
           </div>
         </div>
