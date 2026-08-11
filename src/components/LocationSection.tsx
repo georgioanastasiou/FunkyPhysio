@@ -15,13 +15,13 @@ const locations = [
     title: 'Online Sessions',
     description: 'Guided virtual sessions tailored to your needs, wherever you are.',
     prices: ['60 min / EUR 60'],
-    image: '/therapeutic-training.png',
+    image: '/Image online sessions.png',
   },
   {
     title: 'At your place',
     description: 'Personalized treatment delivered in the comfort of your home.',
     prices: ['60 min / EUR 90'],
-    image: '/massage.png',
+    image: '/Image At your place.png',
   },
 ];
 
