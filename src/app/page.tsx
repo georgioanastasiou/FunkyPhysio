@@ -157,7 +157,7 @@ export default function Home() {
             clipPath: 'inset(0% 0% 0% 0%)',
             duration: 1,
             ease: 'power2.out',
-            scrollTrigger: { trigger: philosophyImageRef.current, start: 'top 85%', toggleActions: 'play none none none' },
+            scrollTrigger: { trigger: philosophyImageRef.current, start: 'top 20%', toggleActions: 'play none none none' },
           }
         );
       }
