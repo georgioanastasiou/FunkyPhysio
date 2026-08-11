@@ -28,10 +28,10 @@ export default function Home() {
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
   // to alternate sides — left, right, left, right — for a nicer scroll rhythm.
   const healingImages = [
-    { src: '/physiotherapy.png', side: 'left', rotate: '' },
-    { src: '/therapeutic-training.png', side: 'right', rotate: '' },
-    { src: '/massage.png', side: 'left', rotate: '' },
-    { src: '/funkydesk.png', side: 'right', rotate: '' },
+    { src: '/image retro 1.png', side: 'left', rotate: '' },
+    { src: '/image retro 2.png', side: 'right', rotate: '' },
+    { src: '/image retro 3.png', side: 'left', rotate: '' },
+    { src: '/image retro 4.png', side: 'right', rotate: '' },
   ];
 
   const testimonials = [
