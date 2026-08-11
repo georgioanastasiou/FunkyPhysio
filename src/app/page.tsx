@@ -305,7 +305,7 @@ export default function Home() {
             <div key={index} className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer">
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
               <button className="absolute inset-0 flex items-center justify-center bg-funky-black/10 hover:bg-funky-black/20 transition-colors" aria-label="Play testimonial video">
-                <Image src="/Group 11.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
+                <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
               </button>
               <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
                 <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
