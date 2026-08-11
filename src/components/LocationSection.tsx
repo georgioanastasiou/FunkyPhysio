@@ -87,7 +87,7 @@ export default function LocationSection() {
         ref={imageRef}
         aria-hidden
         className="hidden lg:block fixed top-0 left-0 z-0 mix-blend-darken pointer-events-none overflow-hidden transition-opacity duration-300"
-        style={{ width: 220, height: 280, opacity: hovering ? 1 : 0 }}
+        style={{ width: 220, aspectRatio: '648 / 400', opacity: hovering ? 1 : 0 }}
       >
         <Image src={active.image} alt="" fill sizes="220px" className="object-cover" />
       </div>
