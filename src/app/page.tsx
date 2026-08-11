@@ -165,10 +165,13 @@ export default function Home() {
       // Healing images — the whole section pins in place the moment the heading
       // hits viewport center (trigger = heading, pin = section), so scrolling no
       // longer moves the page at all; that captured scroll instead drives each
-      // image on a continuous rise: up from below the viewport, through its
-      // slot, and on past the top edge while fading out — it never parks in
-      // place. The next image only starts once the current one has fully
-      // exited, so only one is ever in motion at a time.
+      // image on a single continuous rise — up from below the viewport, through
+      // its resting slot, and on past the top edge — with no opacity fade;
+      // disappearing is purely geometric, clipped by the section's own
+      // overflow-hidden once it's translated past the top edge. Each image
+      // starts its rise once the previous one is 2/3 of the way through its
+      // own path, so two are briefly in motion together instead of one
+      // fully finishing before the next begins.
       // Desktop only: the flanking photos are only visually shown at lg+ (the
       // mobile block above is a separate, static, unanimated layout), but both
       // blocks are always mounted in the DOM — Tailwind's responsive classes
@@ -184,7 +187,9 @@ export default function Home() {
         // time, before the page has scrolled anywhere near this pinned section,
         // so it reflects a stale pre-scroll position — innerHeight doesn't
         // depend on scroll position at all, so it can't go stale like that.
-        gsap.set(healingEls, { y: () => window.innerHeight, opacity: 1 });
+        gsap.set(healingEls, { y: () => window.innerHeight });
+        const RISE_DURATION = 1; // one image's full below-fold -> off-the-top path
+        const OVERLAP = RISE_DURATION * (2 / 3); // next image starts at 2/3 of the current one's path
         const tl = gsap.timeline({
           scrollTrigger: {
             // Trigger and pin are the same element on purpose: pinning off a
@@ -195,16 +200,18 @@ export default function Home() {
             trigger: healingSectionRef.current,
             pin: healingSectionRef.current,
             start: 'top top',
-            end: '+=2500',
+            // Longer than the old 2500 — the overlap above shortens the timeline
+            // a lot (4 staggered rises instead of 8 sequential half-rises), so
+            // this also has to grow just to keep each rise from feeling rushed.
+            end: '+=4000',
             scrub: 1,
             pinSpacing: true,
           },
         });
-        healingEls.forEach((el) => {
-          tl.to(el, { y: 0, ease: 'none', duration: 1 })
-            .to(el, { y: () => -window.innerHeight, opacity: 0, ease: 'none', duration: 1 });
-
-          });
+        healingEls.forEach((el, i) => {
+          tl.to(el, { y: () => -window.innerHeight, ease: 'none', duration: RISE_DURATION },
+            i === 0 ? 0 : `<+=${OVERLAP}`);
+        });
       }
   }, []);
 
