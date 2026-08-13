@@ -70,8 +70,8 @@ export default function LocationSection() {
               onMouseLeave={() => setHovering(false)}
               onFocus={() => setActiveIndex(i)}
               onClick={() => setActiveIndex(i)}
-              className="text-left font-syne text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight transition-colors duration-300"
-              style={{ color: activeIndex === i ? '#111111' : '#B0A898' }}
+              className="text-left font-syne text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-funky-black transition-opacity duration-300"
+              style={{ opacity: activeIndex === i ? 1 : 0.3 }}
             >
               {loc.title}
             </button>
