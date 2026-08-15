@@ -2,12 +2,13 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import WhatWeDo from '@/components/WhatWeDo';
 import LocationSection from '@/components/LocationSection';
+import VideoModal from '@/components/VideoModal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -34,12 +35,14 @@ export default function Home() {
     { src: '/image retro 4.png', side: 'right', rotate: '' },
   ];
 
+  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
+
   const testimonials = [
-    { name: "John Doe", title: "Marathon Runner", image: "https://randomuser.me/api/portraits/men/32.jpg" },
-    { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg" },
-    { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg" },
-    { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg" },
-    { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg" }
+    { name: "Kuriakos Filipidis", title: "Gym Lover", image: "https://randomuser.me/api/portraits/men/32.jpg", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
+    { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg", video: undefined as string | undefined },
+    { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg", video: undefined as string | undefined },
+    { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
+    { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg", video: undefined as string | undefined }
   ];
 
   // Video play/pause
@@ -340,7 +343,13 @@ export default function Home() {
           {testimonials.map((testimonial, index) => (
             <div key={index} className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer">
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-              <button className="absolute inset-0 flex items-center justify-center bg-funky-black/10 hover:bg-funky-black/20 transition-colors" aria-label="Play testimonial video">
+              <button
+                type="button"
+                onClick={() => testimonial.video && setActiveVideo({ url: testimonial.video, title: testimonial.name })}
+                disabled={!testimonial.video}
+                className="absolute inset-0 flex items-center justify-center bg-funky-black/10 hover:bg-funky-black/20 transition-colors disabled:cursor-default"
+                aria-label="Play testimonial video"
+              >
                 <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
               </button>
               <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
@@ -459,6 +468,14 @@ export default function Home() {
           </div>
         </div>
       </section>
+
+      {activeVideo && (
+        <VideoModal
+          videoUrl={activeVideo.url}
+          title={activeVideo.title}
+          onClose={() => setActiveVideo(null)}
+        />
+      )}
     </>
   );
 }
