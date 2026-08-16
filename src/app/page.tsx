@@ -25,6 +25,7 @@ export default function Home() {
   const healingSectionRef = useRef<HTMLElement>(null);
   const healingHeadingRef = useRef<HTMLDivElement>(null);
   const healingImageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const testimonialVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
   // to alternate sides — left, right, left, right — for a nicer scroll rhythm.
@@ -38,7 +39,7 @@ export default function Home() {
   const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
 
   const testimonials = [
-    { name: "Kuriakos Filipidis", title: "Gym Lover", image: "https://randomuser.me/api/portraits/men/32.jpg", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
+    { name: "Kyriakos Filipidis", title: "Gym Lover", image: "https://randomuser.me/api/portraits/men/32.jpg", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
     { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg", video: undefined as string | undefined },
     { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg", video: undefined as string | undefined },
     { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
@@ -341,16 +342,41 @@ export default function Home() {
 
         <div className="flex gap-5 overflow-x-auto no-scrollbar pl-8 md:pl-20 lg:pl-32 pr-8 pb-2">
           {testimonials.map((testimonial, index) => (
-            <div key={index} className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer">
+            <div
+              key={index}
+              className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer"
+              onMouseEnter={() => {
+                const v = testimonialVideoRefs.current[index];
+                if (v) { v.currentTime = 0; v.play().catch(() => {}); }
+              }}
+              onMouseLeave={() => {
+                const v = testimonialVideoRefs.current[index];
+                v?.pause();
+              }}
+            >
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
+              {/* Muted inline preview — plays on hover, pauses/resets on mouse leave.
+                  The play button below still opens the full modal (with sound and
+                  controls) for anyone who clicks instead of just hovering. */}
+              {testimonial.video && (
+                <video
+                  ref={(el) => { testimonialVideoRefs.current[index] = el; }}
+                  src={testimonial.video}
+                  muted
+                  loop
+                  playsInline
+                  preload="metadata"
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                />
+              )}
               <button
                 type="button"
                 onClick={() => testimonial.video && setActiveVideo({ url: testimonial.video, title: testimonial.name })}
                 disabled={!testimonial.video}
-                className="absolute inset-0 flex items-center justify-center bg-funky-black/10 hover:bg-funky-black/20 transition-colors disabled:cursor-default"
+                className={`absolute inset-0 flex items-center justify-center bg-funky-black/10 transition-colors disabled:cursor-default ${testimonial.video ? 'group-hover:bg-transparent' : 'hover:bg-funky-black/20'}`}
                 aria-label="Play testimonial video"
               >
-                <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-transform" />
+                <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 group-hover:opacity-0 transition-all" />
               </button>
               <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
                 <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
