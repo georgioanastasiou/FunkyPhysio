@@ -2,7 +2,7 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
@@ -43,6 +43,38 @@ export default function Home() {
     { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg", video: undefined as string | undefined }
   ];
 
+  // Click-to-play testimonial video, inline in the same card — no popup, no
+  // new tab/window. Which card (if any) is currently playing.
+  const [playingIndex, setPlayingIndex] = useState<number | null>(null);
+
+  const toggleTestimonialVideo = (index: number) => {
+    if (!testimonials[index].video) return;
+    const v = testimonialVideoRefs.current[index];
+    if (!v) return;
+
+    if (playingIndex === index) {
+      v.pause();
+      v.currentTime = 0;
+      setPlayingIndex(null);
+      return;
+    }
+
+    // Pause whichever card was already playing before starting this one.
+    if (playingIndex !== null) {
+      const prev = testimonialVideoRefs.current[playingIndex];
+      if (prev) {
+        prev.pause();
+        prev.currentTime = 0;
+      }
+    }
+
+    // A click is a real, qualifying user gesture (unlike hover), so unmuted
+    // playback is allowed immediately — no muted-then-unmute dance needed.
+    v.muted = false;
+    v.play().catch(() => {});
+    setPlayingIndex(index);
+  };
+
   // Video play/pause
   useEffect(() => {
     const video = videoRef.current;
@@ -59,9 +91,9 @@ export default function Home() {
 
   // Prime testimonial preview videos on mount: a muted play()+pause() is
   // always allowed with zero user gesture, so this forces the browser to
-  // fetch and decode a real frame well before anyone hovers. Without this,
-  // the first hover of the session starts fetching from nothing, and the
-  // video area shows solid black (no poster, no decoded frame yet) until
+  // fetch and decode a real frame well before anyone clicks play. Without
+  // this, the first click of the session starts fetching from nothing, and
+  // the video area shows solid black (no poster, no decoded frame yet) until
   // that fetch/decode finishes.
   useEffect(() => {
     testimonialVideoRefs.current.forEach((v) => {
@@ -354,73 +386,51 @@ export default function Home() {
         <p className="font-syne font-semibold text-2xl tracking-[-0.02em] mb-10 px-8 md:px-20 lg:px-32" style={{ color: '#241F21' }}>\Real People, Real Results</p>
 
         <div className="flex gap-5 overflow-x-auto no-scrollbar pl-8 md:pl-20 lg:pl-32 pr-8 pb-2">
-          {testimonials.map((testimonial, index) => (
-            <div
-              key={index}
-              className="relative flex-shrink-0 w-64 h-80 overflow-hidden group"
-              onMouseEnter={() => {
-                const v = testimonialVideoRefs.current[index];
-                if (!v) return;
-                // Per spec, hover (mouseenter) never counts as a qualifying user
-                // gesture — only click/tap/keydown do. So starting *unmuted*
-                // playback right here would just get silently blocked. Muted
-                // playback has no such restriction (always allowed), so we start
-                // there, then unmute once it's actually rolling. That unmute
-                // itself only sticks once some real click/tap has happened
-                // anywhere on the page this session (that's what unlocks audio
-                // for the rest of the session) — a browser-level restriction,
-                // not something fixable from here.
-                //
-                // Note: no currentTime reset here — seeking back to 0 takes a
-                // moment to (re)decode, and doing that at the exact instant we
-                // also need a frame on screen is what was producing the black
-                // flash. The reset happens on mouseleave instead, while hidden.
-                v.muted = true;
-                v.play()
-                  .then(() => { v.muted = false; })
-                  .catch(() => {});
-              }}
-              onMouseLeave={() => {
-                const v = testimonialVideoRefs.current[index];
-                if (!v) return;
-                v.pause();
-                v.currentTime = 0;
-              }}
-            >
-              <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-              {/* Inline preview — plays on hover, pauses/resets on mouse leave, no
-                  click/modal step. Visibility is driven by the video's own
-                  onPlaying/onPause events (real "a frame is on screen now" signal),
-                  not by :hover timing — so the static photo above keeps showing
-                  for as long as needed and the video only ever fades in once it
-                  actually has something to show. That's what rules out a black
-                  box, regardless of how long decoding takes on a given device. */}
-              {testimonial.video && (
-                <video
-                  ref={(el) => { testimonialVideoRefs.current[index] = el; }}
-                  src={testimonial.video}
-                  poster={testimonial.image}
-                  loop
-                  playsInline
-                  preload="auto"
-                  onPlaying={(e) => { e.currentTarget.style.opacity = '1'; }}
-                  onPause={(e) => { e.currentTarget.style.opacity = '0'; }}
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 pointer-events-none"
-                />
-              )}
-              {/* Decorative play cue only — nothing to click, hover is what plays the video */}
+          {testimonials.map((testimonial, index) => {
+            const isPlaying = playingIndex === index;
+            return (
               <div
-                aria-hidden="true"
-                className={`absolute inset-0 flex items-center justify-center bg-funky-black/10 transition-colors pointer-events-none ${testimonial.video ? 'group-hover:bg-transparent' : ''}`}
+                key={index}
+                className="relative flex-shrink-0 w-64 h-80 overflow-hidden group"
               >
-                <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 group-hover:opacity-0 transition-all" />
+                <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
+                {/* Inline preview — plays in place on click, no popup/new tab. Visibility
+                    is driven by the video's own onPlaying/onPause events (real "a frame
+                    is on screen now" signal), not by click timing — so the static photo
+                    above keeps showing until the video actually has something to show. */}
+                {testimonial.video && (
+                  <video
+                    ref={(el) => { testimonialVideoRefs.current[index] = el; }}
+                    src={testimonial.video}
+                    poster={testimonial.image}
+                    loop
+                    playsInline
+                    preload="auto"
+                    onPlaying={(e) => { e.currentTarget.style.opacity = '1'; }}
+                    onPause={(e) => { e.currentTarget.style.opacity = '0'; }}
+                    className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 pointer-events-none"
+                  />
+                )}
+                <button
+                  type="button"
+                  onClick={() => toggleTestimonialVideo(index)}
+                  disabled={!testimonial.video}
+                  aria-label={testimonial.video ? (isPlaying ? `Pause ${testimonial.name}'s testimonial video` : `Play ${testimonial.name}'s testimonial video`) : undefined}
+                  className={`absolute inset-0 flex items-center justify-center transition-colors ${
+                    testimonial.video ? 'cursor-pointer' : 'cursor-default'
+                  } ${isPlaying ? 'bg-transparent' : 'bg-funky-black/10 hover:bg-funky-black/20'}`}
+                >
+                  {!isPlaying && (
+                    <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 transition-all" />
+                  )}
+                </button>
+                <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4 pointer-events-none">
+                  <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
+                  <div className="text-funky-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
+                </div>
               </div>
-              <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
-                <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
-                <div className="text-funky-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
-              </div>
-            </div>
-          ))}
+            );
+          })}
         </div>
       </section>
 
