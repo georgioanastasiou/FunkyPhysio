@@ -2,13 +2,12 @@
 
 import Link from 'next/link';
 import Image from 'next/image';
-import { useEffect, useRef, useState } from 'react';
+import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 import { useGSAP } from '@gsap/react';
 import WhatWeDo from '@/components/WhatWeDo';
 import LocationSection from '@/components/LocationSection';
-import VideoModal from '@/components/VideoModal';
 
 if (typeof window !== 'undefined') {
   gsap.registerPlugin(ScrollTrigger, useGSAP);
@@ -36,10 +35,8 @@ export default function Home() {
     { src: '/image retro 4.png', side: 'right', rotate: '' },
   ];
 
-  const [activeVideo, setActiveVideo] = useState<{ url: string; title: string } | null>(null);
-
   const testimonials = [
-    { name: "Kyriakos Filipidis", title: "Gym Lover", image: "https://randomuser.me/api/portraits/men/32.jpg", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
+    { name: "Kyriakos Filipidis", title: "Gym Lover", image: "/testimonials/testimonial thumbnails/KOULIS.png", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
     { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg", video: undefined as string | undefined },
     { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg", video: undefined as string | undefined },
     { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
@@ -58,6 +55,20 @@ export default function Home() {
     return () => {
       video?.pause();
     };
+  }, []);
+
+  // Prime testimonial preview videos on mount: a muted play()+pause() is
+  // always allowed with zero user gesture, so this forces the browser to
+  // fetch and decode a real frame well before anyone hovers. Without this,
+  // the first hover of the session starts fetching from nothing, and the
+  // video area shows solid black (no poster, no decoded frame yet) until
+  // that fetch/decode finishes.
+  useEffect(() => {
+    testimonialVideoRefs.current.forEach((v) => {
+      if (!v) return;
+      v.muted = true;
+      v.play().then(() => v.pause()).catch(() => {});
+    });
   }, []);
 
   // GSAP animations — useGSAP (not a plain useEffect) matters here specifically because
@@ -161,7 +172,7 @@ export default function Home() {
             clipPath: 'inset(0% 0% 0% 0%)',
             duration: 1,
             ease: 'power2.out',
-            scrollTrigger: { trigger: philosophyImageRef.current, start: 'top 20%', toggleActions: 'play none none none' },
+            scrollTrigger: { trigger: philosophyImageRef.current, start: 'top 60%', toggleActions: 'play none none none' },
           }
         );
       }
@@ -283,18 +294,20 @@ export default function Home() {
                 />
               </div>
               <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
-                Lorem dolor sit amet consectetur  Nullam viverra purus
+                Physiotherapist, former professional basketball player, and founder of Funky Physio.
               </p>
             </div>
 
             {/* Rest of the paragraph — spreads full width below */}
             <div ref={georgeTextRef} className="mt-4 sm:mt-2">
               <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
-                ac aliquet eget morbi non.
-                Maliquet eget morbi non. Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. aliquet eget morbi non.
-                Mattis etiam lobortis tempor id. Sit aenean erat nunc amet et euismod. tis etiam lobortis tempor id. Sit aenean erat nunc
-                amet et euismod. Sollicitudin at ipsum amet risus in proin cras condimenean erat nunc amet et euismod. Sollicitudinean
-                erat nunc amet et euismod. Sollicitudin at ipsum amet risus in proin cras co at ipsum amet risus in proin cras coe&quot;
+                George&apos;s path into physiotherapy started on the court, not in a classroom.
+                Years of professional basketball taught him how the body performs under
+                pressure, and how quickly it breaks down without the right care. After
+                training in Sports Science and Physiotherapy and specialising in Orthopaedic
+                Manual Therapy, he spent five years practising in Berlin before opening
+                Funky Physio in Barcelona — where every plan starts with how you actually
+                move, not just where it hurts.
               </p>
             </div>
           </div>
@@ -344,40 +357,64 @@ export default function Home() {
           {testimonials.map((testimonial, index) => (
             <div
               key={index}
-              className="relative flex-shrink-0 w-64 h-80 overflow-hidden group cursor-pointer"
+              className="relative flex-shrink-0 w-64 h-80 overflow-hidden group"
               onMouseEnter={() => {
                 const v = testimonialVideoRefs.current[index];
-                if (v) { v.currentTime = 0; v.play().catch(() => {}); }
+                if (!v) return;
+                // Per spec, hover (mouseenter) never counts as a qualifying user
+                // gesture — only click/tap/keydown do. So starting *unmuted*
+                // playback right here would just get silently blocked. Muted
+                // playback has no such restriction (always allowed), so we start
+                // there, then unmute once it's actually rolling. That unmute
+                // itself only sticks once some real click/tap has happened
+                // anywhere on the page this session (that's what unlocks audio
+                // for the rest of the session) — a browser-level restriction,
+                // not something fixable from here.
+                //
+                // Note: no currentTime reset here — seeking back to 0 takes a
+                // moment to (re)decode, and doing that at the exact instant we
+                // also need a frame on screen is what was producing the black
+                // flash. The reset happens on mouseleave instead, while hidden.
+                v.muted = true;
+                v.play()
+                  .then(() => { v.muted = false; })
+                  .catch(() => {});
               }}
               onMouseLeave={() => {
                 const v = testimonialVideoRefs.current[index];
-                v?.pause();
+                if (!v) return;
+                v.pause();
+                v.currentTime = 0;
               }}
             >
               <Image src={testimonial.image} alt={testimonial.name} fill className="object-cover" />
-              {/* Muted inline preview — plays on hover, pauses/resets on mouse leave.
-                  The play button below still opens the full modal (with sound and
-                  controls) for anyone who clicks instead of just hovering. */}
+              {/* Inline preview — plays on hover, pauses/resets on mouse leave, no
+                  click/modal step. Visibility is driven by the video's own
+                  onPlaying/onPause events (real "a frame is on screen now" signal),
+                  not by :hover timing — so the static photo above keeps showing
+                  for as long as needed and the video only ever fades in once it
+                  actually has something to show. That's what rules out a black
+                  box, regardless of how long decoding takes on a given device. */}
               {testimonial.video && (
                 <video
                   ref={(el) => { testimonialVideoRefs.current[index] = el; }}
                   src={testimonial.video}
-                  muted
+                  poster={testimonial.image}
                   loop
                   playsInline
-                  preload="metadata"
-                  className="absolute inset-0 w-full h-full object-cover opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none"
+                  preload="auto"
+                  onPlaying={(e) => { e.currentTarget.style.opacity = '1'; }}
+                  onPause={(e) => { e.currentTarget.style.opacity = '0'; }}
+                  className="absolute inset-0 w-full h-full object-cover opacity-0 transition-opacity duration-300 pointer-events-none"
                 />
               )}
-              <button
-                type="button"
-                onClick={() => testimonial.video && setActiveVideo({ url: testimonial.video, title: testimonial.name })}
-                disabled={!testimonial.video}
-                className={`absolute inset-0 flex items-center justify-center bg-funky-black/10 transition-colors disabled:cursor-default ${testimonial.video ? 'group-hover:bg-transparent' : 'hover:bg-funky-black/20'}`}
-                aria-label="Play testimonial video"
+              {/* Decorative play cue only — nothing to click, hover is what plays the video */}
+              <div
+                aria-hidden="true"
+                className={`absolute inset-0 flex items-center justify-center bg-funky-black/10 transition-colors pointer-events-none ${testimonial.video ? 'group-hover:bg-transparent' : ''}`}
               >
                 <Image src="/Button Play Testimonial.svg" alt="" width={68} height={67} className="w-16 h-16 group-hover:scale-110 group-hover:opacity-0 transition-all" />
-              </button>
+              </div>
               <div className="absolute bottom-6 left-0 w-52 h-14 bg-white rounded-tr-[10px] rounded-br-[10px] flex flex-col justify-center px-4">
                 <div className="text-funky-black text-base font-bold font-syne leading-tight">{testimonial.name}</div>
                 <div className="text-funky-black text-xs font-medium font-syne leading-tight">{testimonial.title}</div>
@@ -495,13 +532,6 @@ export default function Home() {
         </div>
       </section>
 
-      {activeVideo && (
-        <VideoModal
-          videoUrl={activeVideo.url}
-          title={activeVideo.title}
-          onClose={() => setActiveVideo(null)}
-        />
-      )}
     </>
   );
 }
