@@ -116,7 +116,7 @@ export default function Services() {
   return (
     <div className="min-h-screen">
       {/* Hero Section */}
-      <section className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
+      <section data-nav-theme="light" className="bg-gradient-to-br from-[#D84795]/10 to-[#D84795]/20 py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center">
             <h1 className="text-4xl lg:text-5xl font-bold text-gray-900 mb-6">
@@ -146,7 +146,7 @@ export default function Services() {
       </section>
 
       {/* Services Grid */}
-      <section className="py-20 bg-white">
+      <section data-nav-theme="light" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
             {services.map((service, index) => (
@@ -203,7 +203,7 @@ export default function Services() {
       </section>
 
       {/* Process Section */}
-      <section className="py-20 bg-gray-50">
+      <section data-nav-theme="light" className="py-20 bg-gray-50">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -259,7 +259,7 @@ export default function Services() {
       </section>
 
       {/* Why Choose Us */}
-      <section className="py-20 bg-white">
+      <section data-nav-theme="light" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="text-center mb-16">
             <h2 className="text-3xl lg:text-4xl font-bold text-gray-900 mb-4">
@@ -305,7 +305,7 @@ export default function Services() {
       </section>
 
       {/* CTA Section */}
-      <section className="py-20 bg-[#D84795]">
+      <section data-nav-theme="default" className="py-20 bg-[#D84795]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="text-3xl lg:text-4xl font-bold text-white mb-4">
             Ready to Start Your Treatment?

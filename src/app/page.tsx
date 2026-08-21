@@ -416,7 +416,7 @@ export default function Home() {
                   onClick={() => toggleTestimonialVideo(index)}
                   disabled={!testimonial.video}
                   aria-label={testimonial.video ? (isPlaying ? `Pause ${testimonial.name}'s testimonial video` : `Play ${testimonial.name}'s testimonial video`) : undefined}
-                  className={`absolute inset-0 flex items-center justify-center transition-colors ${
+                  className={`absolute opacity-1 inset-0 flex items-center justify-center transition-colors ${
                     testimonial.video ? 'cursor-pointer' : 'cursor-default'
                   } ${isPlaying ? 'bg-transparent' : 'bg-funky-black/10 hover:bg-funky-black/20'}`}
                 >

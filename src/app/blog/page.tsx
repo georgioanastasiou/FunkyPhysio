@@ -36,7 +36,7 @@ export default function Blog() {
     <div className="min-h-screen bg-white">
 
       {/* Hero */}
-      <section className="bg-[#f5f0eb] pt-32 pb-20 px-4">
+      <section data-nav-theme="light" className="bg-[#f5f0eb] pt-32 pb-20 px-4">
         <div className="max-w-4xl mx-auto">
           <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-6">Our Blog</p>
           <h1 className="text-5xl lg:text-6xl font-semibold font-syne text-funky-black leading-tight mb-6">
@@ -51,7 +51,7 @@ export default function Blog() {
       <div className="w-full h-px bg-gray-200" />
 
       {/* Posts */}
-      <section className="py-20 bg-white">
+      <section data-nav-theme="light" className="py-20 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <Suspense fallback={<BlogPostsSkeleton count={6} />}>
             <BlogContent />
@@ -60,7 +60,7 @@ export default function Blog() {
       </section>
 
       {/* Newsletter */}
-      <section className="bg-[#f5f0eb] py-24 px-4">
+      <section data-nav-theme="light" className="bg-[#f5f0eb] py-24 px-4">
         <div className="max-w-2xl mx-auto text-center">
           <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-4">Newsletter</p>
           <h2 className="text-3xl font-semibold font-syne text-funky-black mb-4">Stay in the loop</h2>

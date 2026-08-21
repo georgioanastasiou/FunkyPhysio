@@ -61,8 +61,9 @@ export default function Contact() {
 
   return (
     <div>
-      {/* Split Hero Section */}
-      <section className="relative flex flex-col lg:flex-row min-h-screen">
+      {/* Split Hero Section — burger sits over the photo side (left) at every
+          scroll position within this section, so one theme covers it. */}
+      <section data-nav-theme="default" className="relative flex flex-col lg:flex-row min-h-screen">
         {/* Left — Photo Slideshow */}
         <div className="relative w-full lg:w-1/2 h-[50vh] lg:h-auto overflow-hidden">
           <div className="absolute inset-0">
@@ -186,7 +187,7 @@ export default function Contact() {
       </section>
 
       {/* Map Section */}
-      <section className="py-16 bg-white">
+      <section data-nav-theme="light" className="py-16 bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <h2 className="text-3xl font-semibold text-funky-black text-center mb-10">Find Us Here</h2>
           <div className="rounded-[20px] overflow-hidden shadow-xl w-full h-[450px]">

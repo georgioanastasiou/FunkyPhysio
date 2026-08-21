@@ -136,14 +136,14 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
     <div className="min-h-screen bg-white">
 
       {/* Back link */}
-      <div className="pt-20 pb-4 px-6 lg:px-16 bg-white">
+      <div data-nav-theme="light" className="pt-20 pb-4 px-6 lg:px-16 bg-white">
         <Link href="/blog" className="inline-flex items-center gap-2 text-gray-500 hover:text-funky-black font-syne text-sm uppercase tracking-[3px] transition-colors">
           <ArrowLeft className="w-4 h-4" /> Back to Blog
         </Link>
       </div>
 
       {/* Hero — full-width image with overlaid title */}
-      <section className="relative w-full h-[70vh] min-h-[500px] bg-funky-black">
+      <section data-nav-theme="default" className="relative w-full h-[70vh] min-h-[500px] bg-funky-black">
         {post.mainImage?.asset ? (
           <Image
             src={urlFor(post.mainImage.asset).width(1800).height(900).url()}
@@ -187,7 +187,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Excerpt strip */}
       {post.excerpt && (
-        <section className="bg-[#f5f0eb] px-6 lg:px-16 py-10">
+        <section data-nav-theme="light" className="bg-[#f5f0eb] px-6 lg:px-16 py-10">
           <div className="max-w-3xl">
             <p className="text-gray-600 font-syne text-lg leading-relaxed">{post.excerpt}</p>
           </div>
@@ -197,7 +197,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <div className="w-full h-px bg-gray-200" />
 
       {/* Article body */}
-      <article className="py-16 px-6 lg:px-16">
+      <article data-nav-theme="light" className="py-16 px-6 lg:px-16">
         <div className="mx-auto" style={{ maxWidth: "95ch" }}>
           {post.body && <PortableText value={post.body} components={portableTextComponents} />}
         </div>
@@ -207,7 +207,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
 
       {/* Author */}
       {post.author && (
-        <section className="py-12 px-6 lg:px-16 bg-white">
+        <section data-nav-theme="light" className="py-12 px-6 lg:px-16 bg-white">
           <div className="max-w-3xl mx-auto flex items-center gap-5">
             {post.author.image?.asset && (
               <div className="relative w-14 h-14 rounded-full overflow-hidden shrink-0">
@@ -230,7 +230,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       <div className="w-full h-px bg-gray-200" />
 
       {/* CTA */}
-      <section className="bg-[#f5f0eb] py-24 px-6 lg:px-16">
+      <section data-nav-theme="light" className="bg-[#f5f0eb] py-24 px-6 lg:px-16">
         <div className="max-w-3xl mx-auto flex flex-col lg:flex-row items-start lg:items-end justify-between gap-10">
           <div>
             <p className="text-xs uppercase tracking-[4px] text-gray-400 font-syne mb-4">Ready to feel better?</p>

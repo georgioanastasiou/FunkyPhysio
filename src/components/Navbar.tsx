@@ -2,7 +2,6 @@
 
 import { useState, useEffect, useRef } from 'react';
 import Link from 'next/link';
-import Image from 'next/image';
 import { Menu, X } from 'lucide-react';
 import gsap from 'gsap';
 import { usePathname } from 'next/navigation';
@@ -26,9 +25,6 @@ export default function Navbar() {
   const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   const pathname = usePathname();
-  const isHomePage = pathname === '/';
-  // On the homepage the GSAP flying hero logo takes over — never show the navbar logo there
-  const showNavLogo = !isHomePage;
 
   useEffect(() => {
     document.body.style.overflow = isOpen ? 'hidden' : '';
@@ -120,13 +116,6 @@ export default function Navbar() {
                 {isOpen ? <X className="h-7 w-7" /> : <Menu className="h-7 w-7" />}
               </button>
             </div>
-
-            {/* Logo — hidden on homepage (GSAP flying logo handles it), visible on all other pages */}
-            {showNavLogo && (
-              <Link href="/" className="flex items-center" onClick={() => setIsOpen(false)}>
-                <Image src="/logonew.png" alt="Funky Physio Logo" width={50} height={50} className="h-10 w-auto" priority />
-              </Link>
-            )}
 
           </div>
         </div>

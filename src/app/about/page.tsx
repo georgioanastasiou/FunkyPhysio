@@ -187,7 +187,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section className="relative h-[350px] md:h-[400px] overflow-hidden">
+      <section data-nav-theme="default" className="relative h-[350px] md:h-[400px] overflow-hidden">
         <div ref={heroSvgRef} className="absolute inset-0 w-full h-full" style={{ willChange: 'transform' }}>
         <svg
           className="w-full h-full"
@@ -210,7 +210,7 @@ export default function About() {
       </section>
 
       {/* Timeline Section */}
-      <section ref={timelineSectionRef} className="timeline-section py-20 relative bg-white">
+      <section ref={timelineSectionRef} data-nav-theme="light" className="timeline-section py-20 relative bg-white">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="space-y-32 relative">
             {/* Vertical timeline line */}
