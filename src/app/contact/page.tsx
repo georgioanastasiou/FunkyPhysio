@@ -192,7 +192,7 @@ export default function Contact() {
           <h2 className="text-3xl font-semibold text-funky-black text-center mb-10">Find Us Here</h2>
           <div className="rounded-[20px] overflow-hidden shadow-xl w-full h-[450px]">
             <iframe
-              src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d2992.95700064926!2d2.1996013763483595!3d41.396740171298674!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x12a4a314edf0f183%3A0x75c94eaecce4d61d!2sCarrer%20de%20Roc%20Boronat%2C%201%2C%20Sant%20Mart%C3%AD%2C%2008005%20Barcelona!5e0!3m2!1sen!2ses!4v1776855970586!5m2!1sen!2ses"
+              src="https://www.google.com/maps?q=Funky+Physio,+Carrer+de+Roc+Boronat+1,+08005+Barcelona&output=embed"
               width="100%"
               height="100%"
               style={{ border: 0, filter: 'grayscale(100%)', transition: 'filter 0.2s ease' }}

@@ -1,6 +1,6 @@
 'use client';
 
-import { useEffect, useRef } from 'react';
+import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import Image from 'next/image';
 import gsap from 'gsap';
 
@@ -9,19 +9,22 @@ const services = [
     label: 'Physiotherapy',
     heading: ['Diagnose', 'Recovery'],
     body: 'Evidence-based physiotherapy tailored to your body. From assessment and diagnosis to full recovery, we restore your movement, strength, and quality of life.',
-    image: '/section1photo.png',
+    image: '/whatwedo-diagnose.jpg',
+    imagePosition: '75% center', // hands-on assessment sits right-of-frame
   },
   {
     label: 'Massage',
     heading: ['Release', 'Restore'],
     body: 'From sports massage to deep tissue techniques, our hands-on therapy relieves tension, aids recovery, and revitalizes your body and mind.',
-    image: '/unsplash_M6nQrWaiDkk-1.png' as string | undefined,
+    image: '/whatwedo-massage.jpg' as string | undefined,
+    imagePosition: 'center', // source aspect ratio nearly matches the container already
   },
   {
     label: 'Therapy Training',
     heading: ['Move', 'Thrive'],
     body: 'Functional movement and therapeutic training to rebuild strength, correct posture, and unlock your full athletic potential.',
-    image: '/unsplash_M6nQrWaiDkk-2.png' as string | undefined,
+    image: '/whatwedo-move.jpg' as string | undefined,
+    imagePosition: 'center',
   },
 ];
 
@@ -60,6 +63,11 @@ export default function WhatWeDo() {
   const panelRefs = useRef<(HTMLDivElement | null)[]>([]);
   const segmentRefs = useRef<(HTMLDivElement | null)[]>([]);
   const imageLayerRefs = useRef<(HTMLDivElement | null)[]>([]);
+  // Every panel shares the same py padding/structure, so panel 0's text block
+  // (heading-top to body-bottom) is measured once and used as the target
+  // height for both the image and the divider, on every panel.
+  const textContentRef = useRef<HTMLDivElement>(null);
+  const [mediaHeight, setMediaHeight] = useState<number | null>(null);
 
   const rawProgress = useRef(0);
   const smoothProgress = useRef(0);
@@ -135,6 +143,24 @@ export default function WhatWeDo() {
     };
   }, []);
 
+  // Measure the text column's actual rendered span (title-top to
+  // description-bottom) so the image/divider height can match it exactly,
+  // instead of a viewport-relative guess. useLayoutEffect so it's applied
+  // before first paint — no visible size jump on load.
+  useLayoutEffect(() => {
+    const measure = () => {
+      const el = textContentRef.current;
+      // Below xl the image/divider pairing is hidden entirely (see their
+      // `hidden xl:flex` / `xl:h-[...]` classes) — reset so a stale wide-
+      // viewport measurement can't leak into that layout after a resize.
+      if (!el || window.innerWidth < 1280) { setMediaHeight(null); return; }
+      setMediaHeight(el.getBoundingClientRect().height);
+    };
+    measure();
+    window.addEventListener('resize', measure);
+    return () => window.removeEventListener('resize', measure);
+  }, []);
+
   return (
     <>
       {/* Mobile/tablet — simple static stacked list, no scroll-jack (that interaction doesn't translate well to touch/short viewports) */}
@@ -188,11 +214,16 @@ export default function WhatWeDo() {
           </div>
 
           {/* Divider — 3 segments. The image only renders at xl+ (hidden below
-              that), so only there does the divider match its height (same
-              clamp, since the image is aspect-square off that width) and
-              center the same way the image does; below xl it stretches full
-              height same as before, since there's no image to line up with. */}
-          <div className="flex flex-col self-stretch my-16 xl:self-center xl:my-0 xl:h-[clamp(320px,32vw,624px)] gap-1" style={{ width: '1px' }}>
+              that), so only there does the divider match its height (the
+              measured text-column span, same as the image) and center the
+              same way the image does; below xl it stretches full height same
+              as before, since there's no image to line up with. The clamp()
+              is just the pre-measurement/SSR fallback — mediaHeight overrides
+              it the instant useLayoutEffect measures the real text column. */}
+          <div
+            className="flex flex-col self-stretch my-16 xl:self-center xl:my-0 xl:h-[clamp(320px,32vw,624px)] gap-1"
+            style={{ width: '1px', height: mediaHeight ? `${mediaHeight}px` : undefined }}
+          >
             {services.map((_, i) => (
               <div
                 key={i}
@@ -212,7 +243,10 @@ export default function WhatWeDo() {
                 className="absolute inset-0 flex flex-row items-center justify-between gap-8 xl:gap-6 pl-4 pr-10 md:pr-16 lg:pr-24 xl:pr-10 py-16 lg:py-24 bg-[#EDE8DF]"
                 style={{ clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)' }}
               >
-                <div className="h-full flex flex-col justify-between">
+                <div
+                  ref={i === 0 ? textContentRef : undefined}
+                  className="h-full flex flex-col justify-between"
+                >
                   <div>
                     {s.heading.map((word) => (
                       <span
@@ -234,17 +268,21 @@ export default function WhatWeDo() {
             {/* Shared image stack — sits above the panels' own text/wipe, not
                 inside any single one, so each new photo can reveal top-to-bottom
                 over whichever photo was showing before without that older photo
-                moving or re-animating at all. Square, driven off width rather
-                than the panel's content height: width is the same responsive
+                moving or re-animating at all. Width stays the same responsive
                 clamp() already verified to leave a clean 24px gap against the
-                text column at every screen size, and aspect-square derives a
-                matching height from it. Driving off height instead (h-full,
-                matching the text column exactly) was tried first, but on tall
-                viewports that grows aspect-square's width in lockstep and
-                collides with the text — height here is only ever a by-product
-                of the safe width, never the other way around. */}
+                text column at every screen size — that part never changes,
+                since growing it in lockstep with height (plain aspect-square)
+                is what used to collide with the text on tall viewports.
+                Height instead now comes from mediaHeight (the measured
+                title-top-to-body-bottom span), so the image's top/bottom
+                edges line up with the title and description exactly, without
+                the width ever exceeding its safe, collision-free size. The
+                aspect-square class is just the pre-measurement/SSR fallback. */}
             <div className="absolute inset-0 hidden xl:flex items-center justify-end pr-10 md:pr-16 lg:pr-24 xl:pr-[clamp(118px,28vw_-_241px,300px)] py-16 lg:py-24 pointer-events-none">
-              <div className="relative w-[clamp(320px,32vw,624px)] aspect-square flex-shrink-0">
+              <div
+                className="relative w-[clamp(320px,32vw,624px)] aspect-square flex-shrink-0"
+                style={{ height: mediaHeight ? `${mediaHeight}px` : undefined }}
+              >
                 {services.map((s, i) => s.image && (
                   <div
                     key={s.image}
@@ -252,7 +290,14 @@ export default function WhatWeDo() {
                     className="absolute inset-0"
                     style={{ clipPath: i === 0 ? 'inset(0% 0% 0% 0%)' : 'inset(0% 0% 100% 0%)', zIndex: i }}
                   >
-                    <Image src={s.image} alt="" fill sizes="624px" className="object-cover" />
+                    <Image
+                      src={s.image}
+                      alt=""
+                      fill
+                      sizes="624px"
+                      className="object-cover"
+                      style={{ objectPosition: s.imagePosition }}
+                    />
                   </div>
                 ))}
               </div>

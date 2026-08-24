@@ -29,10 +29,10 @@ export default function Home() {
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
   // to alternate sides — left, right, left, right — for a nicer scroll rhythm.
   const healingImages = [
-    { src: '/image retro 1.png', side: 'left', rotate: '' },
-    { src: '/image retro 2.png', side: 'right', rotate: '' },
-    { src: '/image retro 3.png', side: 'left', rotate: '' },
-    { src: '/image retro 4.png', side: 'right', rotate: '' },
+    { src: '/healing/krikoi.jpeg', side: 'left', rotate: '' },
+    { src: '/healing/strech.jpeg', side: 'right', rotate: '' },
+    { src: '/healing/manual.jpeg', side: 'left', rotate: '' },
+    { src: '/healing/rotatorcuff.jpeg', side: 'right', rotate: '' },
   ];
 
   const testimonials = [
@@ -333,13 +333,9 @@ export default function Home() {
             {/* Rest of the paragraph — spreads full width below */}
             <div ref={georgeTextRef} className="mt-4 sm:mt-2">
               <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
-                George&apos;s path into physiotherapy started on the court, not in a classroom.
-                Years of professional basketball taught him how the body performs under
-                pressure, and how quickly it breaks down without the right care. After
-                training in Sports Science and Physiotherapy and specialising in Orthopaedic
-                Manual Therapy, he spent five years practising in Berlin before opening
-                Funky Physio in Barcelona — where every plan starts with how you actually
-                move, not just where it hurts.
+                George&apos;s path into physiotherapy started on the court, while he competed in a professional
+                basketball career. He experienced firsthand the impact of injuries and the importance of proper rehabilitation
+                to go back to sports. This experience inspired him to pursue a career in physiotherapy, where he could help others recover and regain their strength.
               </p>
             </div>
           </div>
@@ -464,9 +460,15 @@ export default function Home() {
             </p>
           </div>
 
-          {/* Right column: interior photo, explicit larger height so it isn't capped by the text column's content height, no border radius */}
+          {/* Right column: foot mobilization action shot, explicit larger height so it isn't capped by the text column's content height, no border radius */}
           <div ref={philosophyImageRef} className="relative w-full h-[380px] sm:h-[460px] md:h-[550px] lg:h-[650px] lg:w-[560px] flex-shrink-0 overflow-hidden">
-            <Image src="/funkydesk.png" alt="Funky Physio studio interior" fill className="object-cover" />
+            <Image
+              src="/philosophy-footmobilization.jpg"
+              alt="Foot mobilization technique at Funky Physio"
+              fill
+              className="object-cover"
+              style={{ objectPosition: 'center 75%' }}
+            />
           </div>
         </div>
       </section>
