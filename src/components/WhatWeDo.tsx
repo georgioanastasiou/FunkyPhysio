@@ -9,8 +9,8 @@ const services = [
     label: 'Physiotherapy',
     heading: ['Diagnose', 'Recovery'],
     body: 'Evidence-based physiotherapy tailored to your body. From assessment and diagnosis to full recovery, we restore your movement, strength, and quality of life.',
-    image: '/whatwedo-diagnose.jpg',
-    imagePosition: '75% center', // hands-on assessment sits right-of-frame
+    image: '/whatwedo-diagnoserecovery.jpg',
+    imagePosition: 'center', // source aspect ratio nearly matches the container already
   },
   {
     label: 'Massage',
