@@ -37,7 +37,7 @@ export default function Home() {
 
   const testimonials = [
     { name: "Kyriakos Filipidis", title: "Gym Lover", image: "/testimonials/testimonial thumbnails/KOULIS.png", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
-    { name: "Sarah Johnson", title: "Yoga Instructor", image: "https://randomuser.me/api/portraits/women/44.jpg", video: undefined as string | undefined },
+    { name: "Vasilis Theodosiou", title: "Kick Boxing", image: "/testimonials/testimonial thumbnails/VASILARAS.png", video: "/testimonials/vasilaras.mp4" as string | undefined },
     { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg", video: undefined as string | undefined },
     { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
     { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg", video: undefined as string | undefined }
@@ -325,17 +325,15 @@ export default function Home() {
                   className="object-cover object-top w-full h-full"
                 />
               </div>
-              <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
+              {/* <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
                 Physiotherapist, former professional basketball player, and founder of Funky Physio.
-              </p>
+              </p> */}
             </div>
 
             {/* Rest of the paragraph — spreads full width below */}
             <div ref={georgeTextRef} className="mt-4 sm:mt-2">
               <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
-                George&apos;s path into physiotherapy started on the court, while he competed in a professional
-                basketball career. He experienced firsthand the impact of injuries and the importance of proper rehabilitation
-                to go back to sports. This experience inspired him to pursue a career in physiotherapy, where he could help others recover and regain their strength.
+              With genuine love of human body and movement, George knows at first hand the impact of injuries and the importance of proper rehabilitation to go back to sports or having a better quality of life. This experience inspired him to pursue a carrer in Sports Science and Physiotherapy, where he could help others recover and regain their strength and confidence
               </p>
             </div>
           </div>
