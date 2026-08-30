@@ -187,7 +187,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section data-nav-theme="default" className="relative h-[350px] md:h-[400px] overflow-hidden">
+      <section data-nav-theme="purple" className="relative h-[350px] md:h-[400px] overflow-hidden">
         <div ref={heroSvgRef} className="absolute inset-0 w-full h-full" style={{ willChange: 'transform' }}>
         <svg
           className="w-full h-full"
@@ -198,12 +198,19 @@ export default function About() {
         >
           <path
             d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z"
-            fill="#A4A9"
+            fill="#412C46"
           />
         </svg>
         </div>
+        {/* Decorative wave logo watermark — same mark used in the Our Philosophy
+            section on the homepage, centered here behind the heading */}
+        <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-20 pointer-events-none">
+          <div className="relative w-[320px] sm:w-[450px] md:w-[550px] aspect-[1246/832]">
+            <Image src="/MaskLogo.png" alt="" fill className="object-contain" />
+          </div>
+        </div>
         <div className="relative z-10 flex items-center justify-center h-full">
-          <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-funky-black text-center px-4">
+          <h1 ref={heroTitleRef} className="text-4xl md:text-5xl font-semibold text-center px-4" style={{ color: '#F2FFAB' }}>
             Meet George Anastasiou
           </h1>
         </div>

@@ -38,7 +38,7 @@ export default function Home() {
   const testimonials = [
     { name: "Kyriakos Filipidis", title: "Gym Lover", image: "/testimonials/testimonial thumbnails/KOULIS.png", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
     { name: "Vasilis Theodosiou", title: "Kick Boxing", image: "/testimonials/testimonial thumbnails/VASILARAS.png", video: "/testimonials/vasilaras.mp4" as string | undefined },
-    { name: "Mike Chen", title: "Fitness Coach", image: "https://randomuser.me/api/portraits/men/52.jpg", video: undefined as string | undefined },
+    { name: "Spiros Sofronis", title: "70 Years Young", image: "/testimonials/testimonial thumbnails/SPIROS.png", video: "/testimonials/spiros.mp4" as string | undefined },
     { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
     { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg", video: undefined as string | undefined }
   ];
@@ -75,7 +75,7 @@ export default function Home() {
     setPlayingIndex(index);
   };
 
-  // Video play/pause
+  // Hero background video play/pause
   useEffect(() => {
     const video = videoRef.current;
     if (video) {
@@ -274,10 +274,11 @@ export default function Home() {
               muted
               loop
               playsInline
+              poster="/hero.jpeg"
               className="absolute inset-0 w-full h-full object-cover z-0"
               preload="auto"
             >
-              <source src="/hero-video1.mp4" type="video/mp4" />
+              <source src="/hero2.mp4" type="video/mp4" />
             </video>
             <div ref={heroContentRef} className="relative z-20 text-center px-4">
               {/* Logo — lives in normal flow with the rest of the hero content now
@@ -318,7 +319,7 @@ export default function Home() {
                 className="flex-shrink-0 overflow-hidden w-32 h-40 sm:w-[150px] sm:h-[185px] md:w-[195px] md:h-[240px]"
               >
                 <Image
-                  src="/basketball/DSC_0079.jpg"
+                  src="/portraitblack.jpg"
                   alt="George Anastasiou"
                   width={195}
                   height={240}
