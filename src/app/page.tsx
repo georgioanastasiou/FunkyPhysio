@@ -275,7 +275,7 @@ export default function Home() {
               loop
               playsInline
               poster="/hero.jpeg"
-              className="absolute inset-0 w-full h-full object-cover z-0"
+              className="absolute inset-0 w-full h-full object-cover object-[75%_center] md:object-center z-0"
               preload="auto"
             >
               <source src="/hero2.mp4" type="video/mp4" />
