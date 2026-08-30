@@ -165,20 +165,29 @@ export default function WhatWeDo() {
     <>
       {/* Mobile/tablet — simple static stacked list, no scroll-jack (that interaction doesn't translate well to touch/short viewports) */}
       <section data-nav-theme="light" className="lg:hidden bg-[#EDE8DF] px-6 sm:px-10 py-16 sm:py-20">
-        <div className="flex flex-col gap-12 sm:gap-16">
+        <div className="flex flex-col gap-14 sm:gap-16">
           {services.map((s) => (
-            <div key={s.label} className="flex flex-col gap-3 sm:gap-4">
-              <span className="font-syne text-sm sm:text-base uppercase tracking-[2px] text-funky-black font-semibold">
+            <div key={s.label} className="flex flex-col">
+              <h3 className="font-syne font-semibold text-4xl text-funky-black tracking-[-0.02em] leading-tight">
                 {s.label}
-              </span>
-              <div>
-                {s.heading.map((word) => (
-                  <span key={word} className="block font-syne font-semibold text-4xl sm:text-5xl text-[#111] leading-[1.1]">
-                    {word}
-                  </span>
-                ))}
-              </div>
-              <p className="font-syne text-sm sm:text-base text-funky-black leading-relaxed max-w-sm">
+              </h3>
+              <p className="mt-2 font-syne text-2xl text-funky-black tracking-[-0.02em] leading-tight">
+                {s.heading.join(' - ')}
+              </p>
+              <div className="mt-4 h-px w-full bg-funky-black/20" />
+              {s.image && (
+                <div className="relative mt-4 w-full aspect-[359/435] overflow-hidden">
+                  <Image
+                    src={s.image}
+                    alt=""
+                    fill
+                    sizes="100vw"
+                    className="object-cover"
+                    style={{ objectPosition: s.imagePosition }}
+                  />
+                </div>
+              )}
+              <p className="mt-4 font-syne text-base text-funky-black tracking-[-0.02em] leading-relaxed">
                 {s.body}
               </p>
             </div>
