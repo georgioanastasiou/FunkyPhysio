@@ -24,6 +24,7 @@ export default function Home() {
   const healingSectionRef = useRef<HTMLElement>(null);
   const healingHeadingRef = useRef<HTMLDivElement>(null);
   const healingImageRefs = useRef<(HTMLDivElement | null)[]>([]);
+  const healingImageRefsMobile = useRef<(HTMLDivElement | null)[]>([]);
   const testimonialVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
@@ -219,15 +220,16 @@ export default function Home() {
       // starts its rise once the previous one is 2/3 of the way through its
       // own path, so two are briefly in motion together instead of one
       // fully finishing before the next begins.
-      // Desktop only: the flanking photos are only visually shown at lg+ (the
-      // mobile block above is a separate, static, unanimated layout), but both
-      // blocks are always mounted in the DOM — Tailwind's responsive classes
-      // just toggle display:none, they don't unmount anything. Skipping this
-      // below lg matters because pinning/triggering off a display:none element
-      // measures a zero-size rect, which would fire the pin immediately at the
-      // top of the page instead of at the intended scroll position.
-      const healingEls = healingImageRefs.current.filter(Boolean);
-      if (window.innerWidth >= 1024 && healingSectionRef.current && healingHeadingRef.current && healingEls.length) {
+      // Both the desktop (two flanking columns) and mobile (single centered
+      // column) layouts are always mounted in the DOM — Tailwind's responsive
+      // classes just toggle display:none, they don't unmount anything — so
+      // exactly one of these two branches actually has non-zero-size elements
+      // to animate at any given viewport width; the other's pin would fire
+      // immediately at the top of the page off a display:none element's
+      // zero-size rect, which is why each is gated to its own breakpoint.
+      const isDesktop = window.innerWidth >= 1024;
+      const healingEls = (isDesktop ? healingImageRefs : healingImageRefsMobile).current.filter(Boolean);
+      if (healingSectionRef.current && healingEls.length) {
         // Start each image a full viewport height below its resting slot, so it
         // begins below the fold. Using innerHeight rather than the element's own
         // getBoundingClientRect() matters here: rect.top is measured at mount
@@ -479,19 +481,29 @@ export default function Home() {
           gap below it while pinned/fixed, showing the page's white background through and
           making it look like a white box was being shoved in from below. */}
       <section ref={healingSectionRef} data-nav-theme="light" className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center lg:justify-center px-6 overflow-hidden">
-        {/* Mobile/tablet — simple static grid, no pin/scroll-jack (doesn't translate to touch) */}
+        {/* Mobile/tablet — same pin + rise-through-slot scroll-jack as desktop,
+            just applied to a single centered column instead of two flanking
+            ones. See the desktop comment below for how the animation works. */}
         <div className="lg:hidden flex flex-col items-center text-center gap-8">
-          <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
+          {/* Text stays readable the whole time a photo is rising past it —
+              rising photos get a transform (GSAP translateY), which creates
+              its own stacking context and would otherwise paint over these
+              plain, untransformed siblings regardless of DOM order. */}
+          <div className="relative z-10 w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
             Healing isn&apos;t a return to before. It&apos;s a new way of moving forward.
           </div>
-          <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="w-16 h-10 object-contain brightness-0" />
-          <div className="max-w-md text-stone-800 text-base font-medium font-syne leading-6">
+          <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="relative z-10 w-16 h-10 object-contain brightness-0" />
+          <div className="relative z-10 max-w-md text-stone-800 text-base font-medium font-syne leading-6">
             <p>Start your healing with us.</p>
             <p>Healing isn&apos;t something that happens to you. It&apos;s something you do, one session at a time, with people who are paying attention.</p>
           </div>
-          <div className="grid grid-cols-2 gap-4 mt-4 w-full max-w-xl">
-            {healingImages.map((img) => (
-              <div key={img.src} className={`bg-white p-2 pb-6 ${img.rotate}`}>
+          <div className="flex flex-col items-center gap-6 mt-4 w-full">
+            {healingImages.map((img, i) => (
+              <div
+                key={img.src}
+                ref={(el) => { healingImageRefsMobile.current[i] = el; }}
+                className={`bg-white p-2 pb-6 w-full max-w-[280px] ${img.rotate}`}
+              >
                 <div className="relative w-full aspect-square">
                   <Image src={img.src} alt="" fill sizes="300px" className="object-cover" />
                 </div>
