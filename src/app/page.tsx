@@ -25,6 +25,7 @@ export default function Home() {
   const healingHeadingRef = useRef<HTMLDivElement>(null);
   const healingImageRefs = useRef<(HTMLDivElement | null)[]>([]);
   const healingImageRefsMobile = useRef<(HTMLDivElement | null)[]>([]);
+  const healingMobileTextRef = useRef<HTMLDivElement>(null);
   const testimonialVideoRefs = useRef<(HTMLVideoElement | null)[]>([]);
 
   // Order here is also the reveal order (index feeds healingImageRefs), chosen
@@ -227,9 +228,21 @@ export default function Home() {
       // to animate at any given viewport width; the other's pin would fire
       // immediately at the top of the page off a display:none element's
       // zero-size rect, which is why each is gated to its own breakpoint.
-      const isDesktop = window.innerWidth >= 1024;
-      const healingEls = (isDesktop ? healingImageRefs : healingImageRefsMobile).current.filter(Boolean);
-      if (healingSectionRef.current && healingEls.length) {
+      //
+      // This has to be a *live* media-query match (ScrollTrigger.matchMedia),
+      // not a one-time `window.innerWidth` check: a plain check only runs once
+      // at mount, so if the page ever mounts wide and is then narrowed — a
+      // resized browser window while previewing mobile, a tablet rotation —
+      // the timeline stays permanently bound to whichever set of images
+      // matched at that first instant. The other, now-visible set never gets
+      // its gsap.set()/timeline at all, so it just sits static in normal
+      // document flow, completely unresponsive to scroll ("stuck"), while the
+      // real animation keeps running invisibly on the display:none set.
+      // matchMedia re-runs its callback (and auto-reverts the previous one)
+      // every time the query's match state actually changes.
+      const buildHealingRise = (imageRefs: typeof healingImageRefs, scrub: number) => {
+        const healingEls = imageRefs.current.filter(Boolean);
+        if (!healingSectionRef.current || !healingEls.length) return;
         // Start each image a full viewport height below its resting slot, so it
         // begins below the fold. Using innerHeight rather than the element's own
         // getBoundingClientRect() matters here: rect.top is measured at mount
@@ -253,7 +266,7 @@ export default function Home() {
             // a lot (4 staggered rises instead of 8 sequential half-rises), so
             // this also has to grow just to keep each rise from feeling rushed.
             end: '+=4000',
-            scrub: 1,
+            scrub,
             pinSpacing: true,
           },
         });
@@ -261,7 +274,62 @@ export default function Home() {
           tl.to(el, { y: () => -window.innerHeight, ease: 'none', duration: RISE_DURATION },
             i === 0 ? 0 : `<+=${OVERLAP}`);
         });
-      }
+      };
+
+      const healingMM = gsap.matchMedia();
+      healingMM.add('(min-width: 1024px)', () => buildHealingRise(healingImageRefs, 1));
+      // Mobile previously avoided `pin` altogether — pinned/fixed elements
+      // are a well-known weak spot on real mobile browsers (most notably iOS
+      // Safari) during momentum/rubber-band scrolling, and that's what
+      // caused a real "stuck while scrolling" bug on an actual phone earlier
+      // (headless Chromium never reproduced it, even at a mobile viewport
+      // size, since it doesn't emulate real touch/momentum behavior). But a
+      // scrub-without-pin timeline can't actually make the section stop
+      // while more scrolling reveals the photos — the section is normal
+      // in-flow content, so it keeps sliding up the screen for as long as
+      // the user keeps scrolling, pin or no pin. Since "stop, then reveal on
+      // more scroll" is specifically what's wanted here, this brings pin
+      // back but targets the two concrete things that went wrong last time,
+      // rather than repeating the exact same setup:
+      //   1. `pinType: 'transform'` — GSAP fakes the pin via a continuously
+      //      updated CSS transform instead of real `position: fixed`. No
+      //      fixed positioning at all, so there's nothing for iOS Safari's
+      //      dynamic address bar / momentum scrolling to conflict with.
+      //   2. The section is now `min-h-screen flex items-center
+      //      justify-center` on mobile too (previously desktop-only) — a
+      //      pinned box shorter than the viewport left a gap below it during
+      //      the pin, showing the page's plain background through. Filling
+      //      the full viewport removes that gap outright.
+      // Still genuinely can't be fully verified from here — needs a real
+      // phone check same as last time.
+      healingMM.add('(max-width: 1023.98px)', () => {
+        const mobileEls = healingImageRefsMobile.current.filter(Boolean);
+        if (!healingSectionRef.current || !mobileEls.length) return;
+        gsap.set(mobileEls, { opacity: 0, y: 20 });
+        const tl = gsap.timeline({
+          scrollTrigger: {
+            trigger: healingSectionRef.current,
+            pin: healingSectionRef.current,
+            pinType: 'transform',
+            start: 'top top',
+            end: '+=1600',
+            scrub: 0.3,
+            pinSpacing: true,
+          },
+        });
+        mobileEls.forEach((el, i) => {
+          // Fade in (and rise slightly), hold, fade out (continuing to rise
+          // slightly) — then, only once fully gone, the next photo's turn
+          // starts. '>' chains to the end of the previous element's own
+          // fade-out, so there's never more than one on screen at a time.
+          tl.fromTo(el,
+            { opacity: 0, y: 20 },
+            { opacity: 1, y: 0, ease: 'none', duration: 0.4 },
+            i === 0 ? 0 : '>'
+          );
+          tl.to(el, { opacity: 0, y: -20, ease: 'none', duration: 0.4 }, '+=0.2');
+        });
+      });
   }, []);
 
   return (
@@ -295,12 +363,12 @@ export default function Home() {
               <h1 className="font-museo-moderno text-4xl sm:text-5xl md:text-7xl lg:text-8xl font-bold text-white mb-6 md:mb-8">
                 Funky Physio
               </h1>
-              <Link
-                href="/contact"
+              <a
+                href="https://app.serenna.es/c/funky-physio"
                 className="inline-flex items-center justify-center px-6 py-3 md:px-8 md:py-4 bg-transparent border border-white text-white font-semibold text-base md:text-lg rounded-[4px] hover:bg-white hover:text-gray-900 transition-colors"
               >
                 Book Appointment
-              </Link>
+              </a>
             </div>
           </section>
         </div>
@@ -480,33 +548,38 @@ export default function Home() {
           viewport exactly; without it, the section's own (shorter) content height left a
           gap below it while pinned/fixed, showing the page's white background through and
           making it look like a white box was being shoved in from below. */}
-      <section ref={healingSectionRef} data-nav-theme="light" className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 lg:min-h-screen lg:flex lg:items-center lg:justify-center px-6 overflow-hidden">
-        {/* Mobile/tablet — same pin + rise-through-slot scroll-jack as desktop,
-            just applied to a single centered column instead of two flanking
-            ones. See the desktop comment below for how the animation works. */}
-        <div className="lg:hidden flex flex-col items-center text-center gap-8">
-          {/* Text stays readable the whole time a photo is rising past it —
-              rising photos get a transform (GSAP translateY), which creates
-              its own stacking context and would otherwise paint over these
-              plain, untransformed siblings regardless of DOM order. */}
-          <div className="relative z-10 w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
-            Healing isn&apos;t a return to before. It&apos;s a new way of moving forward.
+      <section ref={healingSectionRef} data-nav-theme="light" className="relative bg-[#EDE8DF] pt-[114px] md:pt-[146px] pb-16 md:pb-24 lg:py-0 min-h-screen flex items-center justify-center px-6 overflow-hidden">
+        {/* Mobile/tablet — a narrow photo strip runs behind the text as a
+            centered column (per Figma node 4496:138), rather than the
+            desktop's flanking-columns rise. min-h-screen + centering here
+            (not just lg: anymore) makes sure this fills the full viewport
+            on mobile too, so the pinned freeze-frame below has no gap under
+            it. Each photo fades in on its own as the section holds in place
+            — see the JS pin comment for why this now pins on mobile. */}
+        <div className="lg:hidden relative flex flex-col items-center text-center">
+          <div className="relative z-0 flex flex-col items-center gap-8">
+            <div className="w-full max-w-[360px] text-stone-800 text-4xl font-semibold font-syne leading-[1.3]">
+              Healing isn&apos;t a return to before. It&apos;s a new way of moving forward.
+            </div>
+            <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="w-16 h-10 object-contain brightness-0" />
+            <div ref={healingMobileTextRef} className="max-w-md text-stone-800 text-base font-medium font-syne leading-6">
+              <p>Start your healing with us.</p>
+              <p>Healing isn&apos;t something that happens to you. It&apos;s something you do, one session at a time, with people who are paying attention.</p>
+            </div>
           </div>
-          <Image src="/logonew.png" alt="Funky Physio" width={64} height={40} className="relative z-10 w-16 h-10 object-contain brightness-0" />
-          <div className="relative z-10 max-w-md text-stone-800 text-base font-medium font-syne leading-6">
-            <p>Start your healing with us.</p>
-            <p>Healing isn&apos;t something that happens to you. It&apos;s something you do, one session at a time, with people who are paying attention.</p>
-          </div>
-          <div className="flex flex-col items-center gap-6 mt-4 w-full">
+
+          {/* Single centered slot, in front of the text (z-10 vs the text's
+              z-0) — all 4 photos share this exact spot and take turns fading
+              in on top of the text, then fading back out, rather than a
+              strip of separate photos in separate positions. */}
+          <div className="absolute left-1/2 top-1/2 -translate-x-1/2 -translate-y-1/2 z-10 w-[240px] aspect-square pointer-events-none">
             {healingImages.map((img, i) => (
               <div
                 key={img.src}
                 ref={(el) => { healingImageRefsMobile.current[i] = el; }}
-                className={`bg-white p-2 pb-6 w-full max-w-[280px] ${img.rotate}`}
+                className="absolute inset-0"
               >
-                <div className="relative w-full aspect-square">
-                  <Image src={img.src} alt="" fill sizes="300px" className="object-cover" />
-                </div>
+                <Image src={img.src} alt="" fill sizes="240px" className="object-cover" />
               </div>
             ))}
           </div>
