@@ -14,13 +14,12 @@ export default function About() {
   const timelineLineRef = useRef<HTMLDivElement>(null);
   const timelineSectionRef = useRef<HTMLElement>(null);
   const heroTitleRef = useRef<HTMLHeadingElement>(null);
-  const heroSvgRef = useRef<HTMLDivElement>(null);
   const ctaSectionRef = useRef<HTMLElement>(null);
 
   const timelineSteps = [
     {
       year: '2018',
-      image: '/basketball/DSC_0079.jpg',
+      image: '/basketball/DSC_0114.jpg',
       imageAlt: 'George playing professional basketball',
       title: 'Pro basketball player',
       subtitle: 'Injuries & Challenges',
@@ -29,7 +28,7 @@ export default function About() {
     },
     {
       year: '2020',
-      image: '/basketball/DSC_0114.jpg',
+      image: '/tefaa.jpg',
       imageAlt: 'Sports Science studies',
       title: 'BSc Sports Science',
       subtitle: 'Academic Foundation',
@@ -38,7 +37,7 @@ export default function About() {
     },
     {
       year: '2022',
-      image: '/basketball/DSC_0231.jpg',
+      image: '/physiodegree.jpeg',
       imageAlt: 'Physiotherapy studies',
       title: 'BSc Physiotherapy',
       subtitle: 'Professional Training',
@@ -47,7 +46,7 @@ export default function About() {
     },
     {
       year: '2024',
-      image: '/basketball/DSC_0676.jpg',
+      image: '/berlinpractice.jpg',
       imageAlt: 'Working in Berlin',
       title: 'Berlin Practice',
       subtitle: 'Professional Growth',
@@ -56,34 +55,17 @@ export default function About() {
     },
     {
       year: '2026',
-      image: '/basketball/DSC_0079.jpg',
+      image: '/OMT.jpeg',
       imageAlt: 'Barcelona studio',
-      title: 'Barcelona Studio',
+      title: 'OMT Kaltenborn Concept',
       subtitle: 'Current Practice',
-      description: 'Now running my own practice in Barcelona, combining athlete mindset, scientific knowledge, and genuine care. Creating a space where movement becomes enjoyable, healing, and empowering.',
+      description: 'Now running my own practice in Barcelona, built around the OMT (Orthopaedic Manual Therapy) concept — combining athlete mindset, scientific knowledge, and hands-on manual therapy to create a space where movement becomes enjoyable, healing, and empowering.',
       side: 'left'
     }
   ];
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // ── Hero SVG parallax ──
-      if (heroSvgRef.current) {
-        gsap.fromTo(heroSvgRef.current,
-          { yPercent: -15 },
-          {
-            yPercent: 15,
-            ease: 'none',
-            scrollTrigger: {
-              trigger: heroSvgRef.current.closest('section'),
-              start: 'top top',
-              end: 'bottom top',
-              scrub: true,
-            },
-          }
-        );
-      }
-
       // ── Hero title ──
       if (heroTitleRef.current) {
         gsap.from(heroTitleRef.current, {
@@ -187,21 +169,7 @@ export default function About() {
   return (
     <div className="min-h-screen bg-white">
       {/* Hero Section */}
-      <section data-nav-theme="purple" className="relative h-[350px] md:h-[400px] overflow-hidden">
-        <div ref={heroSvgRef} className="absolute inset-0 w-full h-full" style={{ willChange: 'transform' }}>
-        <svg
-          className="w-full h-full"
-          viewBox="0 0 1443 618"
-          fill="none"
-          preserveAspectRatio="none"
-          xmlns="http://www.w3.org/2000/svg"
-        >
-          <path
-            d="M1443 0L0 -5.91278e-05V554.027C50.0042 639.916 243.242 630.031 659.915 578.894C1087.51 526.416 1353.6 559.696 1443 610.896V0Z"
-            fill="#412C46"
-          />
-        </svg>
-        </div>
+      <section data-nav-theme="purple" className="relative h-[350px] md:h-[400px] overflow-hidden bg-[#412C46]">
         {/* Decorative wave logo watermark — same mark used in the Our Philosophy
             section on the homepage, centered here behind the heading */}
         <div className="absolute inset-0 z-[1] flex items-center justify-center opacity-20 pointer-events-none">
@@ -249,7 +217,7 @@ export default function About() {
                 <div className={`grid grid-cols-1 lg:grid-cols-2 gap-12 items-center ${step.side === 'right' ? 'lg:flex-row-reverse' : ''}`}>
                   {/* Image */}
                   <div className={`${step.side === 'right' ? 'lg:order-2 lg:pl-8' : 'lg:pr-8'}`}>
-                    <div className="timeline-image relative w-full h-[550px] bg-[#D9D9D9] rounded-[20px] overflow-hidden shadow-xl transition-all duration-500 hover:shadow-2xl hover:scale-[1.02]">
+                    <div className="timeline-image relative w-full h-[550px] bg-[#D9D9D9] rounded-[6px] overflow-hidden transition-all duration-500 hover:scale-[1.02]">
                       <Image
                         src={step.image}
                         alt={step.imageAlt}
