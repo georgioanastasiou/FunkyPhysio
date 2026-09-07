@@ -8,13 +8,13 @@ const locations = [
   {
     title: 'At Funky Studio',
     description: 'In-person sessions in a fully equipped, professional studio environment.',
-    prices: ['45 min / EUR 60', '60 min / EUR 70'],
+    prices: ['60 min / EUR 65'],
     image: '/Image At funky studio.png',
   },
   {
     title: 'Online Sessions',
     description: 'Guided virtual sessions tailored to your needs, wherever you are.',
-    prices: ['60 min / EUR 60'],
+    prices: ['60 min / EUR 50'],
     image: '/Image online sessions.png',
   },
   {
@@ -70,10 +70,13 @@ export default function LocationSection() {
               onMouseLeave={() => setHovering(false)}
               onFocus={() => setActiveIndex(i)}
               onClick={() => setActiveIndex(i)}
-              className="text-left font-syne text-3xl sm:text-4xl md:text-5xl font-semibold leading-tight text-funky-black transition-opacity duration-300"
+              className="text-left font-syne font-semibold leading-tight text-funky-black transition-opacity duration-300"
               style={{ opacity: activeIndex === i ? 1 : 0.3 }}
             >
-              {loc.title}
+              <span className="block text-3xl sm:text-4xl md:text-5xl">{loc.title}</span>
+              <span className="block text-sm sm:text-base font-normal text-gray-500 mt-1">
+                {loc.prices.join(' · ')}
+              </span>
             </button>
           ))}
         </div>

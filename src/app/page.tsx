@@ -524,7 +524,7 @@ export default function Home() {
             </div>
 
             <p className="pt-16 lg:pt-0 text-[#F2FFAB] text-[48px] font-normal font-syne tracking-[-0.02em] leading-[110%] max-w-2xl lg:max-w-none lg:col-span-2 lg:row-start-2 lg:self-end text-left">
-              Five years of clinical practice, one approach: accurate diagnosis and a treatment plan built around your biomechanical behavior.
+              The Approach: Accurate diagnosis and a treatment plan built around your biomechanical behavior.
             </p>
           </div>
 
