@@ -38,7 +38,7 @@ export default function Home() {
   ];
 
   const testimonials = [
-    { name: "Chrysa", title: "Aerial Acrobat", image: "/testimonials/testimonial thumbnails/XRYSA.png", video: "/testimonials/xrusa.mp4" as string | undefined },
+    { name: "Chryssa", title: "Aerial Acrobat", image: "/testimonials/testimonial thumbnails/XRYSA.png", video: "/testimonials/xrusa.mp4" as string | undefined },
     { name: "Kyriakos Filipidis", title: "Gym Lover", image: "/testimonials/testimonial thumbnails/KOULIS.png", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
     { name: "Vasilis Theodosiou", title: "Kick Boxing", image: "/testimonials/testimonial thumbnails/VASILARAS.png", video: "/testimonials/vasilaras.mp4" as string | undefined },
     { name: "Spiros Sofronis", title: "70 Years Young", image: "/testimonials/testimonial thumbnails/SPIROS.png", video: "/testimonials/spiros.mp4" as string | undefined },
@@ -403,7 +403,7 @@ export default function Home() {
             {/* Rest of the paragraph — spreads full width below */}
             <div ref={georgeTextRef} className="mt-4 sm:mt-2">
               <p className="text-funky-black text-2xl sm:text-3xl md:text-4xl font-normal font-syne leading-snug sm:leading-tight md:leading-10">
-              With genuine love of human body and movement, George knows at first hand the impact of injuries and the importance of proper rehabilitation to go back to sports or having a better quality of life. This experience inspired him to pursue a carrer in Sports Science and Physiotherapy, where he could help others recover and regain their strength and confidence
+              With a genuine love for the human body and movement, George has felt firsthand what injury takes away — and what proper rehabilitation gives back, whether that&apos;s a return to sport or simply a better quality of life. That experience is what led him to a career in Sports Science and Physiotherapy, helping others recover their strength and confidence.
               </p>
             </div>
           </div>
@@ -524,7 +524,7 @@ export default function Home() {
             </div>
 
             <p className="pt-16 lg:pt-0 text-[#F2FFAB] text-[48px] font-normal font-syne tracking-[-0.02em] leading-[110%] max-w-2xl lg:max-w-none lg:col-span-2 lg:row-start-2 lg:self-end text-left">
-              Five years of clinical practice, one approach: an accurate diagnosis and a treatment plan built around how you actually move.
+              Five years of clinical practice, one approach: accurate diagnosis and a treatment plan built around your biomechanical behavior.
             </p>
           </div>
 

@@ -17,12 +17,9 @@ export async function POST(req: NextRequest) {
 
   try {
     const { error } = await resend.emails.send({
-      // Sending from Resend's shared address until funkyphysio.com is
-      // verified in the Resend dashboard (Domains -> Add Domain -> add the
-      // DNS records it gives you). Once verified, switch this to something
-      // like 'Funky Physio Website <contact@funkyphysio.com>' so the email
-      // truly comes from the site's own domain.
-      from: 'Funky Physio Website <onboarding@resend.dev>',
+      // funkyphysio.com is verified in Resend, so this sends from the site's
+      // own domain rather than Resend's shared onboarding@resend.dev address.
+      from: 'Funky Physio Website <contact@funkyphysio.com>',
       to: 'george@funkyphysio.com',
       replyTo: email,
       subject: subject ? `New message from ${name}: ${subject}` : `New message from ${name}`,
