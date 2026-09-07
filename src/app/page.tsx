@@ -38,11 +38,10 @@ export default function Home() {
   ];
 
   const testimonials = [
+    { name: "Chrysa", title: "Aerial Acrobat", image: "/testimonials/testimonial thumbnails/XRYSA.png", video: "/testimonials/xrusa.mp4" as string | undefined },
     { name: "Kyriakos Filipidis", title: "Gym Lover", image: "/testimonials/testimonial thumbnails/KOULIS.png", video: "/testimonials/koulis testimonial.mp4" as string | undefined },
     { name: "Vasilis Theodosiou", title: "Kick Boxing", image: "/testimonials/testimonial thumbnails/VASILARAS.png", video: "/testimonials/vasilaras.mp4" as string | undefined },
     { name: "Spiros Sofronis", title: "70 Years Young", image: "/testimonials/testimonial thumbnails/SPIROS.png", video: "/testimonials/spiros.mp4" as string | undefined },
-    { name: "Emily Williams", title: "Architect / Runner", image: "https://randomuser.me/api/portraits/women/68.jpg", video: undefined as string | undefined },
-    { name: "David Kim", title: "Rock Climber", image: "https://randomuser.me/api/portraits/men/76.jpg", video: undefined as string | undefined }
   ];
 
   // Click-to-play testimonial video, inline in the same card — no popup, no

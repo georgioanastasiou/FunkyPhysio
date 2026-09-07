@@ -102,12 +102,18 @@ export default function Navbar() {
 
   return (
     <>
-      <nav className="fixed top-0 w-full z-50 bg-transparent">
+      {/* pointer-events-none here because this nav is transparent apart from
+          the burger button — without it, its full-width fixed box silently
+          swallows clicks on anything else that renders underneath its top
+          strip (e.g. the "Back to Blog" link on blog post pages), even
+          though nothing is visibly there to click on. The button re-enables
+          pointer-events on itself so it stays clickable. */}
+      <nav className="fixed top-0 w-full z-50 bg-transparent pointer-events-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16 gap-4 mt-9">
 
             {/* Burger button */}
-            <div className="relative z-[60]">
+            <div className="relative z-[60] pointer-events-auto">
               <button
                 onClick={() => setIsOpen(!isOpen)}
                 className={`inline-flex items-center justify-center w-14 h-14 rounded-[6px] border focus:outline-none transition-colors duration-200 ${BURGER_THEME_CLASSES[burgerTheme]}`}

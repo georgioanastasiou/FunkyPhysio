@@ -5,12 +5,12 @@ import Image from 'next/image';
 import gsap from 'gsap';
 
 const photos = [
-  '/basketball/DSC_0079.jpg',
-  '/basketball/DSC_0114.jpg',
-  '/basketball/DSC_0231.jpg',
-  '/basketball/DSC_0676.jpg',
-  '/contact-image.png',
-  '/contact-image2.png',
+  '/whatwedo-diagnose.jpg',
+  '/whatwedo-diagnoserecovery.jpg',
+  '/philosophy-footmobilization.jpg',
+  '/whatwedo-massage.jpg',
+  '/whatwedo-move.jpg',
+  '/whatwedo-release.jpg',
 ];
 
 export default function Contact() {
@@ -18,8 +18,8 @@ export default function Contact() {
   const [next, setNext] = useState<number | null>(null);
   const nextRef = useRef<HTMLDivElement>(null);
   const [submitted, setSubmitted] = useState(false);
-  const [newsletterEmail, setNewsletterEmail] = useState('');
-  const [newsletterSubmitted, setNewsletterSubmitted] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
+  const [submitError, setSubmitError] = useState(false);
 
   useEffect(() => {
     const interval = setInterval(() => {
@@ -49,14 +49,29 @@ export default function Contact() {
     );
   }, [next]);
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    setSubmitted(true);
-  };
-
-  const handleNewsletterSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    setNewsletterSubmitted(true);
+    setSubmitError(false);
+    setSubmitting(true);
+    const formData = new FormData(e.currentTarget);
+    try {
+      const res = await fetch('/api/contact', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({
+          name: formData.get('name'),
+          email: formData.get('email'),
+          subject: formData.get('subject'),
+          message: formData.get('message'),
+        }),
+      });
+      if (!res.ok) throw new Error('Request failed');
+      setSubmitted(true);
+    } catch {
+      setSubmitError(true);
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   return (
@@ -113,76 +128,25 @@ export default function Contact() {
           ) : (
             <form onSubmit={handleSubmit} className="space-y-8">
               <div className="border-b border-gray-300 pb-2">
-                <input type="text" placeholder="Your name" required className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
+                <input name="name" type="text" placeholder="Your name" required className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <input type="email" placeholder="Your email" required className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
+                <input name="email" type="email" placeholder="Your email" required className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <input type="text" placeholder="Subject" className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
+                <input name="subject" type="text" placeholder="Subject" className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none" />
               </div>
               <div className="border-b border-gray-300 pb-2">
-                <textarea placeholder="Message" rows={3} className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none resize-none" />
+                <textarea name="message" placeholder="Message" rows={3} required className="w-full bg-transparent text-funky-black placeholder-gray-400 font-syne text-sm outline-none resize-none" />
               </div>
-              <button type="submit" className="flex items-center gap-3 text-funky-black font-syne text-sm uppercase tracking-[3px] hover:gap-5 transition-all duration-300 group">
-                Send <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
+              {submitError && (
+                <p className="text-red-500 font-syne text-xs">Something went wrong — please try again, or email george@funkyphysio.com directly.</p>
+              )}
+              <button type="submit" disabled={submitting} className="flex items-center gap-3 text-funky-black font-syne text-sm uppercase tracking-[3px] hover:gap-5 transition-all duration-300 group disabled:opacity-50 disabled:hover:gap-3">
+                {submitting ? 'Sending…' : 'Send'} <span className="text-lg group-hover:translate-x-1 transition-transform">→</span>
               </button>
             </form>
           )}
-        </div>
-
-        {/* ── Centered Overlay Card ── */}
-        <div className="hidden lg:block absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 z-20 p-[10px] border-2 border-gray-400/60 shadow-2xl">
-          <div className="flex w-[520px] h-[300px] overflow-hidden">
-          {/* Left half — Newsletter (solid bg) */}
-          <div className="w-1/2 h-full bg-[#f2ede8] flex flex-col justify-between px-8 py-9">
-            <p className="text-xs font-semibold font-syne text-funky-black tracking-widest uppercase">Newsletter</p>
-            <div className="flex-1" />
-            {newsletterSubmitted ? (
-              <p className="text-[10px] font-syne text-gray-500 uppercase tracking-widest">Thanks for subscribing!</p>
-            ) : (
-              <form onSubmit={handleNewsletterSubmit}>
-                <div className="flex items-end border-b border-gray-400 pb-1 gap-2">
-                  <input
-                    type="email"
-                    required
-                    value={newsletterEmail}
-                    onChange={(e) => setNewsletterEmail(e.target.value)}
-                    placeholder="VOTRE EMAIL"
-                    className="flex-1 bg-transparent text-[10px] uppercase tracking-[3px] text-gray-500 placeholder-gray-400 font-syne outline-none"
-                  />
-                  <button type="submit" className="text-funky-black hover:scale-110 transition-transform text-sm leading-none pb-0.5">
-                    &#8599;
-                  </button>
-                </div>
-              </form>
-            )}
-          </div>
-
-          {/* Right half — Frosted glass with logo + address */}
-          <div
-            className="w-1/2 h-full flex flex-col items-center justify-between py-8 px-6"
-            style={{
-              background: 'rgba(242, 237, 232, 0.45)',
-              backdropFilter: 'blur(12px)',
-              WebkitBackdropFilter: 'blur(12px)',
-              border: '1px solid rgba(255,255,255,0.5)',
-            }}
-          >
-            <div className="flex-1 flex items-center justify-center w-full">
-              <Image
-                src="/logonew.png"
-                alt="Funky Physio"
-                width={120}
-                height={80}
-                className="object-contain opacity-20"
-              />
-            </div>
-            <p className="text-[10px] uppercase tracking-[3px] text-gray-500 font-syne text-center leading-loose">
-              Carrer de Roc Boronat, 1<br />Barcelona 08005
-            </p>
-          </div>
-          </div>
         </div>
       </section>
 

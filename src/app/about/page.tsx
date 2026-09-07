@@ -1,6 +1,5 @@
 'use client';
 
-import Link from 'next/link';
 import Image from 'next/image';
 import { useEffect, useRef } from 'react';
 import gsap from 'gsap';
@@ -18,7 +17,7 @@ export default function About() {
 
   const timelineSteps = [
     {
-      year: '2018',
+      year: '2010-2018',
       image: '/basketball/DSC_0114.jpg',
       imageAlt: 'George playing professional basketball',
       title: 'Pro basketball player',
@@ -27,7 +26,7 @@ export default function About() {
       side: 'left'
     },
     {
-      year: '2020',
+      year: '2018',
       image: '/tefaa.jpg',
       imageAlt: 'Sports Science studies',
       title: 'BSc Sports Science',
@@ -48,7 +47,7 @@ export default function About() {
       year: '2024',
       image: '/berlinpractice.jpg',
       imageAlt: 'Working in Berlin',
-      title: 'Berlin Practice',
+      title: 'Berlin Work Experience',
       subtitle: 'Professional Growth',
       description: 'Gained diverse experience working in Berlin, treating a wide range of patients from athletes to office workers. Developed my approach to patient-centered care and learned the importance of education in the healing process.',
       side: 'right'
@@ -59,7 +58,7 @@ export default function About() {
       imageAlt: 'Barcelona studio',
       title: 'OMT Kaltenborn Concept',
       subtitle: 'Current Practice',
-      description: 'Now running my own practice in Barcelona, built around the OMT (Orthopaedic Manual Therapy) concept — combining athlete mindset, scientific knowledge, and hands-on manual therapy to create a space where movement becomes enjoyable, healing, and empowering.',
+      description: 'I use manual therapy principles and best practices that help me evaluate patients effectively and provide individualized treatment plans, grounded in a solid understanding of how the body works through biomechanics and kinesiology.',
       side: 'left'
     }
   ];
@@ -96,6 +95,7 @@ export default function About() {
       }
 
       // ── Timeline items ──
+      const timelineImages: { el: Element; isRight: boolean; item: Element }[] = [];
       document.querySelectorAll('.timeline-item').forEach((item, index) => {
         const isRight = index % 2 !== 0;
         const image = item.querySelector('.timeline-image');
@@ -117,17 +117,7 @@ export default function About() {
         }
 
         if (image) {
-          gsap.from(image, {
-            opacity: 0,
-            x: isRight ? 100 : -100,
-            duration: 1,
-            ease: 'power3.out',
-            scrollTrigger: {
-              trigger: item,
-              start: 'top 80%',
-              toggleActions: 'play none none none',
-            },
-          });
+          timelineImages.push({ el: image, isRight, item });
         }
 
         if (children.length) {
@@ -144,6 +134,46 @@ export default function About() {
             },
           });
         }
+      });
+
+      // Image reveal differs by breakpoint: desktop keeps the alternating
+      // slide-in from whichever side the text sits on, but that reads oddly
+      // once the layout stacks to a single column on mobile — so mobile
+      // instead wipes the image into view top-to-bottom via a clip-path
+      // reveal (fully hidden below a receding top edge, rather than sliding
+      // in from the side).
+      const timelineImageMM = gsap.matchMedia();
+      timelineImageMM.add('(min-width: 1024px)', () => {
+        timelineImages.forEach(({ el, isRight, item }) => {
+          gsap.from(el, {
+            opacity: 0,
+            x: isRight ? 100 : -100,
+            duration: 1,
+            ease: 'power3.out',
+            scrollTrigger: {
+              trigger: item,
+              start: 'top 80%',
+              toggleActions: 'play none none none',
+            },
+          });
+        });
+      });
+      timelineImageMM.add('(max-width: 1023.98px)', () => {
+        timelineImages.forEach(({ el, item }) => {
+          gsap.fromTo(el,
+            { clipPath: 'inset(0% 0% 100% 0%)' },
+            {
+              clipPath: 'inset(0% 0% 0% 0%)',
+              duration: 1,
+              ease: 'power3.out',
+              scrollTrigger: {
+                trigger: item,
+                start: 'top 80%',
+                toggleActions: 'play none none none',
+              },
+            }
+          );
+        });
       });
 
       // ── CTA section ──
@@ -167,7 +197,7 @@ export default function About() {
   }, []);
 
   return (
-    <div className="min-h-screen bg-white">
+    <div className="min-h-screen bg-[#EDE8DF]">
       {/* Hero Section */}
       <section data-nav-theme="purple" className="relative h-[350px] md:h-[400px] overflow-hidden bg-[#412C46]">
         {/* Decorative wave logo watermark — same mark used in the Our Philosophy
@@ -185,7 +215,7 @@ export default function About() {
       </section>
 
       {/* Timeline Section */}
-      <section ref={timelineSectionRef} data-nav-theme="light" className="timeline-section py-20 relative bg-white">
+      <section ref={timelineSectionRef} data-nav-theme="light" className="timeline-section py-20 relative bg-[#EDE8DF]">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 relative">
           <div className="space-y-32 relative">
             {/* Vertical timeline line */}
@@ -263,12 +293,12 @@ export default function About() {
             Book your consultation today and experience personalized physiotherapy care tailored to your needs.
           </p>
           <div className="cta-animate">
-            <Link
-              href="/contact"
+            <a
+              href="https://app.serenna.es/c/funky-physio"
               className="inline-flex items-center justify-center px-12 py-5 bg-white text-[#78428F] font-bold text-lg rounded-lg hover:bg-white/90 transition-colors shadow-xl hover:scale-105 transform duration-300"
             >
               Book Appointment
-            </Link>
+            </a>
           </div>
         </div>
       </section>

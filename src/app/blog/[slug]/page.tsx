@@ -29,9 +29,9 @@ const ExerciseDemo = ({ value }: { value: any }) => {
   const fileUrl = value?.video?.asset?.url;
   const isGif = fileUrl?.endsWith('.gif');
   return (
-    <div className="my-8 inline-block">
+    <div className="my-8 inline-block w-[200px] sm:w-[280px]">
       <div
-        style={{ borderRadius: 6, overflow: 'hidden', width: 280, background: '#f5f0eb' }}
+        style={{ borderRadius: 6, overflow: 'hidden', background: '#f5f0eb' }}
       >
         {fileUrl ? (
           isGif ? (
@@ -49,7 +49,7 @@ const ExerciseDemo = ({ value }: { value: any }) => {
           )
         ) : (
           // Placeholder when no video uploaded yet
-          <div style={{ width: 280, height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <div className="w-full" style={{ height: 180, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
             <span style={{ fontSize: 40 }}>🏃</span>
           </div>
         )}
@@ -143,7 +143,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       </div>
 
       {/* Hero — full-width image with overlaid title */}
-      <section data-nav-theme="default" className="relative w-full h-[70vh] min-h-[500px] bg-funky-black">
+      <section data-nav-theme="default" className="relative w-full h-[40vh] min-h-[320px] md:h-[70vh] md:min-h-[500px] bg-funky-black">
         {post.mainImage?.asset ? (
           <Image
             src={urlFor(post.mainImage.asset).width(1800).height(900).url()}
@@ -239,14 +239,10 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
             </h2>
           </div>
           <div className="flex flex-col sm:flex-row gap-4 shrink-0">
-            <Link href="/contact"
+            <a href="https://app.serenna.es/c/funky-physio"
               className="px-8 py-4 bg-funky-black text-white font-syne text-sm uppercase tracking-[3px] hover:bg-gray-800 transition-colors">
               Book now
-            </Link>
-            <Link href="/services"
-              className="px-8 py-4 border border-funky-black text-funky-black font-syne text-sm uppercase tracking-[3px] hover:bg-funky-black hover:text-white transition-colors">
-              Our services
-            </Link>
+            </a>
           </div>
         </div>
       </section>
