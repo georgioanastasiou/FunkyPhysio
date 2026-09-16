@@ -100,7 +100,7 @@ export default function Navbar() {
           strip (e.g. the "Back to Blog" link on blog post pages), even
           though nothing is visibly there to click on. The button re-enables
           pointer-events on itself so it stays clickable. */}
-      <nav className="fixed top-0 w-full z-50 bg-transparent pointer-events-none">
+      <nav className="fixed top-0 w-full z-[56] bg-transparent pointer-events-none">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
           <div className="flex items-center h-16 gap-4 mt-9">
 
@@ -125,7 +125,7 @@ export default function Navbar() {
           height — without this, "Contact" and the icons row would be
           silently clipped off-screen with no way to reach them. */}
       <div
-        className={`fixed inset-0 z-40 bg-[#161118] flex flex-col overflow-y-auto transition-all duration-500 ease-in-out ${
+        className={`fixed inset-0 z-[55] bg-[#161118] flex flex-col overflow-y-auto transition-all duration-500 ease-in-out ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
@@ -136,16 +136,17 @@ export default function Navbar() {
               href={href}
               onClick={() => setIsOpen(false)}
               onMouseEnter={() => setHoveredIndex(i)}
-              className="relative w-full flex items-center justify-center z-10"
-              style={{ marginTop: i === 0 ? 0 : '-40px' }}
+              className={`relative w-full flex items-center justify-start lg:justify-center z-10 ${i === 0 ? 'mt-0' : '-mt-5 sm:-mt-10'}`}
             >
               <span
                 className="font-syne text-white font-medium transition-opacity duration-150"
                 style={{
-                  // 120px (7.5rem) matches Figma exactly at desktop width;
-                  // clamp still scales it down on narrow/mobile viewports
-                  // so it doesn't overflow the screen sideways there.
-                  fontSize: 'clamp(2.5rem, 11vw, 7.5rem)',
+                  // 120px (7.5rem) matches Figma exactly at desktop width.
+                  // Mobile now scales up aggressively too (20vw) so it fills
+                  // much of the screen like desktop does, rather than
+                  // reading small/timid on a phone — capped at 120px once
+                  // the viewport is wide enough to reach it on its own.
+                  fontSize: 'clamp(2.5rem, 20vw, 7.5rem)',
                   opacity: hoveredIndex === null || hoveredIndex === i ? 1 : 0.4,
                 }}
               >
@@ -155,8 +156,10 @@ export default function Navbar() {
           ))}
         </div>
 
-        {/* Email / Instagram / WhatsApp — per Figma node 4641:8 */}
-        <div className="px-8 sm:px-12 lg:px-24 pb-6 sm:pb-8 flex flex-wrap items-center justify-center gap-x-[58px] gap-y-3 sm:gap-x-[74px]">
+        {/* Email / Instagram / WhatsApp — stacked and left-aligned on mobile
+            per Figma's dedicated mobile frame (node 4644:60), a horizontal
+            centered row on desktop per node 4641:8. */}
+        <div className="px-8 sm:px-12 lg:px-24 pb-6 sm:pb-8 flex flex-col items-start gap-y-5 lg:flex-row lg:flex-wrap lg:items-center lg:justify-center lg:gap-x-[74px] lg:gap-y-3">
           {socialLinks.map(({ href, label, icon: Icon, iconSrc, external }) => (
             <a
               key={label}
