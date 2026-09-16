@@ -1,9 +1,8 @@
 'use client';
 
-import { useState, useEffect, useRef } from 'react';
+import { useState, useEffect } from 'react';
 import Link from 'next/link';
-import { Menu, X } from 'lucide-react';
-import gsap from 'gsap';
+import { Menu, X, Mail, Instagram } from 'lucide-react';
 import { usePathname } from 'next/navigation';
 
 type NavTheme = 'default' | 'light' | 'purple';
@@ -20,9 +19,6 @@ export default function Navbar() {
   const [isOpen, setIsOpen] = useState(false);
   const [hoveredIndex, setHoveredIndex] = useState<number | null>(null);
   const [bgTheme, setBgTheme] = useState<NavTheme>('default');
-
-  const highlightRef = useRef<HTMLDivElement>(null);
-  const linkRefs = useRef<(HTMLAnchorElement | null)[]>([]);
 
   const pathname = usePathname();
 
@@ -66,38 +62,34 @@ export default function Navbar() {
   // the icon should stay white while it's open rather than follow bgTheme.
   const burgerTheme: NavTheme = isOpen ? 'default' : bgTheme;
 
-  const handleMouseEnter = (i: number) => {
-    setHoveredIndex(i);
-    const el = linkRefs.current[i];
-    const highlight = highlightRef.current;
-    if (!el || !highlight) return;
-
-    const { top, height } = el.getBoundingClientRect();
-    const parentTop = el.parentElement!.getBoundingClientRect().top;
-
-    gsap.to(highlight, {
-      y: top - parentTop,
-      height,
-      opacity: 1,
-      duration: 0.35,
-      ease: 'power3.out',
-    });
-  };
-
-  const handleMouseLeave = () => {
-    setHoveredIndex(null);
-    gsap.to(highlightRef.current, {
-      opacity: 0,
-      duration: 0.25,
-      ease: 'power2.out',
-    });
-  };
-
   const links = [
     { href: '/', label: 'Home' },
     { href: '/about', label: 'About' },
     { href: '/blog', label: 'Blog' },
     { href: '/contact', label: 'Contact' },
+  ];
+
+  // Figma node 4641:8 — email/Instagram/WhatsApp row along the bottom of the
+  // full-screen menu. WhatsApp uses a downloaded copy of that design's own
+  // outline icon (public/whatsapp-outline.svg) since the project's only
+  // existing WhatsApp asset is a colored brand badge that wouldn't match
+  // these clean white line icons; Mail/Instagram reuse lucide-react, same as
+  // Footer.tsx already does.
+  const socialLinks: Array<{
+    href: string;
+    label: string;
+    external?: boolean;
+    icon?: typeof Mail;
+    iconSrc?: string;
+  }> = [
+    { href: 'mailto:george@funkyphysio.com', label: 'Email', icon: Mail },
+    { href: 'https://www.instagram.com/funky_physio/', label: 'Instagram', icon: Instagram, external: true },
+    {
+      href: `https://wa.me/34675335798?text=${encodeURIComponent("Hi! I'd like to book a physio session at Funky Physio.")}`,
+      label: 'WhatsApp',
+      iconSrc: '/whatsapp-outline.svg',
+      external: true,
+    },
   ];
 
   return (
@@ -127,36 +119,34 @@ export default function Navbar() {
         </div>
       </nav>
 
-      {/* Full-screen Menu */}
+      {/* Full-screen Menu. overflow-y-auto matters here: the link text is
+          large enough (up to 120px) that on shorter viewports (a laptop at
+          ~700px tall, say) the list + social row can exceed the screen
+          height — without this, "Contact" and the icons row would be
+          silently clipped off-screen with no way to reach them. */}
       <div
-        className={`fixed inset-0 z-40 bg-[#1a0d2e] flex flex-col transition-all duration-500 ease-in-out ${
+        className={`fixed inset-0 z-40 bg-[#161118] flex flex-col overflow-y-auto transition-all duration-500 ease-in-out ${
           isOpen ? 'opacity-100 pointer-events-auto' : 'opacity-0 pointer-events-none'
         }`}
       >
-        <div className="relative flex flex-col justify-center flex-1" onMouseLeave={handleMouseLeave}>
-
-          {/* Sliding highlight bar */}
-          <div
-            ref={highlightRef}
-            className="absolute left-0 w-full pointer-events-none"
-            style={{ opacity: 0, backgroundColor: 'white', top: 0, height: 0 }}
-          />
-
+        <div className="relative flex flex-col justify-center flex-1 px-8 sm:px-12 lg:px-24" onMouseLeave={() => setHoveredIndex(null)}>
           {links.map(({ href, label }, i) => (
             <Link
               key={href}
               href={href}
-              ref={(el) => { linkRefs.current[i] = el; }}
               onClick={() => setIsOpen(false)}
-              onMouseEnter={() => handleMouseEnter(i)}
-              className="relative w-full flex items-center justify-center border-b border-white/10 z-10"
-              style={{ padding: '1.2rem 0' }}
+              onMouseEnter={() => setHoveredIndex(i)}
+              className="relative w-full flex items-center justify-center z-10"
+              style={{ marginTop: i === 0 ? 0 : '-40px' }}
             >
               <span
-                className="font-syne uppercase tracking-tight transition-colors duration-150 font-black"
+                className="font-syne text-white font-medium transition-opacity duration-150"
                 style={{
-                  fontSize: 'clamp(2rem, 4vw, 3rem)',
-                  color: hoveredIndex === i ? '#1a0d2e' : 'white',
+                  // 120px (7.5rem) matches Figma exactly at desktop width;
+                  // clamp still scales it down on narrow/mobile viewports
+                  // so it doesn't overflow the screen sideways there.
+                  fontSize: 'clamp(2.5rem, 11vw, 7.5rem)',
+                  opacity: hoveredIndex === null || hoveredIndex === i ? 1 : 0.4,
                 }}
               >
                 {label}
@@ -165,8 +155,25 @@ export default function Navbar() {
           ))}
         </div>
 
-        <div className="px-10 pb-14 flex items-center justify-end">
-          <p className="font-syne text-xs uppercase tracking-[3px] text-white/30">Barcelona</p>
+        {/* Email / Instagram / WhatsApp — per Figma node 4641:8 */}
+        <div className="px-8 sm:px-12 lg:px-24 pb-6 sm:pb-8 flex flex-wrap items-center justify-center gap-x-[58px] gap-y-3 sm:gap-x-[74px]">
+          {socialLinks.map(({ href, label, icon: Icon, iconSrc, external }) => (
+            <a
+              key={label}
+              href={href}
+              target={external ? '_blank' : undefined}
+              rel={external ? 'noopener noreferrer' : undefined}
+              className="flex items-center gap-4 text-white/80 hover:text-white transition-colors"
+            >
+              {Icon ? (
+                <Icon className="w-[36px] h-[36px]" />
+              ) : (
+                // eslint-disable-next-line @next/next/no-img-element
+                <img src={iconSrc} alt="" className="w-[36px] h-[36px]" />
+              )}
+              <span className="font-syne text-[18px] uppercase tracking-[-0.02em]">{label}</span>
+            </a>
+          ))}
         </div>
       </div>
     </>

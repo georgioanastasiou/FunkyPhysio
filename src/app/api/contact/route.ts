@@ -19,7 +19,7 @@ export async function POST(req: NextRequest) {
     const { error } = await resend.emails.send({
       // funkyphysio.com is verified in Resend, so this sends from the site's
       // own domain rather than Resend's shared onboarding@resend.dev address.
-      from: 'Funky Physio Website <contact@funkyphysio.com>',
+      from: 'Funky Physio Website <george@funkyphysio.com>',
       to: 'george@funkyphysio.com',
       replyTo: email,
       subject: subject ? `New message from ${name}: ${subject}` : `New message from ${name}`,
