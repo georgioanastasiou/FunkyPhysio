@@ -512,14 +512,15 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-5 max-w-xl mb-1 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-1 lg:max-w-none">
               <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
-                George holds a degree in Sports Science and Physiotherapy, and played
-                professional basketball before moving into clinical practice — first-hand
-                experience with how the body performs under load, and how it breaks down.
+                George&apos;s vision is to help and educate people find relief from pain by
+                discovering strategies and paths through movement and exercise. He looks at
+                the body as a chain, not a single unit — at Funky Physio, we look for the
+                root cause, since a superficial solution is only temporary.
               </p>
               <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
-                Trained in Orthopaedic Manual Therapy (OMT), he practised for five years in
-                Berlin before opening his own studio in Barcelona. His focus areas include
-                sports injuries, post-surgical rehab, chronic pain, and shoulder, knee and hip conditions.
+                Funky Physio&apos;s philosophy is built on a long-term, educational mindset.
+                After each session, the patient understands their body, its healing process,
+                and its capabilities a little better.
               </p>
             </div>
 

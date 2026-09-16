@@ -9,19 +9,19 @@ const locations = [
     title: 'At Funky Studio',
     description: 'In-person sessions in a fully equipped, professional studio environment.',
     prices: ['60 min / EUR 65'],
-    image: '/Image At funky studio.png',
+    image: '/location-funky-studio.jpg',
   },
   {
     title: 'Online Sessions',
     description: 'Guided virtual sessions tailored to your needs, wherever you are.',
     prices: ['60 min / EUR 50'],
-    image: '/Image online sessions.png',
+    image: '/location-online-sessions.jpg',
   },
   {
     title: 'At your place',
     description: 'Personalized treatment delivered in the comfort of your home.',
     prices: ['60 min / EUR 90'],
-    image: '/Image At your place.png',
+    image: '/location-at-your-place.jpg',
   },
 ];
 
@@ -60,24 +60,37 @@ export default function LocationSection() {
         <p className="font-syne text-lg font-bold text-funky-black mb-20 sm:mb-16 tracking-wide">\Location of your choice</p>
 
         {/* List of location options — text stays left-aligned within the block,
-            but the block itself is centered in the page (mx-auto + w-fit) */}
-        <div className="flex flex-col items-start justify-center gap-[27px] sm:gap-[35px] mx-auto w-fit">
+            but the block itself is centered in the page on desktop (lg:w-fit,
+            lg:mx-auto). Mobile stays full-width instead, since each item gets
+            its own static photo there (see below) rather than the desktop
+            hover-preview, so there's no "shrink to the longest title" reason
+            to center it. */}
+        <div className="flex flex-col items-start justify-center gap-10 lg:gap-[35px] w-full lg:w-fit lg:mx-auto">
           {locations.map((loc, i) => (
-            <button
-              key={loc.title}
-              type="button"
-              onMouseEnter={() => { setActiveIndex(i); setHovering(true); }}
-              onMouseLeave={() => setHovering(false)}
-              onFocus={() => setActiveIndex(i)}
-              onClick={() => setActiveIndex(i)}
-              className="text-left font-syne font-semibold leading-tight text-funky-black transition-opacity duration-300"
-              style={{ opacity: activeIndex === i ? 1 : 0.3 }}
-            >
-              <span className="block text-3xl sm:text-4xl md:text-5xl">{loc.title}</span>
-              <span className="block text-sm sm:text-base font-normal text-gray-500 mt-1">
-                {loc.prices.join(' · ')}
-              </span>
-            </button>
+            <div key={loc.title} className="w-full lg:w-auto lg:contents">
+              <button
+                type="button"
+                onMouseEnter={() => { setActiveIndex(i); setHovering(true); }}
+                onMouseLeave={() => setHovering(false)}
+                onFocus={() => setActiveIndex(i)}
+                onClick={() => setActiveIndex(i)}
+                className={`text-left font-syne font-semibold leading-tight text-funky-black transition-opacity duration-300 opacity-100 ${activeIndex === i ? 'lg:opacity-100' : 'lg:opacity-30'}`}
+              >
+                <span className="block text-3xl sm:text-4xl md:text-5xl">{loc.title}</span>
+                <span className="block text-sm sm:text-base font-normal text-gray-500 mt-1">
+                  {loc.prices.join(' · ')}
+                </span>
+              </button>
+
+              {/* Static photo under each location — mobile/tablet only
+                  (desktop keeps the cursor-following hover preview below
+                  instead). Matches Figma's dedicated mobile frame (node
+                  4645:87): a fixed-height photo directly under title+price,
+                  not the hover-driven single preview desktop uses. */}
+              <div className="lg:hidden relative w-full aspect-[366/220] mt-4 overflow-hidden rounded-[6px]">
+                <Image src={loc.image} alt="" fill sizes="100vw" className="object-cover" />
+              </div>
+            </div>
           ))}
         </div>
       </div>
