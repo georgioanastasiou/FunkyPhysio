@@ -22,34 +22,45 @@ export default function About() {
       imageAlt: 'George playing professional basketball',
       title: 'Pro basketball player',
       subtitle: 'Injuries & Challenges',
-      description: 'Playing professional basketball taught me resilience and the importance of proper body mechanics. Through experiencing injuries, surgeries, and rehabilitation firsthand, I developed a deep understanding of what athletes and active individuals go through during recovery.',
+      description: [
+        'Playing professional basketball taught me resilience and the importance of proper body mechanics. The kind of lesson that only comes from pushing a body to its limits day after day. It sharpened my eye for how small compensations and misalignments build up over time.',
+        'Through experiencing injuries, surgeries, and rehabilitation, I developed a deep understanding of what athletes and active individuals go through during recovery. I learned how much patience and mental resilience the process demands, and that a good recovery plan has to be realistic, honest about setbacks, and built around what matters most to the person going through it.',
+      ],
       side: 'left'
     },
     {
-      year: '2018',
+      year: '2014-2018',
       image: '/tefaa.jpg',
       imageAlt: 'Sports Science studies',
       title: 'BSc Sports Science',
       subtitle: 'Academic Foundation',
-      description: 'Pursued Sports Science to understand the body holistically—how everything connects rather than treating each part separately. This foundation gave me the scientific knowledge to approach movement and recovery systematically.',
+      description: [
+        'Pursued Sports Science to understand the body holistically. How everything connects rather than treating each part separately. That way of thinking has stayed with me: it means I look beyond the injured joint or muscle to how the rest of the body is compensating, and treat the whole chain rather than just the point of pain.',
+        "This foundation gave me the scientific knowledge to approach movement and recovery systematically. It taught me to base treatment on evidence rather than guesswork, to track progress methodically, and to adapt a plan as the data from each session tells me what's actually working.",
+      ],
       side: 'right'
     },
     {
-      year: '2022',
+      year: '2018-2022',
       image: '/physiodegree.jpeg',
       imageAlt: 'Physiotherapy studies',
       title: 'BSc Physiotherapy',
       subtitle: 'Professional Training',
-      description: 'Combined my athletic experience with professional physiotherapy training. Learning evidence-based practices and manual therapy techniques to help others move without pain and achieve their goals.',
+      description: [
+        'Completed my BSc in Physiotherapy and learned proper diagnosis, treatment planning, and the anatomy and pathology behind an injury. I came in contact with a full range of conditions a physio treats, from post-surgical patients to chronic pain to elderly mobility.',
+        "Working with such a wide range of patients during my studies taught me that every recovery looks different, and that a treatment plan has to be built around a person's specific body, lifestyle, and goals rather than a one-size-fits-all protocol.",
+      ],
       side: 'left'
     },
     {
-      year: '2024',
+      year: '2022-2025',
       image: '/berlinpractice.jpg',
       imageAlt: 'Working in Berlin',
       title: 'Berlin Work Experience',
       subtitle: 'Professional Growth',
-      description: 'Gained diverse experience working in Berlin, treating a wide range of patients from athletes to office workers. Developed my approach to patient-centered care and learned the importance of education in the healing process.',
+      description: [
+        "Gaining clinical experience in Berlin exposed me to the precision and structure the German healthcare system is known for: rigorous documentation, close collaboration with doctors and specialists, and protocols that leave little room for guesswork. Working alongside experienced physiotherapists there pushed me to sharpen my assessment skills and be far more exact in how I test and track a patient's progress. It also meant treating a much broader, more international patient base, which taught me to adapt my communication and approach to each person rather than relying on a single method.",
+      ],
       side: 'right'
     },
     {
@@ -58,7 +69,10 @@ export default function About() {
       imageAlt: 'Barcelona studio',
       title: 'OMT Kaltenborn Concept',
       subtitle: 'Current Practice',
-      description: 'I use manual therapy principles and best practices that help me evaluate patients effectively and provide individualized treatment plans, grounded in a solid understanding of how the body works through biomechanics and kinesiology.',
+      description: [
+        "Training in the OMT Kaltenborn concept gave me a precise, structured approach to manual therapy. Testing each joint's mobility and end-feel individually to pinpoint exactly which movement is restricted and why, rather than treating an area in general terms. It's a method built on biomechanics and careful manual assessment, and it sharpened my hands to a level of precision I hadn't had before.",
+        "That precision changed how I treat: rather than applying a generic technique, I assess a joint systematically, choose the specific mobilization it needs, and re-test immediately to confirm it worked. It's given me a clinical reasoning framework I rely on with nearly every patient, especially when a problem isn't responding to more general treatment.",
+      ],
       side: 'left'
     }
   ];
@@ -238,7 +252,7 @@ export default function About() {
               <div key={index} className="relative timeline-item">
                 {/* Timeline dot */}
                 <div
-                  className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-white rounded-full border-2 border-[#78428F] z-10 hidden lg:flex items-center justify-center"
+                  className="timeline-dot absolute left-1/2 transform -translate-x-1/2 w-8 h-8 bg-[#EDE8DF] rounded-full border-2 border-[#78428F] z-10 hidden lg:flex items-center justify-center"
                   style={{ top: '275px' }}
                 >
                   <div className="w-2 h-2 bg-[#78428F] rounded-full" />
@@ -261,19 +275,23 @@ export default function About() {
                   <div className={`${step.side === 'right' ? 'lg:order-1 lg:pr-8' : 'lg:pl-8'}`}>
                     <div className="space-y-4">
                       <div className="animate-child inline-block mb-4">
-                        <span className="px-4 py-2 bg-white text-[#78428F] font-semibold rounded-full text-sm border-2 border-[#78428F]">
+                        <span className="px-4 py-2 text-funky-black font-semibold rounded-[5px] text-sm border-2 border-funky-black">
                           {step.year}
                         </span>
                       </div>
                       <h2 className="animate-child text-4xl font-semibold text-funky-black leading-tight">
                         {step.title}
                       </h2>
-                      <h3 className="animate-child text-2xl font-medium text-[#78428F] leading-tight">
+                      <h3 className="animate-child text-2xl font-medium text-funky-black leading-tight">
                         {step.subtitle}
                       </h3>
-                      <p className="animate-child text-base font-normal text-gray-700 leading-relaxed">
-                        {step.description}
-                      </p>
+                      <div className="space-y-4">
+                        {step.description.map((paragraph, pIndex) => (
+                          <p key={pIndex} className="animate-child text-base font-normal text-gray-700 leading-relaxed">
+                            {paragraph}
+                          </p>
+                        ))}
+                      </div>
                     </div>
                   </div>
                 </div>
@@ -284,7 +302,7 @@ export default function About() {
       </section>
 
       {/* CTA Section */}
-      <section ref={ctaSectionRef} data-nav-theme="purple" className="relative bg-[#78428F] py-20">
+      <section ref={ctaSectionRef} data-nav-theme="purple" className="relative bg-[#412C46] py-20">
         <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 text-center">
           <h2 className="cta-animate text-4xl md:text-5xl font-bold text-white mb-6">
             Ready to Start Your Journey?

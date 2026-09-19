@@ -87,7 +87,7 @@ const portableTextComponents: any = {
       <p className="font-syne text-base md:text-[24px] leading-[1.85] mb-6" style={{ color: "#4b5563", fontWeight: 450, maxWidth: "95ch" }}>{children}</p>
     ),
     blockquote: ({ children }: { children: React.ReactNode }) => (
-      <blockquote className="border-l-2 border-funky-black pl-6 my-8 text-gray-500 font-syne text-base md:text-lg italic leading-relaxed">
+      <blockquote className="border-l-2 border-funky-black pl-6 my-8 text-gray-500 font-syne text-[16px] italic leading-relaxed">
         {children}
       </blockquote>
     ),
@@ -113,7 +113,7 @@ const portableTextComponents: any = {
   },
   marks: {
     strong: ({ children }: { children: React.ReactNode }) => (
-      <strong className="font-semibold text-funky-black">{children}</strong>
+      <strong className="font-semibold text-[#78428F]">{children}</strong>
     ),
     em: ({ children }: { children: React.ReactNode }) => (
       <em className="italic text-gray-700">{children}</em>
@@ -164,7 +164,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
                 {post.category}
               </span>
             )}
-            <h1 className="text-4xl lg:text-6xl font-semibold font-syne text-white leading-tight mb-6">
+            <h1 className="text-4xl lg:text-6xl font-semibold font-syne text-[#78428F] leading-tight mb-6">
               {post.title}
             </h1>
             <div className="flex items-center gap-6 text-white/60 font-syne text-xs uppercase tracking-[3px]">
@@ -189,7 +189,7 @@ export default async function BlogPost({ params }: { params: Promise<{ slug: str
       {post.excerpt && (
         <section data-nav-theme="light" className="bg-[#f5f0eb] px-6 lg:px-16 py-10">
           <div className="max-w-3xl">
-            <p className="text-gray-600 font-syne text-lg leading-relaxed">{post.excerpt}</p>
+            <p className="text-[#78428F] font-syne text-lg leading-relaxed">{post.excerpt}</p>
           </div>
         </section>
       )}

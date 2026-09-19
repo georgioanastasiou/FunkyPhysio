@@ -512,9 +512,9 @@ export default function Home() {
 
             <div className="grid grid-cols-1 gap-5 max-w-xl mb-1 lg:mb-0 lg:col-start-2 lg:row-start-1 lg:row-span-1 lg:max-w-none">
               <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
-                George&apos;s vision is to help and educate people find relief from pain by
-                discovering strategies and paths through movement and exercise. He looks at
-                the body as a chain, not a single unit — at Funky Physio, we look for the
+                Funky Physio&apos;s vision is to help and educate people find relief from pain by
+                discovering strategies and paths through movement and exercise. We look at
+                the body as a chain, not a single unit. At Funky Physio, we look for the
                 root cause, since a superficial solution is only temporary.
               </p>
               <p className="text-[#F2FFAA] text-base font-syne leading-[130%] text-left">
