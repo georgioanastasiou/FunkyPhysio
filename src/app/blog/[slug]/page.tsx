@@ -84,7 +84,7 @@ const portableTextComponents: any = {
       <h4 className="text-base md:text-lg font-medium font-syne text-gray-800 mt-6 mb-2">{children}</h4>
     ),
     normal: ({ children }: { children: React.ReactNode }) => (
-      <p className="font-syne text-base md:text-[24px] leading-[1.85] mb-6" style={{ color: "#4b5563", fontWeight: 450, maxWidth: "95ch" }}>{children}</p>
+      <p className="font-syne text-[16px] leading-[1.85] mb-6" style={{ color: "#4b5563", fontWeight: 450, maxWidth: "95ch" }}>{children}</p>
     ),
     blockquote: ({ children }: { children: React.ReactNode }) => (
       <blockquote className="border-l-2 border-funky-black pl-6 my-8 text-gray-500 font-syne text-[16px] italic leading-relaxed">
@@ -102,10 +102,10 @@ const portableTextComponents: any = {
   },
   listItem: {
     bullet: ({ children }: { children: React.ReactNode }) => (
-      <li className="font-syne text-base md:text-[24px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
+      <li className="font-syne text-[16px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
     ),
     number: ({ children }: { children: React.ReactNode }) => (
-      <li className="font-syne text-base md:text-[24px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
+      <li className="font-syne text-[16px] leading-relaxed" style={{ color: "#4b5563", fontWeight: 450 }}>{children}</li>
     ),
   },
   types: {
